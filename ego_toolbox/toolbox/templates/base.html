@@ -19,8 +19,14 @@
     <meta name="twitter:description" content="{% block twitter_description %}以现代设计语言呈现的工具集合，聚合效率、创意与开发场景的一站式入口。{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme|default:'https' }}://{{ request.get_host }}/static/toolbox/images/preview.png{% endblock %}">
     {% block extra_meta %}{% endblock %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script>tailwind.config = {darkMode: "class"}</script>
+    <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'toolbox/css/style.css' %}">
+    <!-- 主题样式文件 -->
+    <link rel="stylesheet" href="{% static 'toolbox/css/light.css' %}" id="light-theme">
+    <link rel="stylesheet" href="{% static 'toolbox/css/dark.css' %}" id="dark-theme">
     {% block extra_css %}{% endblock %}
     <script type="application/ld+json">
     {
@@ -39,39 +45,36 @@
     </script>
 </head>
 <body>
-    <div class="top-controls">
-        <button class="theme-toggle" id="theme-toggle" title="切换主题" aria-label="切换主题">
+    <div class="top-controls fixed top-5 right-5 z-50 flex gap-3">
+        <button class="theme-toggle btn btn-sm rounded-full bg-base-200 hover:bg-base-300" id="theme-toggle" title="切换主题" aria-label="切换主题">
             <span class="theme-icon-light">☀️</span>
             <span class="theme-icon-dark" style="display: none;">🌙</span>
         </button>
-        <div class="lang-switcher">
-            {% get_current_language as CURRENT_LANGUAGE %}
-            {% get_available_languages as LANGUAGES %}
-            {% for lang_code, lang_name in LANGUAGES %}
-                {% if lang_code != CURRENT_LANGUAGE %}
-                    <form action="{% url 'set_language' %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <input type="hidden" name="language" value="{{ lang_code }}">
-                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                        <button type="submit" class="lang-btn" title="{% trans '切换到' %} {{ lang_name }}">
+        <div class="lang-switcher flex gap-3">
+                {% get_current_language as CURRENT_LANGUAGE %}
+                {% get_available_languages as LANGUAGES %}
+                {% for lang_code, lang_name in LANGUAGES %}
+                    {% if lang_code != CURRENT_LANGUAGE %}
+                        <button onclick="switchLanguageDirectly('{{ lang_code }}')" class="btn btn-sm rounded-full bg-base-200 hover:bg-base-300" title="{% trans '切换到' %} {{ lang_name }}">
                             {% if lang_code == 'zh-hans' %}中{% else %}EN{% endif %}
                         </button>
-                    </form>
-                {% endif %}
-            {% endfor %}
-        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
     </div>
-    <div class="container">
+    <div class="container mx-auto px-4 py-12">
         {% block content %}{% endblock %}
     </div>
     {% block extra_js %}{% endblock %}
     <script>
-        // 主题切换功能
+        // 主题切换功能 (兼容daisyUI)
         (function() {
             const themeToggle = document.getElementById('theme-toggle');
             const html = document.documentElement;
             const lightIcon = themeToggle.querySelector('.theme-icon-light');
             const darkIcon = themeToggle.querySelector('.theme-icon-dark');
+            const lightThemeLink = document.getElementById('light-theme');
+            const darkThemeLink = document.getElementById('dark-theme');
             
             // 从 localStorage 读取主题偏好，或使用系统偏好
             function getInitialTheme() {
@@ -86,15 +89,17 @@
                 return 'light';
             }
             
-            // 应用主题
+            // 应用主题 (daisyUI兼容版本)
             function setTheme(theme) {
                 if (theme === 'dark') {
                     html.setAttribute('data-theme', 'dark');
+                    html.classList.add('dark');
                     lightIcon.style.display = 'none';
                     darkIcon.style.display = 'inline';
                     localStorage.setItem('theme', 'dark');
                 } else {
-                    html.removeAttribute('data-theme');
+                    html.setAttribute('data-theme', 'light');
+                    html.classList.remove('dark');
                     lightIcon.style.display = 'inline';
                     darkIcon.style.display = 'none';
                     localStorage.setItem('theme', 'light');
@@ -112,14 +117,44 @@
             });
             
             // 监听系统主题变化
-            if (window.matchMedia) {
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-                    if (!localStorage.getItem('theme')) {
-                        setTheme(e.matches ? 'dark' : 'light');
-                    }
-                });
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    setTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+        }
+    })();
+    </script>
+    <script>
+        // 语言切换函数 - 直接构造URL并跳转
+        function switchLanguageDirectly(langCode) {
+            const currentUrl = window.location.href;
+            const currentPath = window.location.pathname;
+            
+            // 提取查询参数
+            const queryParams = window.location.search;
+            
+            // 根据目标语言构造新的URL
+            let newPath;
+            if (langCode === 'zh-hans') {
+                // 切换到中文 - 移除/en/前缀
+                newPath = currentPath.replace(/^\/en\//, '/');
+            } else {
+                // 切换到英文 - 添加/en/前缀（如果没有的话）
+                if (currentPath.startsWith('/en/')) {
+                    newPath = currentPath;
+                } else {
+                    newPath = '/en' + currentPath;
+                }
             }
-        })();
+            
+            // 构造完整的新URL
+            const newUrl = window.location.origin + newPath + queryParams;
+            
+            // 跳转到新URL
+            window.location.href = newUrl;
+        }
     </script>
 </body>
 </html>

@@ -4,17 +4,19 @@
 
 {% block content %}
 <div class="tool-detail">
-    <a href="{% url 'toolbox:index' %}" class="back-link">← 返回首页</a>
+    <a href="{% url 'toolbox:index' %}" class="btn btn-ghost mb-6">← 返回首页</a>
     
-    <div class="tool-detail-header" style="--tool-color: {{ tool.color }}">
-        <div class="tool-detail-icon">{{ tool.icon }}</div>
-        <h1 class="tool-detail-title">{{ tool.title }}</h1>
+    <div class="card bg-base-100 border border-base-200 rounded-xl p-8 mb-8">
+        <div class="flex items-center gap-6">
+            <div class="text-6xl p-5 bg-base-200 rounded-xl">{{ tool.icon }}</div>
+            <h1 class="text-3xl font-bold">{{ tool.title }}</h1>
+        </div>
     </div>
     
-    <div class="tool-detail-content">
-        <p class="tool-detail-description">{{ tool.description }}</p>
-        <div class="tool-placeholder">
-            <p>🚧 此工具正在开发中，敬请期待...</p>
+    <div class="card bg-base-100 border border-base-200 rounded-xl p-8">
+        <p class="text-base-content/70 text-lg mb-8">{{ tool.description }}</p>
+        <div class="card bg-base-200 border border-base-300 rounded-lg p-8 text-center">
+            <p class="text-xl">🚧 此工具正在开发中，敬请期待...</p>
         </div>
     </div>
 </div>

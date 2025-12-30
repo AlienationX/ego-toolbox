@@ -22,9 +22,5 @@ from django.views.i18n import set_language
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/setlang/', set_language, name='set_language'),  # 语言切换 URL
+    path('toolbox/', include('toolbox.urls')),  # 将toolbox URL移到i18n_patterns之外
 ]
-
-urlpatterns += i18n_patterns(
-    path('toolbox/', include('toolbox.urls')),
-    prefix_default_language=False,  # 默认语言不显示前缀
-)

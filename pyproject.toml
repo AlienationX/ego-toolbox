@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12.8"
 dependencies = [
     "django>=5.2.7",
+    "django-htmx>=1.27.0",
     "gunicorn>=23.0.0",
     "supervisor>=4.3.0",
 ]
