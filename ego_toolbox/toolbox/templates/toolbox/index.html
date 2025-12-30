@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Toolbox" %} - {% trans "工具箱" %}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <p class="hero-tagline">TOOLBOX · {% trans "在线工具集" %}</p>
+    <h1>{% trans "一屏集成灵感、效率与创作" %}</h1>
+    <p class="hero-desc">
+        {% trans "以现代设计语言为灵感，将常用工具整理为清晰的卡片矩阵，帮助你在一个入口快速聚焦创意、研发和效率场景。每个工具都配有简洁的说明与分类标签，让探索与掌握变得更轻松。" %}
+    </p>
+    <div class="hero-actions">
+        <a href="#tools" class="hero-btn primary">{% trans "浏览工具" %}</a>
+        <a href="https://github.com" target="_blank" class="hero-btn ghost">GitHub · {% trans "文档" %}</a>
+    </div>
+    <div class="hero-meta">
+        <div>
+            <span class="meta-value">{{ total_tools }}+</span>
+            <span class="meta-label">{% trans "工具数量" %}</span>
+            <p class="meta-note">{% trans "不断扩展的精选工具合集，覆盖效率、创意与开发场景。" %}</p>
+        </div>
+        <div>
+            <span class="meta-value">{{ total_usage|floatformat:0 }}</span>
+            <span class="meta-label">{% trans "使用次数" %}</span>
+            <p class="meta-note">{% trans "真实使用反馈持续打磨体验，保证开箱即用。" %}</p>
+        </div>
+        <div>
+            <span class="meta-value">∞</span>
+            <span class="meta-label">{% trans "创意组合" %}</span>
+            <p class="meta-note">{% trans "灵活搭配多种工具，拼出属于你的智能工作流。" %}</p>
+        </div>
+    </div>
+</section>
+
+<section class="tool-toolbar">
+    <div class="toolbar-left">
+        <div class="toolbar-tags">
+            {% for category in categories %}
+            <a href="?category={{ category }}{% if search_query %}&q={{ search_query }}{% endif %}" class="tag {% if current_category == category %}active{% endif %}">
+                {{ category }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="toolbar-right">
+        <form method="get" action="" class="search-form">
+            {% if current_category != '全部' %}
+            <input type="hidden" name="category" value="{{ current_category }}">
+            {% endif %}
+            <input type="text" name="q" value="{{ search_query }}" placeholder="{% trans '搜索工具...' %}" class="search-input">
+            <button type="submit" class="search-btn">🔍</button>
+        </form>
+    </div>
+</section>
+
+{% if featured_tools and not search_query and current_category == '全部' %}
+<section class="section-featured">
+    <div class="section-header">
+        <h2 class="section-title">{% trans "精选工具" %}</h2>
+        <p class="section-desc">{% trans "最受欢迎和实用的工具推荐" %}</p>
+    </div>
+    <div class="tools-grid featured-grid">
+        {% for tool in featured_tools %}
+        <a href="{% url 'toolbox:tool_detail' tool.id %}" class="tool-card featured-card">
+            <div class="tool-icon tool-icon-gradient">{{ tool.icon }}</div>
+            <div class="tool-body">
+                <div class="tool-header">
+                    <h2>{{ tool.title }}</h2>
+                </div>
+                <div class="tool-subtitle">
+                    <span>{{ tool.id }}</span>
+                </div>
+                <p>{{ tool.description }}</p>
+                {% if tool.tags %}
+                <div class="tool-tags">
+                    {% for tag in tool.tags|slice:":1" %}
+                    <div class="tool-tag">
+                        <span class="hash">#</span>
+                        <span>{{ tag }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<section class="tools-board" id="tools">
+    <div class="section-header">
+        <h2 class="section-title">
+            {% if search_query %}
+            {% trans "搜索结果" %} ({{ tools|length }})
+            {% elif current_category != '全部' %}
+            {{ current_category }} ({{ tools|length }})
+            {% else %}
+            {% trans "所有工具" %} ({{ tools|length }})
+            {% endif %}
+        </h2>
+        {% if not search_query and current_category == '全部' %}
+        <p class="section-desc">{% trans "探索所有可用工具，找到最适合您需求的工具" %}</p>
+        {% endif %}
+    </div>
+    {% if tools %}
+    <div class="tools-grid">
+        {% for tool in tools %}
+        <a href="{% url 'toolbox:tool_detail' tool.id %}" class="tool-card">
+            <div class="tool-icon tool-icon-gradient">{{ tool.icon }}</div>
+            <div class="tool-body">
+                <div class="tool-header">
+                    <h2>{{ tool.title }}</h2>
+                </div>
+                <div class="tool-subtitle">
+                    <span>{{ tool.id }}</span>
+                </div>
+                <p>{{ tool.description }}</p>
+                {% if tool.tags %}
+                <div class="tool-tags">
+                    {% for tag in tool.tags|slice:":1" %}
+                    <div class="tool-tag">
+                        <span class="hash">#</span>
+                        <span>{{ tag }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p class="empty-icon">🔍</p>
+        <p class="empty-text">{% trans "未找到匹配的工具" %}</p>
+        <a href="?" class="hero-btn ghost">{% trans "清除筛选" %}</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
+

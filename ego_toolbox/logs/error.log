@@ -1,0 +1,80 @@
+[2025-10-30 15:33:16 +0800] [85950] [INFO] Starting gunicorn 23.0.0
+[2025-10-30 15:33:16 +0800] [85950] [INFO] Listening at: http://0.0.0.0:8001 (85950)
+[2025-10-30 15:33:16 +0800] [85950] [INFO] Using worker: gthread
+[2025-10-30 15:33:16 +0800] [85951] [INFO] Booting worker with pid: 85951
+[2025-10-30 15:33:17 +0800] [85952] [INFO] Booting worker with pid: 85952
+[2025-10-30 15:33:17 +0800] [85953] [INFO] Booting worker with pid: 85953
+[2025-10-30 15:35:36 +0800] [85950] [INFO] Handling signal: int
+[2025-10-30 07:35:37 +0000] [85951] [INFO] Worker exiting (pid: 85951)
+[2025-10-30 07:35:37 +0000] [85952] [INFO] Worker exiting (pid: 85952)
+[2025-10-30 07:35:37 +0000] [85953] [INFO] Worker exiting (pid: 85953)
+[2025-10-30 15:35:37 +0800] [85950] [INFO] Shutting down: Master
+[2025-10-30 15:36:30 +0800] [87547] [INFO] Starting gunicorn 23.0.0
+[2025-10-30 15:36:30 +0800] [87547] [INFO] Listening at: http://0.0.0.0:8001 (87547)
+[2025-10-30 15:36:30 +0800] [87547] [INFO] Using worker: gthread
+[2025-10-30 15:36:30 +0800] [87548] [INFO] Booting worker with pid: 87548
+[2025-10-30 15:36:30 +0800] [87549] [INFO] Booting worker with pid: 87549
+[2025-10-30 15:36:30 +0800] [87550] [INFO] Booting worker with pid: 87550
+[2025-10-30 15:42:37 +0800] [87547] [INFO] Handling signal: int
+[2025-10-30 07:42:37 +0000] [87549] [INFO] Worker exiting (pid: 87549)
+[2025-10-30 07:42:37 +0000] [87548] [INFO] Worker exiting (pid: 87548)
+[2025-10-30 07:42:37 +0000] [87550] [INFO] Worker exiting (pid: 87550)
+[2025-10-30 15:42:37 +0800] [87547] [INFO] Shutting down: Master
+[2025-10-31 17:18:17 +0800] [19001] [INFO] Starting gunicorn 23.0.0
+[2025-10-31 17:18:17 +0800] [19001] [INFO] Listening at: http://0.0.0.0:8081 (19001)
+[2025-10-31 17:18:17 +0800] [19001] [INFO] Using worker: gthread
+[2025-10-31 17:18:17 +0800] [19003] [INFO] Booting worker with pid: 19003
+[2025-10-31 17:18:17 +0800] [19003] [INFO] Worker exiting (pid: 19003)
+[2025-10-31 17:18:17 +0800] [19001] [ERROR] Worker (pid:19003) exited with code 4
+[2025-10-31 17:18:17 +0800] [19001] [ERROR] Shutting down: Master
+[2025-10-31 17:18:17 +0800] [19001] [ERROR] Reason: App failed to load.
+[2025-10-31 17:19:21 +0800] [19528] [INFO] Starting gunicorn 23.0.0
+[2025-10-31 17:19:21 +0800] [19528] [INFO] Listening at: http://0.0.0.0:8081 (19528)
+[2025-10-31 17:19:21 +0800] [19528] [INFO] Using worker: gthread
+[2025-10-31 17:19:21 +0800] [19532] [INFO] Booting worker with pid: 19532
+[2025-10-31 17:19:21 +0800] [19533] [INFO] Booting worker with pid: 19533
+[2025-10-31 17:19:21 +0800] [19534] [INFO] Booting worker with pid: 19534
+[2025-10-31 17:19:38 +0800] [19528] [INFO] Handling signal: int
+[2025-10-31 09:19:38 +0000] [19534] [INFO] Worker exiting (pid: 19534)
+[2025-10-31 09:19:38 +0000] [19533] [INFO] Worker exiting (pid: 19533)
+[2025-10-31 09:19:38 +0000] [19532] [INFO] Worker exiting (pid: 19532)
+[2025-10-31 17:19:38 +0800] [19528] [INFO] Shutting down: Master
+[2025-10-31 17:19:42 +0800] [19639] [INFO] Starting gunicorn 23.0.0
+[2025-10-31 17:19:42 +0800] [19639] [INFO] Listening at: http://0.0.0.0:8081 (19639)
+[2025-10-31 17:19:42 +0800] [19639] [INFO] Using worker: gthread
+[2025-10-31 17:19:42 +0800] [19640] [INFO] Booting worker with pid: 19640
+[2025-10-31 17:19:42 +0800] [19641] [INFO] Booting worker with pid: 19641
+[2025-10-31 17:19:42 +0800] [19642] [INFO] Booting worker with pid: 19642
+[2025-10-31 09:37:32 +0000] [19642] [INFO] Worker exiting (pid: 19642)
+[2025-10-31 17:37:32 +0800] [24682] [INFO] Booting worker with pid: 24682
+[2025-10-31 17:37:48 +0800] [19639] [ERROR] Worker (pid:19641) was sent SIGKILL! Perhaps out of memory?
+[2025-10-31 17:37:48 +0800] [24755] [INFO] Booting worker with pid: 24755
+[2025-10-31 17:38:02 +0800] [19639] [ERROR] Worker (pid:24755) was sent SIGKILL! Perhaps out of memory?
+[2025-10-31 17:38:02 +0800] [24803] [INFO] Booting worker with pid: 24803
+[2025-10-31 17:39:05 +0800] [19639] [INFO] Handling signal: term
+[2025-10-31 09:39:05 +0000] [19640] [INFO] Worker exiting (pid: 19640)
+[2025-10-31 09:39:05 +0000] [24682] [INFO] Worker exiting (pid: 24682)
+[2025-10-31 09:39:06 +0000] [24803] [INFO] Worker exiting (pid: 24803)
+[2025-10-31 17:39:06 +0800] [19639] [INFO] Shutting down: Master
+[2025-11-03 09:19:34 +0800] [72019] [INFO] Starting gunicorn 23.0.0
+[2025-11-03 09:19:34 +0800] [72019] [INFO] Listening at: http://0.0.0.0:8081 (72019)
+[2025-11-03 09:19:34 +0800] [72019] [INFO] Using worker: gthread
+[2025-11-03 09:19:34 +0800] [72020] [INFO] Booting worker with pid: 72020
+[2025-11-03 09:19:34 +0800] [72021] [INFO] Booting worker with pid: 72021
+[2025-11-03 09:19:34 +0800] [72022] [INFO] Booting worker with pid: 72022
+[2025-11-03 09:23:24 +0800] [72019] [INFO] Handling signal: term
+[2025-11-03 01:23:25 +0000] [72021] [INFO] Worker exiting (pid: 72021)
+[2025-11-03 01:23:25 +0000] [72020] [INFO] Worker exiting (pid: 72020)
+[2025-11-03 01:23:25 +0000] [72022] [INFO] Worker exiting (pid: 72022)
+[2025-11-03 09:23:25 +0800] [72019] [INFO] Shutting down: Master
+[2025-11-04 18:55:17 +0800] [98845] [INFO] Starting gunicorn 23.0.0
+[2025-11-04 18:55:17 +0800] [98845] [INFO] Listening at: http://127.0.0.1:8081 (98845)
+[2025-11-04 18:55:17 +0800] [98845] [INFO] Using worker: gthread
+[2025-11-04 18:55:17 +0800] [98846] [INFO] Booting worker with pid: 98846
+[2025-11-04 18:55:17 +0800] [98847] [INFO] Booting worker with pid: 98847
+[2025-11-04 18:55:17 +0800] [98848] [INFO] Booting worker with pid: 98848
+[2025-11-05 09:56:54 +0800] [98845] [INFO] Handling signal: int
+[2025-11-05 01:56:55 +0000] [98846] [INFO] Worker exiting (pid: 98846)
+[2025-11-05 01:56:55 +0000] [98847] [INFO] Worker exiting (pid: 98847)
+[2025-11-05 01:56:55 +0000] [98848] [INFO] Worker exiting (pid: 98848)
+[2025-11-05 09:56:55 +0800] [98845] [INFO] Shutting down: Master

@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Toolbox"
+msgstr "Toolbox"
+
+msgid "在线工具集"
+msgstr "Online Tools"
+
+msgid "一屏集成灵感、效率与创作"
+msgstr "Integrate inspiration, efficiency and creativity in one screen"
+
+msgid "参考 explore / apps 的极简视觉语言，让常用工具以卡片矩阵呈现，轻松开启你的下一次创作。"
+msgstr "Reference the minimalist visual language of explore/apps, presenting common tools in a card matrix to easily start your next creation."
+
+msgid "浏览工具"
+msgstr "Browse Tools"
+
+msgid "文档"
+msgstr "Documentation"
+
+msgid "工具数量"
+msgstr "Tools"
+
+msgid "秒级"
+msgstr "Instant"
+
+msgid "加载体验"
+msgstr "Loading"
+
+msgid "创意组合"
+msgstr "Combinations"
+
+msgid "全部"
+msgstr "All"
+
+msgid "切换到"
+msgstr "Switch to"
+
+msgid "使用次数"
+msgstr "Usage"
+
+msgid "搜索工具..."
+msgstr "Search tools..."
+
+msgid "精选工具"
+msgstr "Featured Tools"
+
+msgid "最受欢迎和实用的工具推荐"
+msgstr "Most popular and practical tool recommendations"
+
+msgid "搜索结果"
+msgstr "Search Results"
+
+msgid "所有工具"
+msgstr "All Tools"
+
+msgid "探索所有可用工具，找到最适合您需求的工具"
+msgstr "Explore all available tools and find the one that best suits your needs"
+
+msgid "未找到匹配的工具"
+msgstr "No matching tools found"
+
+msgid "清除筛选"
+msgstr "Clear Filters"
+

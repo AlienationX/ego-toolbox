@@ -1,0 +1,126 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'zh-hans' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Toolbox{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Toolbox - 汇集效率、创意与开发场景的在线工具合集，支持分类筛选与多语言切换，助你快速找到合适的工具。{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}Toolbox,在线工具集,效率工具,创意工具,开发工具{% endblock %}">
+    <link rel="canonical" href="{{ request.build_absolute_uri|default:'/' }}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Toolbox - 在线工具集{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}精选多类别在线工具，支持分类筛选、深色模式与中英文切换，打造极简又高效的工作入口。{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri|default:'/' }}">
+    <meta property="og:site_name" content="Toolbox">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme|default:'https' }}://{{ request.get_host }}/static/toolbox/images/preview.png{% endblock %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Toolbox - 在线工具集{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}以现代设计语言呈现的工具集合，聚合效率、创意与开发场景的一站式入口。{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme|default:'https' }}://{{ request.get_host }}/static/toolbox/images/preview.png{% endblock %}">
+    {% block extra_meta %}{% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'toolbox/css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Toolbox",
+        "url": "{{ request.build_absolute_uri|default:'/' }}",
+        "inLanguage": "{{ LANGUAGE_CODE|default:'zh-Hans' }}",
+        "description": "Toolbox - 在线工具集，聚合效率、创意、开发等多种场景的精选工具。",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{ request.build_absolute_uri|default:'/' }}?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="top-controls">
+        <button class="theme-toggle" id="theme-toggle" title="切换主题" aria-label="切换主题">
+            <span class="theme-icon-light">☀️</span>
+            <span class="theme-icon-dark" style="display: none;">🌙</span>
+        </button>
+        <div class="lang-switcher">
+            {% get_current_language as CURRENT_LANGUAGE %}
+            {% get_available_languages as LANGUAGES %}
+            {% for lang_code, lang_name in LANGUAGES %}
+                {% if lang_code != CURRENT_LANGUAGE %}
+                    <form action="{% url 'set_language' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="language" value="{{ lang_code }}">
+                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                        <button type="submit" class="lang-btn" title="{% trans '切换到' %} {{ lang_name }}">
+                            {% if lang_code == 'zh-hans' %}中{% else %}EN{% endif %}
+                        </button>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    {% block extra_js %}{% endblock %}
+    <script>
+        // 主题切换功能
+        (function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+            const lightIcon = themeToggle.querySelector('.theme-icon-light');
+            const darkIcon = themeToggle.querySelector('.theme-icon-dark');
+            
+            // 从 localStorage 读取主题偏好，或使用系统偏好
+            function getInitialTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    return savedTheme;
+                }
+                // 检测系统偏好
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    return 'dark';
+                }
+                return 'light';
+            }
+            
+            // 应用主题
+            function setTheme(theme) {
+                if (theme === 'dark') {
+                    html.setAttribute('data-theme', 'dark');
+                    lightIcon.style.display = 'none';
+                    darkIcon.style.display = 'inline';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    html.removeAttribute('data-theme');
+                    lightIcon.style.display = 'inline';
+                    darkIcon.style.display = 'none';
+                    localStorage.setItem('theme', 'light');
+                }
+            }
+            
+            // 初始化主题
+            const initialTheme = getInitialTheme();
+            setTheme(initialTheme);
+            
+            // 切换主题
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = html.getAttribute('data-theme');
+                setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+            });
+            
+            // 监听系统主题变化
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    if (!localStorage.getItem('theme')) {
+                        setTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ tool.title }} - Toolbox{% endblock %}
+
+{% block content %}
+<div class="tool-detail">
+    <a href="{% url 'toolbox:index' %}" class="back-link">← 返回首页</a>
+    
+    <div class="tool-detail-header" style="--tool-color: {{ tool.color }}">
+        <div class="tool-detail-icon">{{ tool.icon }}</div>
+        <h1 class="tool-detail-title">{{ tool.title }}</h1>
+    </div>
+    
+    <div class="tool-detail-content">
+        <p class="tool-detail-description">{{ tool.description }}</p>
+        <div class="tool-placeholder">
+            <p>🚧 此工具正在开发中，敬请期待...</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

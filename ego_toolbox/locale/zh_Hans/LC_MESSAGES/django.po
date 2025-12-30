@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Toolbox"
+msgstr "工具箱"
+
+msgid "在线工具集"
+msgstr "在线工具集"
+
+msgid "一屏集成灵感、效率与创作"
+msgstr "一屏集成灵感、效率与创作"
+
+msgid "参考 explore / apps 的极简视觉语言，让常用工具以卡片矩阵呈现，轻松开启你的下一次创作。"
+msgstr "参考 explore / apps 的极简视觉语言，让常用工具以卡片矩阵呈现，轻松开启你的下一次创作。"
+
+msgid "浏览工具"
+msgstr "浏览工具"
+
+msgid "文档"
+msgstr "文档"
+
+msgid "工具数量"
+msgstr "工具数量"
+
+msgid "秒级"
+msgstr "秒级"
+
+msgid "加载体验"
+msgstr "加载体验"
+
+msgid "创意组合"
+msgstr "创意组合"
+
+msgid "全部"
+msgstr "全部"
+
+msgid "切换到"
+msgstr "切换到"
+
+msgid "使用次数"
+msgstr "使用次数"
+
+msgid "搜索工具..."
+msgstr "搜索工具..."
+
+msgid "精选工具"
+msgstr "精选工具"
+
+msgid "最受欢迎和实用的工具推荐"
+msgstr "最受欢迎和实用的工具推荐"
+
+msgid "搜索结果"
+msgstr "搜索结果"
+
+msgid "所有工具"
+msgstr "所有工具"
+
+msgid "探索所有可用工具，找到最适合您需求的工具"
+msgstr "探索所有可用工具，找到最适合您需求的工具"
+
+msgid "未找到匹配的工具"
+msgstr "未找到匹配的工具"
+
+msgid "清除筛选"
+msgstr "清除筛选"
+
