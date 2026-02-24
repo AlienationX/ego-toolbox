@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'toolbox/css/dark.css' %}">
 
     <!-- logo设置 -->
-    <link rel="icon" href="{% static 'toolbox/toolbox.svg' %}">
+    <link rel="icon" href="{% static 'toolbox/logo.svg' %}">
     {% block extra_css %}{% endblock %}
     <script>
         (function () {
@@ -22,7 +22,7 @@
         })();
     </script>
 </head>
-<body class="min-h-screen bg-base-200" hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
+<body class="min-h-screen bg-base-200 flex flex-col" hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
     {% get_current_language as CURRENT_LANGUAGE %}
     {% get_available_languages as AVAILABLE_LANGUAGES %}
     {% get_language_info_list for AVAILABLE_LANGUAGES as LANGUAGES_INFO %}
@@ -63,10 +63,15 @@
                     <span>Toolbox</span>
                 </a>
 
-                <nav class="hidden lg:flex items-center gap-1">
+                <nav class="navbar hidden lg:flex min-h-0 p-0 items-center gap-1">
                     {% for group in nav_categories %}
-                    <div class="dropdown dropdown-hover dropdown-bottom">
-                        <button tabindex="0" class="btn btn-sm btn-ghost rounded-full">{{ group.label }}</button>
+                    <div class="dropdown dropdown-hover dropdown-bottom group">
+                        <button tabindex="0" class="btn btn-sm btn-ghost rounded-full gap-1">
+                            <span>{{ group.label }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 transition-transform duration-200 group-hover:rotate-180">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.167l3.71-3.938a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 border border-base-300 rounded-box min-w-56 max-w-80 w-max z-50">
                             {% for tool in group.tools %}
                             <li>
@@ -84,7 +89,7 @@
             </div>
 
             <div class="flex items-center gap-2 shrink-0">
-                <a href="{% url 'admin:login' %}" class="btn btn-sm btn-primary rounded-full px-4">{% trans "登录" %}</a>
+                <a href="{% url 'my_login' %}" class="btn btn-sm btn-primary rounded-full px-4">{% trans "登录" %}</a>
 
                 <button id="theme-toggle" class="btn btn-sm btn-ghost btn-circle border border-base-300" type="button" title="Theme">
                     <span id="theme-icon" aria-hidden="true">☀️</span>
@@ -115,13 +120,13 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-6 ld:py-8">
+    <main class="container mx-auto px-4 py-6 md:py-8 flex-1">
         {% block content %}{% endblock %}
     </main>
 
     <footer class="border-t border-base-300 py-6 bg-base-100/70">
         <div class="container mx-auto px-4 text-sm text-base-content/60 flex flex-col md:flex-row gap-2 md:items-center md:justify-between">
-            <span>© 2026 Ego Toolbox</span>
+            <span>© {% now "Y" %} Ego Toolbox</span>
             <span>{% trans "更快、更优雅、更实用的在线工具集合。" %}</span>
         </div>
     </footer>

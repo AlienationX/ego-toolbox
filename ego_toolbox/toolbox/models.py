@@ -18,6 +18,10 @@ class Tool(models.Model):
     description = models.CharField(max_length=200)
     tags = models.JSONField(verbose_name="标签")
     url = models.CharField(max_length=60, verbose_name="url地址")
+    status = models.BooleanField(default=False, verbose_name="状态")
+
+    def __str__(self):
+        return self.title
 
 
 class Todo(models.Model):

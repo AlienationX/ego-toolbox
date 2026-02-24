@@ -296,3 +296,6 @@ msgstr "欢迎使用 Toolbox"
 
 msgid "Explore infinite possibilities and start your creative journey"
 msgstr "探索无限可能，开启您的创意之旅"
+
+msgid "已有账户？"
+msgstr "已有账户？"

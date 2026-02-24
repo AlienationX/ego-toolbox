@@ -434,3 +434,6 @@ msgstr "Generate secure passwords with customizable rules."
 
 msgid "简单高效的任务管理，帮助你掌控每天节奏。"
 msgstr "Simple and efficient task management to keep your day on track."
+
+msgid "已有账户？"
+msgstr "Already have an account?"
