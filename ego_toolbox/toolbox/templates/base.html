@@ -1,161 +1,155 @@
-{% load i18n %}
+{% load i18n static django_htmx %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:'zh-hans' }}">
+<html lang="{{ LANGUAGE_CODE|default:'zh-hans' }}" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Toolbox{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Toolbox - 汇集效率、创意与开发场景的在线工具合集，支持分类筛选与多语言切换，助你快速找到合适的工具。{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}Toolbox,在线工具集,效率工具,创意工具,开发工具{% endblock %}">
-    <link rel="canonical" href="{{ request.build_absolute_uri|default:'/' }}">
-    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:title" content="{% block og_title %}Toolbox - 在线工具集{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}精选多类别在线工具，支持分类筛选、深色模式与中英文切换，打造极简又高效的工作入口。{% endblock %}">
-    <meta property="og:url" content="{{ request.build_absolute_uri|default:'/' }}">
-    <meta property="og:site_name" content="Toolbox">
-    <meta property="og:image" content="{% block og_image %}{{ request.scheme|default:'https' }}://{{ request.get_host }}/static/toolbox/images/preview.png{% endblock %}">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}Toolbox - 在线工具集{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}以现代设计语言呈现的工具集合，聚合效率、创意与开发场景的一站式入口。{% endblock %}">
-    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme|default:'https' }}://{{ request.get_host }}/static/toolbox/images/preview.png{% endblock %}">
-    {% block extra_meta %}{% endblock %}
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script>tailwind.config = {darkMode: "class"}</script>
-    <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
-    {% load static %}
-    <!-- 主题样式文件 -->
-    <link rel="stylesheet" href="{% static 'toolbox/css/light.css' %}" id="light-theme">
-    <link rel="stylesheet" href="{% static 'toolbox/css/dark.css' %}" id="dark-theme">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    {% htmx_script %}
+    <link rel="stylesheet" href="{% static 'toolbox/css/light.css' %}">
+    <link rel="stylesheet" href="{% static 'toolbox/css/dark.css' %}">
+
+    <!-- logo设置 -->
+    <link rel="icon" href="{% static 'toolbox/toolbox.svg' %}">
     {% block extra_css %}{% endblock %}
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Toolbox",
-        "url": "{{ request.build_absolute_uri|default:'/' }}",
-        "inLanguage": "{{ LANGUAGE_CODE|default:'zh-Hans' }}",
-        "description": "Toolbox - 在线工具集，聚合效率、创意、开发等多种场景的精选工具。",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "{{ request.build_absolute_uri|default:'/' }}?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
+    <script>
+        (function () {
+            const saved = localStorage.getItem('theme');
+            const preferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', saved || preferred);
+        })();
     </script>
 </head>
-<body>
-    <div class="top-controls fixed top-5 right-5 z-50 flex gap-3">
-        <button class="theme-toggle btn btn-sm rounded-full bg-base-200 hover:bg-base-300" id="theme-toggle" title="切换主题" aria-label="切换主题">
-            <span class="theme-icon-light">☀️</span>
-            <span class="theme-icon-dark" style="display: none;">🌙</span>
-        </button>
-        <div class="lang-switcher flex gap-3">
-                {% get_current_language as CURRENT_LANGUAGE %}
-                {% get_available_languages as LANGUAGES %}
-                {% for lang_code, lang_name in LANGUAGES %}
-                    {% if lang_code != CURRENT_LANGUAGE %}
-                        <button onclick="switchLanguageDirectly('{{ lang_code }}')" class="btn btn-sm rounded-full bg-base-200 hover:bg-base-300" title="{% trans '切换到' %} {{ lang_name }}">
-                            {% if lang_code == 'zh-hans' %}中{% else %}EN{% endif %}
+<body class="min-h-screen bg-base-200" hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
+    {% get_current_language as CURRENT_LANGUAGE %}
+    {% get_available_languages as AVAILABLE_LANGUAGES %}
+    {% get_language_info_list for AVAILABLE_LANGUAGES as LANGUAGES_INFO %}
+
+    <header class="sticky top-0 z-40 border-b border-base-300 bg-base-100/85 backdrop-blur">
+        <div class="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+                <div class="dropdown dropdown-bottom lg:hidden">
+                    <button tabindex="0" class="btn btn-sm btn-ghost btn-circle border border-base-300" title="Menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/>
+                        </svg>
+                    </button>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 border border-base-300 rounded-box w-72 z-50">
+                        {% for group in nav_categories %}
+                        <li>
+                            <details>
+                                <summary>{{ group.label }}</summary>
+                                <ul>
+                                    {% for tool in group.tools %}
+                                    <li>
+                                        {% if tool.url %}
+                                        <a href="{{ tool.url }}">{{ tool.title }}</a>
+                                        {% else %}
+                                        <span class="opacity-60 cursor-default">{{ tool.title }}</span>
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </details>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <a href="{% url 'toolbox:index' %}" class="btn btn-ghost px-2 text-xl font-semibold normal-case shrink-0">
+                    <span class="text-primary">Ego</span>
+                    <span>Toolbox</span>
+                </a>
+
+                <nav class="hidden lg:flex items-center gap-1">
+                    {% for group in nav_categories %}
+                    <div class="dropdown dropdown-hover dropdown-bottom">
+                        <button tabindex="0" class="btn btn-sm btn-ghost rounded-full">{{ group.label }}</button>
+                        <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 border border-base-300 rounded-box min-w-56 max-w-80 w-max z-50">
+                            {% for tool in group.tools %}
+                            <li>
+                                {% if tool.url %}
+                                <a href="{{ tool.url }}">{{ tool.title }}</a>
+                                {% else %}
+                                <span class="opacity-60 cursor-default">{{ tool.title }}</span>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </nav>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+                <a href="{% url 'admin:login' %}" class="btn btn-sm btn-primary rounded-full px-4">{% trans "登录" %}</a>
+
+                <button id="theme-toggle" class="btn btn-sm btn-ghost btn-circle border border-base-300" type="button" title="Theme">
+                    <span id="theme-icon" aria-hidden="true">☀️</span>
+                </button>
+
+                {% for lang in LANGUAGES_INFO %}
+                    {% if lang.code|slice:":2" != CURRENT_LANGUAGE|slice:":2" %}
+                    <form method="post" action="{% url 'set_language' %}" class="inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                        <input type="hidden" name="language" value="{{ lang.code }}">
+                        <button type="submit" class="btn btn-sm btn-ghost rounded-full border border-base-300 px-3" title="Language">
+                            <span aria-hidden="true">🌐</span>
+                            <span>
+                                {% if lang.code|slice:":2" == "en" %}
+                                    EN
+                                {% elif lang.code|slice:":2" == "zh" %}
+                                    中文
+                                {% else %}
+                                    {{ lang.name_local }}
+                                {% endif %}
+                            </span>
                         </button>
+                    </form>
                     {% endif %}
                 {% endfor %}
             </div>
-    </div>
-    <div class="container mx-auto px-4 py-12">
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6 ld:py-8">
         {% block content %}{% endblock %}
-    </div>
+    </main>
+
+    <footer class="border-t border-base-300 py-6 bg-base-100/70">
+        <div class="container mx-auto px-4 text-sm text-base-content/60 flex flex-col md:flex-row gap-2 md:items-center md:justify-between">
+            <span>© 2026 Ego Toolbox</span>
+            <span>{% trans "更快、更优雅、更实用的在线工具集合。" %}</span>
+        </div>
+    </footer>
+
     {% block extra_js %}{% endblock %}
     <script>
-        // 主题切换功能 (兼容daisyUI)
-        (function() {
-            const themeToggle = document.getElementById('theme-toggle');
+        (function () {
             const html = document.documentElement;
-            const lightIcon = themeToggle.querySelector('.theme-icon-light');
-            const darkIcon = themeToggle.querySelector('.theme-icon-dark');
-            const lightThemeLink = document.getElementById('light-theme');
-            const darkThemeLink = document.getElementById('dark-theme');
-            
-            // 从 localStorage 读取主题偏好，或使用系统偏好
-            function getInitialTheme() {
-                const savedTheme = localStorage.getItem('theme');
-                if (savedTheme) {
-                    return savedTheme;
-                }
-                // 检测系统偏好
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    return 'dark';
-                }
-                return 'light';
-            }
-            
-            // 应用主题 (daisyUI兼容版本)
-            function setTheme(theme) {
-                if (theme === 'dark') {
-                    html.setAttribute('data-theme', 'dark');
-                    html.classList.add('dark');
-                    lightIcon.style.display = 'none';
-                    darkIcon.style.display = 'inline';
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    html.setAttribute('data-theme', 'light');
-                    html.classList.remove('dark');
-                    lightIcon.style.display = 'inline';
-                    darkIcon.style.display = 'none';
-                    localStorage.setItem('theme', 'light');
+            const toggle = document.getElementById('theme-toggle');
+            const icon = document.getElementById('theme-icon');
+            if (!toggle) return;
+
+            function syncThemeIcon() {
+                const current = html.getAttribute('data-theme') || 'light';
+                if (icon) {
+                    icon.textContent = current === 'dark' ? '🌙' : '☀️';
                 }
             }
-            
-            // 初始化主题
-            const initialTheme = getInitialTheme();
-            setTheme(initialTheme);
-            
-            // 切换主题
-            themeToggle.addEventListener('click', function() {
-                const currentTheme = html.getAttribute('data-theme');
-                setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+
+            syncThemeIcon();
+            toggle.addEventListener('click', function () {
+                const current = html.getAttribute('data-theme') || 'light';
+                const next = current === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                syncThemeIcon();
             });
-            
-            // 监听系统主题变化
-        if (window.matchMedia) {
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-                if (!localStorage.getItem('theme')) {
-                    setTheme(e.matches ? 'dark' : 'light');
-                }
-            });
-        }
-    })();
-    </script>
-    <script>
-        // 语言切换函数 - 直接构造URL并跳转
-        function switchLanguageDirectly(langCode) {
-            const currentUrl = window.location.href;
-            const currentPath = window.location.pathname;
-            
-            // 提取查询参数
-            const queryParams = window.location.search;
-            
-            // 根据目标语言构造新的URL
-            let newPath;
-            if (langCode === 'zh-hans') {
-                // 切换到中文 - 移除/en/前缀
-                newPath = currentPath.replace(/^\/en\//, '/');
-            } else {
-                // 切换到英文 - 添加/en/前缀（如果没有的话）
-                if (currentPath.startsWith('/en/')) {
-                    newPath = currentPath;
-                } else {
-                    newPath = '/en' + currentPath;
-                }
-            }
-            
-            // 构造完整的新URL
-            const newUrl = window.location.origin + newPath + queryParams;
-            
-            // 跳转到新URL
-            window.location.href = newUrl;
-        }
+        })();
     </script>
 </body>
 </html>
-

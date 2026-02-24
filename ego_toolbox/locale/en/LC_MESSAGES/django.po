@@ -80,3 +80,357 @@ msgstr "No matching tools found"
 msgid "清除筛选"
 msgstr "Clear Filters"
 
+msgid "切换主题"
+msgstr "Toggle Theme"
+
+msgid "登录"
+msgstr "Sign In"
+
+msgid "注册"
+msgstr "Register"
+
+msgid "登出"
+msgstr "Sign Out"
+
+msgid "欢迎使用"
+msgstr "Welcome to"
+
+msgid "在这里，我们相信建立一个强大的专业网络始于您的参与。我们很高兴为您提供现代化、用户友好的服务，确保您获得最佳体验。"
+msgstr "Here, we believe that building a strong professional network begins with your participation. We are delighted to offer you a modern and user-friendly service to ensure you have the best experience."
+
+msgid "立即加入！"
+msgstr "Join Now!"
+
+msgid "输入邮箱或手机号"
+msgstr "Enter Email or Phone"
+
+msgid "密码"
+msgstr "Password"
+
+msgid "忘记密码？"
+msgstr "Recover Password?"
+
+msgid "或继续使用"
+msgstr "Or Continue with"
+
+msgid "用户名"
+msgstr "Username"
+
+msgid "邮箱地址"
+msgstr "Email Address"
+
+msgid "确认密码"
+msgstr "Confirm Password"
+
+msgid "了解详情"
+msgstr "Learn More"
+
+msgid "关于"
+msgstr "About"
+
+msgid "使用条款"
+msgstr "Terms of Use"
+
+msgid "隐私政策"
+msgstr "Privacy Policy"
+
+msgid "Cookie 政策"
+msgstr "Cookie Policy"
+
+msgid "版权政策"
+msgstr "Copyright Policy"
+
+msgid "品牌政策"
+msgstr "Brand Policy"
+
+msgid "访客控制"
+msgstr "Visitor Controls"
+
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Fast, elegant, practical web tools."
+msgstr "Fast, elegant, practical web tools."
+
+msgid "Toolbox - Smart tools in one place"
+msgstr "Toolbox - Smart tools in one place"
+
+msgid "Build your workflow with a cleaner, smarter toolbox."
+msgstr "Build your workflow with a cleaner, smarter toolbox."
+
+msgid "Inspired by modern AI product aesthetics, this page combines strong typography, calm spacing, and quick interactions for daily creation."
+msgstr "Inspired by modern AI product aesthetics, this page combines strong typography, calm spacing, and quick interactions for daily creation."
+
+msgid "Start with Todo"
+msgstr "Start with Todo"
+
+msgid "Explore All Tools"
+msgstr "Explore All Tools"
+
+msgid "Tools"
+msgstr "Tools"
+
+msgid "Usage"
+msgstr "Usage"
+
+msgid "Kinds"
+msgstr "Kinds"
+
+msgid "Focused Experience"
+msgstr "Focused Experience"
+
+msgid "Reduced visual noise and stronger information hierarchy help you find tools faster."
+msgstr "Reduced visual noise and stronger information hierarchy help you find tools faster."
+
+msgid "Adaptive Interface"
+msgstr "Adaptive Interface"
+
+msgid "One-click theme switch and bilingual content keep the same flow across pages."
+msgstr "One-click theme switch and bilingual content keep the same flow across pages."
+
+msgid "Extensible Modules"
+msgstr "Extensible Modules"
+
+msgid "The category and navigation model is ready for future tools and richer workflows."
+msgstr "The category and navigation model is ready for future tools and richer workflows."
+
+msgid "Filter Tools"
+msgstr "Filter Tools"
+
+msgid "Quickly locate by category and keyword"
+msgstr "Quickly locate by category and keyword"
+
+msgid "Tool Gallery"
+msgstr "Tool Gallery"
+
+msgid "Open"
+msgstr "Open"
+
+msgid "No matching tools found."
+msgstr "No matching tools found."
+
+msgid "Back to toolbox"
+msgstr "Back to toolbox"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Add a new task..."
+msgstr "Add a new task..."
+
+msgid "Add"
+msgstr "Add"
+
+msgid "No tasks yet. Add your first one above."
+msgstr "No tasks yet. Add your first one above."
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Todo List"
+msgstr "Todo List"
+
+msgid "A lightweight task manager for planning your day."
+msgstr "A lightweight task manager for planning your day."
+
+msgid "Calculator"
+msgstr "Calculator"
+
+msgid "A full-featured online calculator for daily and scientific use."
+msgstr "A full-featured online calculator for daily and scientific use."
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "Capture ideas quickly with auto-save notes."
+msgstr "Capture ideas quickly with auto-save notes."
+
+msgid "Timer"
+msgstr "Timer"
+
+msgid "Precise timer and countdown tool for focused sessions."
+msgstr "Precise timer and countdown tool for focused sessions."
+
+msgid "Unit Converter"
+msgstr "Unit Converter"
+
+msgid "Convert length, weight, and temperature in one place."
+msgstr "Convert length, weight, and temperature in one place."
+
+msgid "Password Generator"
+msgstr "Password Generator"
+
+msgid "Generate secure passwords with customizable rules."
+msgstr "Generate secure passwords with customizable rules."
+
+msgid "All"
+msgstr "All"
+
+msgid "Productivity"
+msgstr "Productivity"
+
+msgid "Utilities"
+msgstr "Utilities"
+
+msgid "Security"
+msgstr "Security"
+
+msgid "Development"
+msgstr "Development"
+
+msgid "Coming soon"
+msgstr "Coming soon"
+
+msgid "Simple and efficient task management to keep your day on track."
+msgstr "Simple and efficient task management to keep your day on track."
+
+msgid "Welcome to Toolbox"
+msgstr "Welcome to Toolbox"
+
+msgid "Explore infinite possibilities and start your creative journey"
+msgstr "Explore infinite possibilities and start your creative journey"
+
+msgid "更快、更优雅、更实用的在线工具集合。"
+msgstr "Fast, elegant, practical web tools."
+
+msgid "工具箱 - 一站式在线工具"
+msgstr "Toolbox - Smart tools in one place"
+
+msgid "用更简洁、更智能的方式，搭建你的工具工作流。"
+msgstr "Build your workflow with a cleaner, smarter toolbox."
+
+msgid "参考现代 AI 产品视觉语言，采用更克制的排版、更舒展的留白和更快速的交互，适配你的高频创作与效率场景。"
+msgstr "Inspired by modern AI product aesthetics, this page combines strong typography, calm spacing, and quick interactions for daily creation."
+
+msgid "从 Todo 开始"
+msgstr "Start with Todo"
+
+msgid "浏览全部工具"
+msgstr "Explore All Tools"
+
+msgid "工具"
+msgstr "Tools"
+
+msgid "使用"
+msgstr "Usage"
+
+msgid "分类"
+msgstr "Kinds"
+
+msgid "专注体验"
+msgstr "Focused Experience"
+
+msgid "减少视觉噪音，强化信息层级，让你更快找到需要的工具。"
+msgstr "Reduced visual noise and stronger information hierarchy help you find tools faster."
+
+msgid "自适应界面"
+msgstr "Adaptive Interface"
+
+msgid "一键切换主题和中英文，在不同页面保持一致的浏览流。"
+msgstr "One-click theme switch and bilingual content keep the same flow across pages."
+
+msgid "模块可扩展"
+msgstr "Extensible Modules"
+
+msgid "分类与导航结构已为后续工具扩展和更复杂工作流预留空间。"
+msgstr "The category and navigation model is ready for future tools and richer workflows."
+
+msgid "筛选工具"
+msgstr "Filter Tools"
+
+msgid "按分类与关键词快速定位"
+msgstr "Quickly locate by category and keyword"
+
+msgid "工具画廊"
+msgstr "Tool Gallery"
+
+msgid "打开"
+msgstr "Open"
+
+msgid "未找到匹配的工具。"
+msgstr "No matching tools found."
+
+msgid "返回工具箱"
+msgstr "Back to toolbox"
+
+msgid "总任务"
+msgstr "Total"
+
+msgid "已完成"
+msgstr "Completed"
+
+msgid "待处理"
+msgstr "Pending"
+
+msgid "添加新待办事项..."
+msgstr "Add a new task..."
+
+msgid "添加"
+msgstr "Add"
+
+msgid "还没有任务，先添加第一条待办事项吧。"
+msgstr "No tasks yet. Add your first one above."
+
+msgid "删除"
+msgstr "Delete"
+
+msgid "效率工具"
+msgstr "Productivity"
+
+msgid "实用工具"
+msgstr "Utilities"
+
+msgid "安全工具"
+msgstr "Security"
+
+msgid "开发工具"
+msgstr "Development"
+
+msgid "即将上线"
+msgstr "Coming soon"
+
+msgid "待办事项"
+msgstr "Todo List"
+
+msgid "简单高效的待办事项管理工具，帮助你组织任务和提高效率。"
+msgstr "A lightweight task manager for planning your day."
+
+msgid "计算器"
+msgstr "Calculator"
+
+msgid "功能齐全的在线计算器，支持基本运算和科学计算。"
+msgstr "A full-featured online calculator for daily and scientific use."
+
+msgid "便签"
+msgstr "Notes"
+
+msgid "快速记录灵感和想法的便签工具，支持实时保存。"
+msgstr "Capture ideas quickly with auto-save notes."
+
+msgid "计时器"
+msgstr "Timer"
+
+msgid "精确的计时器和倒计时工具，适用于各种场景。"
+msgstr "Precise timer and countdown tool for focused sessions."
+
+msgid "单位转换"
+msgstr "Unit Converter"
+
+msgid "支持多种单位之间的转换，包括长度、重量、温度等。"
+msgstr "Convert length, weight, and temperature in one place."
+
+msgid "密码生成"
+msgstr "Password Generator"
+
+msgid "安全的密码生成器，帮助你创建强密码。"
+msgstr "Generate secure passwords with customizable rules."
+
+msgid "简单高效的任务管理，帮助你掌控每天节奏。"
+msgstr "Simple and efficient task management to keep your day on track."

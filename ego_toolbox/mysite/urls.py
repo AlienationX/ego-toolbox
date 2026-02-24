@@ -14,13 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path, include
-from django.conf.urls.i18n import i18n_patterns
-from django.views.i18n import set_language
+from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('i18n/setlang/', set_language, name='set_language'),  # 语言切换 URL
-    path('toolbox/', include('toolbox.urls')),  # 将toolbox URL移到i18n_patterns之外
+    path("admin/", admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
+    # path("login/", views.login_view, name="my_login"),  # 登录页面
+    # path("register/", views.register_view, name="register"),  # 注册页面
+    # path("logout/", views.logout_view, name="logout"),  # 登出页面
+    path("toolbox/", include("toolbox.urls", namespace="toolbox")),
 ]

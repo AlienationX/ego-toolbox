@@ -5,8 +5,16 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12.8"
 dependencies = [
-    "django>=5.2.7",
+    "django>=6.0.2",
     "django-htmx>=1.27.0",
-    "gunicorn>=23.0.0",
-    "supervisor>=4.3.0",
+    "gunicorn>=25.1.0",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.2",
+]
+
+[tool.ruff]
+# 设置全局选项
+line-length = 128 # 行长度限制

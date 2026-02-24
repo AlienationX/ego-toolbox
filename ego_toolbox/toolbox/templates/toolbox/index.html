@@ -1,169 +1,171 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
-{% block title %}{% trans "Toolbox" %} - {% trans "工具箱" %}{% endblock %}
+{% block title %}{% trans "工具箱 - 一站式在线工具" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-grid {
+        background-image:
+            linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+        background-size: 28px 28px;
+    }
+
+    .float-orb {
+        animation: floatUpDown 6s ease-in-out infinite;
+    }
+
+    .float-orb.delay {
+        animation-delay: 1.8s;
+    }
+
+    .rise-in {
+        animation: riseIn 0.7s ease-out both;
+    }
+
+    .stagger-1 { animation-delay: 0.08s; }
+    .stagger-2 { animation-delay: 0.16s; }
+    .stagger-3 { animation-delay: 0.24s; }
+
+    @keyframes floatUpDown {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes riseIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<section class="page-hero mb-16">
-    <p class="hero-tagline text-xs font-medium px-4 py-1.5 rounded-full bg-base-200 text-base-content/70 inline-block mb-6">TOOLBOX · {% trans "在线工具集" %}</p>
-    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">{% trans "一屏集成灵感、效率与创作" %}</h1>
-    <p class="hero-desc text-base-content/70 text-lg max-w-3xl mb-8">
-        {% trans "以现代设计语言为灵感，将常用工具整理为清晰的卡片矩阵，帮助你在一个入口快速聚焦创意、研发和效率场景。每个工具都配有简洁的说明与分类标签，让探索与掌握变得更轻松。" %}
-    </p>
-    <div class="hero-actions flex flex-wrap gap-4 mb-12">
-        <a href="#tools" class="btn btn-primary" style="border-radius: var(--radius-field);">{% trans "浏览工具" %}</a>
-        <a href="https://github.com" target="_blank" class="btn btn-ghost">GitHub · {% trans "文档" %}</a>
-    </div>
-    <div class="hero-meta grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="card bg-base-100 border border-base-200 p-6 rounded-xl">
-            <span class="meta-value text-2xl font-bold block">{{ total_tools }}+</span>
-            <span class="meta-label text-base-content/70 block mb-2">{% trans "工具数量" %}</span>
-            <p class="meta-note text-sm text-base-content/60">{% trans "不断扩展的精选工具合集，覆盖效率、创意与开发场景。" %}</p>
-        </div>
-        <div class="card bg-base-100 border border-base-200 p-6 rounded-xl">
-            <span class="meta-value text-2xl font-bold block">{{ total_usage|floatformat:0 }}</span>
-            <span class="meta-label text-base-content/70 block mb-2">{% trans "使用次数" %}</span>
-            <p class="meta-note text-sm text-base-content/60">{% trans "真实使用反馈持续打磨体验，保证开箱即用。" %}</p>
-        </div>
-        <div class="card bg-base-100 border border-base-200 p-6 rounded-xl">
-            <span class="meta-value text-2xl font-bold block">∞</span>
-            <span class="meta-label text-base-content/70 block mb-2">{% trans "创意组合" %}</span>
-            <p class="meta-note text-sm text-base-content/60">{% trans "灵活搭配多种工具，拼出属于你的智能工作流。" %}</p>
+<section class="mb-10 md:mb-12">
+    <div class="rounded-3xl border border-base-300 bg-base-100 overflow-hidden relative">
+        <div class="hero-grid absolute inset-0 opacity-40"></div>
+        <div class="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-primary/20 blur-2xl float-orb"></div>
+        <div class="absolute -bottom-8 right-6 w-32 h-32 rounded-full bg-secondary/20 blur-2xl float-orb delay"></div>
+
+        <div class="relative grid grid-cols-1 lg:grid-cols-5">
+            <div class="lg:col-span-3 p-8 md:p-12">
+                <div class="badge badge-outline mb-4 rise-in">Ego Toolbox</div>
+                <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-5 rise-in stagger-1">{% trans "用更简洁、更智能的方式，搭建你的工具工作流。" %}</h1>
+                <p class="text-base-content/70 max-w-2xl text-base md:text-lg mb-7 rise-in stagger-2">{% trans "参考现代 AI 产品视觉语言，采用更克制的排版、更舒展的留白和更快速的交互，适配你的高频创作与效率场景。" %}</p>
+                <div class="flex flex-wrap gap-3 rise-in stagger-3">
+                    <a href="{% url 'toolbox:todo' %}" class="btn btn-primary rounded-full">{% trans "从 Todo 开始" %}</a>
+                    <a href="#tool-grid" class="btn btn-ghost rounded-full">{% trans "浏览全部工具" %}</a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 p-6 md:p-8 border-l border-base-300 bg-base-100/80">
+                <div class="card bg-base-100 border border-base-300 mb-4">
+                    <div class="card-body p-4">
+                        <img src="{% static 'login-inset.svg' %}" alt="toolbox visual" class="w-full h-36 object-cover rounded-xl bg-base-200" />
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="card bg-base-100 border border-base-300"><div class="card-body p-3"><div class="text-xs text-base-content/60">{% trans "工具" %}</div><div class="text-xl font-bold text-primary">{{ total_tools }}</div></div></div>
+                    <div class="card bg-base-100 border border-base-300"><div class="card-body p-3"><div class="text-xs text-base-content/60">{% trans "使用" %}</div><div class="text-xl font-bold">{{ total_usage|floatformat:0 }}</div></div></div>
+                    <div class="card bg-base-100 border border-base-300"><div class="card-body p-3"><div class="text-xs text-base-content/60">{% trans "分类" %}</div><div class="text-xl font-bold">{{ categories|length }}</div></div></div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="tool-toolbar mb-8">
-    <div class="card bg-base-100 border border-base-200 rounded-xl p-4">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div class="toolbar-left">
-                <div class="toolbar-tags flex flex-wrap gap-2">
+<section class="mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
+            <div class="card-body">
+                <h3 class="card-title text-lg">{% trans "专注体验" %}</h3>
+                <p class="text-sm text-base-content/70">{% trans "减少视觉噪音，强化信息层级，让你更快找到需要的工具。" %}</p>
+            </div>
+        </article>
+        <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
+            <div class="card-body">
+                <h3 class="card-title text-lg">{% trans "自适应界面" %}</h3>
+                <p class="text-sm text-base-content/70">{% trans "一键切换主题和中英文，在不同页面保持一致的浏览流。" %}</p>
+            </div>
+        </article>
+        <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
+            <div class="card-body">
+                <h3 class="card-title text-lg">{% trans "模块可扩展" %}</h3>
+                <p class="text-sm text-base-content/70">{% trans "分类与导航结构已为后续工具扩展和更复杂工作流预留空间。" %}</p>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="mb-8">
+    <div class="card bg-base-100 border border-base-300">
+        <div class="card-body gap-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold">{% trans "筛选工具" %}</h2>
+                <p class="text-sm text-base-content/60">{% trans "按分类与关键词快速定位" %}</p>
+            </div>
+            <form method="get" class="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between">
+                <div class="join flex-wrap">
                     {% for category in categories %}
-                    <a href="?category={{ category }}{% if search_query %}&q={{ search_query }}{% endif %}" class="badge {% if current_category == category %}badge-primary{% else %}badge-outline hover:bg-base-200{% endif %}">
-                        {{ category }}
-                    </a>
+                    <button name="category" value="{{ category.key }}" class="btn btn-sm join-item {% if current_category == category.key %}btn-primary{% else %}btn-ghost{% endif %}" type="submit">
+                        {{ category.label }}
+                    </button>
                     {% endfor %}
                 </div>
-            </div>
-            <div class="toolbar-right w-full md:w-auto">
-                <form method="get" action="" class="search-form">
-                    {% if current_category != '全部' %}
-                    <input type="hidden" name="category" value="{{ current_category }}">
-                    {% endif %}
-                    <div class="input-group">
-                        <input type="text" name="q" value="{{ search_query }}" placeholder="{% trans '搜索工具...' %}" class="input input-sm w-full">
-                        <button type="submit" class="btn btn-sm btn-primary">🔍</button>
-                    </div>
-                </form>
-            </div>
+                <label class="input input-bordered flex items-center gap-2 w-full lg:w-96">
+                    <input type="text" class="grow" name="q" value="{{ search_query }}" placeholder="{% trans '搜索工具...' %}">
+                    <span>🔍</span>
+                </label>
+            </form>
         </div>
     </div>
 </section>
 
-{% if featured_tools and not search_query and current_category == '全部' %}
-<section class="section-featured mb-12">
-    <div class="section-header mb-6">
-        <h2 class="section-title text-2xl font-bold">{% trans "精选工具" %}</h2>
-        <p class="section-desc text-base-content/70">{% trans "最受欢迎和实用的工具推荐" %}</p>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {% for tool in featured_tools %}
-        {% if tool.id == 'todo' %}
-        <a href="{% url 'toolbox:todo_detail' %}" class="card bg-base-100 border border-primary hover:shadow-lg transition-all duration-200 rounded-xl overflow-hidden">
-        {% else %}
-        <a href="{% url 'toolbox:tool_detail' tool.id %}" class="card bg-base-100 border border-primary hover:shadow-lg transition-all duration-200 rounded-xl overflow-hidden">
-        {% endif %}
-            <div class="card-body p-5">
-                <div class="flex items-start gap-4">
-                    <div class="text-3xl p-3 bg-primary/10 rounded-lg">
-                        {{ tool.icon }}
-                    </div>
-                    <div class="flex-1">
-                        <div class="tool-header flex justify-between items-center mb-1">
-                            <h2 class="text-lg font-semibold">{{ tool.title }}</h2>
-                        </div>
-                        <div class="tool-subtitle text-sm text-base-content/60 mb-3">
-                            <span>{{ tool.id }}</span>
-                        </div>
-                        <p class="text-base-content/70 text-sm mb-3 line-clamp-2">{{ tool.description }}</p>
-                        {% if tool.tags %}
-                        <div class="tool-tags flex flex-wrap gap-2">
-                            {% for tag in tool.tags|slice:":1" %}
-                            <div class="tool-tag text-xs text-primary flex items-center gap-1">
-                                <span class="hash">#</span>
-                                <span>{{ tag }}</span>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-</section>
-{% endif %}
-
-<section class="tools-board" id="tools">
-    <div class="section-header">
-        <h2 class="section-title">
-            {% if search_query %}
-            {% trans "搜索结果" %} ({{ tools|length }})
-            {% elif current_category != '全部' %}
-            {{ current_category }} ({{ tools|length }})
-            {% else %}
-            {% trans "所有工具" %} ({{ tools|length }})
-            {% endif %}
+<section id="tool-grid">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">{% trans "工具画廊" %}
+            <span class="text-base-content/50 text-lg">({{ tools|length }})</span>
         </h2>
-        {% if not search_query and current_category == '全部' %}
-        <p class="section-desc">{% trans "探索所有可用工具，找到最适合您需求的工具" %}</p>
-        {% endif %}
     </div>
+
     {% if tools %}
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {% for tool in tools %}
-        {% if tool.id == 'todo' %}
-        <a href="{% url 'toolbox:todo_detail' %}" class="card bg-base-100 border border-base-200 hover:shadow-md transition-shadow rounded-xl overflow-hidden">
-        {% else %}
-        <a href="{% url 'toolbox:tool_detail' tool.id %}" class="card bg-base-100 border border-base-200 hover:shadow-md transition-shadow rounded-xl overflow-hidden">
-        {% endif %}
-            <div class="card-body p-5">
-                <div class="flex items-start gap-4">
-                    <div class="tool-icon text-3xl p-3 bg-base-200 rounded-lg">
-                        {{ tool.icon }}
-                    </div>
-                    <div class="flex-1">
-                        <div class="tool-header flex justify-between items-center mb-1">
-                            <h2 class="text-lg font-semibold">{{ tool.title }}</h2>
-                        </div>
-                        <div class="tool-subtitle text-sm text-base-content/60 mb-3">
-                            <span>{{ tool.id }}</span>
-                        </div>
-                        <p class="text-base-content/70 text-sm mb-3 line-clamp-2">{{ tool.description }}</p>
-                        {% if tool.tags %}
-                        <div class="tool-tags flex flex-wrap gap-2">
-                            {% for tag in tool.tags|slice:":1" %}
-                            <div class="tool-tag text-xs text-base-content/60 flex items-center gap-1">
-                                <span class="hash">#</span>
-                                <span>{{ tag }}</span>
+            {% if tool.url %}
+            <a href="{{ tool.url }}" class="card bg-base-100 border border-base-300 hover:border-primary hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
+            {% else %}
+            <div class="card bg-base-100 border border-base-300 opacity-95">
+            {% endif %}
+                <div class="card-body">
+                    <div class="flex items-start gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-base-200 grid place-items-center text-2xl">{{ tool.icon }}</div>
+                        <div class="flex-1">
+                            <h3 class="card-title text-lg">{{ tool.title }}</h3>
+                            <p class="text-sm text-base-content/70">{{ tool.description }}</p>
+                            <div class="mt-3 flex gap-2 flex-wrap">
+                                {% for tag in tool.tags %}
+                                <span class="badge badge-outline">{{ tag }}</span>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
                         </div>
-                        {% endif %}
                     </div>
+                    {% if tool.url %}
+                    <div class="card-actions justify-end mt-2">
+                        <span class="btn btn-sm btn-primary">{% trans "打开" %}</span>
+                    </div>
+                    {% endif %}
                 </div>
+            {% if tool.url %}
+            </a>
+            {% else %}
             </div>
-        </a>
+            {% endif %}
         {% endfor %}
     </div>
     {% else %}
-    <div class="card bg-base-100 border border-base-200 rounded-xl text-center py-12">
-        <p class="empty-icon text-6xl mb-4">🔍</p>
-        <p class="empty-text text-base-content/70 text-lg mb-6">{% trans "未找到匹配的工具" %}</p>
-        <a href="?" class="btn btn-ghost">{% trans "清除筛选" %}</a>
+    <div class="alert alert-warning">
+        <span>{% trans "未找到匹配的工具。" %}</span>
     </div>
     {% endif %}
 </section>
 {% endblock %}
-
