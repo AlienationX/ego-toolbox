@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 <div class="todo-item card bg-base-100 border border-base-300">
     <div class="card-body py-4 px-4 md:px-5">
         <div class="flex items-center justify-between gap-3">
@@ -17,13 +17,14 @@
             </label>
 
             <button
-                class="btn btn-sm btn-error btn-outline"
+                class="btn btn-sm btn-error btn-outline gap-1"
                 hx-post="{% url 'toolbox:todo' %}"
                 hx-target="closest .todo-item"
                 hx-swap="outerHTML"
                 hx-vals='{"action": "delete", "todo_id": "{{ todo.id }}"}'
                 type="button"
             >
+                <img src="{% static 'toolbox/icons/trash-2.svg' %}" alt="delete icon" class="h-4 w-4 icon-danger">
                 {% trans "删除" %}
             </button>
         </div>

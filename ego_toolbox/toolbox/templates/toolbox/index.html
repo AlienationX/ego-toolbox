@@ -37,6 +37,29 @@
         from { opacity: 0; transform: translateY(16px); }
         to { opacity: 1; transform: translateY(0); }
     }
+
+    .stat-icon {
+        width: 20px;
+        height: 20px;
+        opacity: 0.75;
+    }
+
+    .feature-icon-wrap {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: color-mix(in srgb, var(--color-base-content) 6%, transparent);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .feature-icon {
+        width: 18px;
+        height: 18px;
+        opacity: 0.85;
+    }
 </style>
 {% endblock %}
 
@@ -60,12 +83,36 @@
 
             <div class="lg:col-span-2 p-6 border-l border-base-300 bg-base-100/80 flex flex-col gap-4">
                 <div class="flex-[2]">
-                    <img src="{% static 'login-inset.svg' %}" alt="toolbox visual" class="w-full h-full object-cover rounded-2xl bg-base-200" />
+                    <img src="{% static 'toolbox/images/login-inset.svg' %}" alt="toolbox visual" class="w-full h-full object-cover rounded-2xl bg-base-200" />
                 </div>
                 <div class="grid grid-cols-3 gap-3 flex-[1]">
-                    <div class="card bg-base-100 border border-base-300"><div class="card-body p-3"><div class="text-xs text-base-content/60">{% trans "工具" %}</div><div class="text-xl font-bold text-primary">{{ total_tools }}</div></div></div>
-                    <div class="card bg-base-100 border border-base-300"><div class="card-body p-3"><div class="text-xs text-base-content/60">{% trans "使用" %}</div><div class="text-xl font-bold">{{ total_usage|floatformat:0 }}</div></div></div>
-                    <div class="card bg-base-100 border border-base-300"><div class="card-body p-3"><div class="text-xs text-base-content/60">{% trans "分类" %}</div><div class="text-xl font-bold">{{ categories|length }}</div></div></div>
+                    <div class="card bg-base-100 border border-base-300">
+                        <div class="card-body p-3">
+                            <div class="flex items-center gap-2 whitespace-nowrap">
+                                <img src="{% static 'toolbox/icons/grid.svg' %}" alt="tools icon" class="stat-icon">
+                                <div class="text-xs text-base-content/60">{% trans "工具" %}</div>
+                            </div>
+                            <div class="text-xl font-bold text-primary mt-1">{{ total_tools }}</div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 border border-base-300">
+                        <div class="card-body p-3">
+                            <div class="flex items-center gap-2 whitespace-nowrap">
+                                <img src="{% static 'toolbox/icons/activity.svg' %}" alt="usage icon" class="stat-icon">
+                                <div class="text-xs text-base-content/60">{% trans "使用" %}</div>
+                            </div>
+                            <div class="text-xl font-bold mt-1">{{ total_usage|floatformat:0 }}</div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 border border-base-300">
+                        <div class="card-body p-3">
+                            <div class="flex items-center gap-2 whitespace-nowrap">
+                                <img src="{% static 'toolbox/icons/layers.svg' %}" alt="category icon" class="stat-icon">
+                                <div class="text-xs text-base-content/60">{% trans "分类" %}</div>
+                            </div>
+                            <div class="text-xl font-bold mt-1">{{ categories|length }}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,19 +123,34 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
             <div class="card-body">
-                <h3 class="card-title text-lg">{% trans "专注体验" %}</h3>
+                <div class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="feature-icon-wrap">
+                        <img src="{% static 'toolbox/icons/target.svg' %}" alt="focus icon" class="feature-icon">
+                    </span>
+                    <h3 class="card-title text-lg m-0">{% trans "专注体验" %}</h3>
+                </div>
                 <p class="text-sm text-base-content/70">{% trans "减少视觉噪音，强化信息层级，让你更快找到需要的工具。" %}</p>
             </div>
         </article>
         <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
             <div class="card-body">
-                <h3 class="card-title text-lg">{% trans "自适应界面" %}</h3>
+                <div class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="feature-icon-wrap">
+                        <img src="{% static 'toolbox/icons/sliders.svg' %}" alt="adaptive icon" class="feature-icon">
+                    </span>
+                    <h3 class="card-title text-lg m-0">{% trans "自适应界面" %}</h3>
+                </div>
                 <p class="text-sm text-base-content/70">{% trans "一键切换主题和中英文，在不同页面保持一致的浏览流。" %}</p>
             </div>
         </article>
         <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
             <div class="card-body">
-                <h3 class="card-title text-lg">{% trans "模块可扩展" %}</h3>
+                <div class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="feature-icon-wrap">
+                        <img src="{% static 'toolbox/icons/package.svg' %}" alt="modules icon" class="feature-icon">
+                    </span>
+                    <h3 class="card-title text-lg m-0">{% trans "模块可扩展" %}</h3>
+                </div>
                 <p class="text-sm text-base-content/70">{% trans "分类与导航结构已为后续工具扩展和更复杂工作流预留空间。" %}</p>
             </div>
         </article>
@@ -99,7 +161,10 @@
     <div class="card bg-base-100 border border-base-300">
         <div class="card-body gap-4">
             <div class="flex items-center justify-between gap-2">
-                <h2 class="text-xl font-bold">{% trans "筛选工具" %}</h2>
+                <h2 class="text-xl font-bold flex items-center gap-2">
+                    <img src="{% static 'toolbox/icons/filter.svg' %}" alt="filter icon" class="stat-icon">
+                    <span>{% trans "筛选工具" %}</span>
+                </h2>
                 <p class="text-sm text-base-content/60">{% trans "按分类与关键词快速定位" %}</p>
             </div>
             <form method="get" class="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between">
@@ -112,7 +177,7 @@
                 </div>
                 <label class="input input-bordered flex items-center gap-2 w-full lg:w-96">
                     <input type="text" class="grow" name="q" value="{{ search_query }}" placeholder="{% trans '搜索工具...' %}">
-                    <span>🔍</span>
+                    <img src="{% static 'toolbox/icons/search.svg' %}" alt="search icon" class="h-4 w-4 opacity-60">
                 </label>
             </form>
         </div>
