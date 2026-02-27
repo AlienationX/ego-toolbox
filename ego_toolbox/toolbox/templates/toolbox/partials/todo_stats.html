@@ -1,0 +1,26 @@
+{% load i18n static %}
+<div id="todo-stats" hx-swap-oob="outerHTML">
+    <div class="stats stats-vertical lg:stats-horizontal shadow w-full bg-base-100/80">
+        <div class="stat">
+            <div class="stat-title flex items-center gap-2">
+                <img src="{% static 'toolbox/icons/list.svg' %}" alt="total icon" class="h-4 w-4 icon-primary">
+                <span>{% trans "总任务" %}</span>
+            </div>
+            <div class="stat-value">{{ total_count }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title flex items-center gap-2">
+                <img src="{% static 'toolbox/icons/check-circle.svg' %}" alt="done icon" class="h-4 w-4 icon-success">
+                <span>{% trans "已完成" %}</span>
+            </div>
+            <div class="stat-value text-success">{{ done_count }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title flex items-center gap-2">
+                <img src="{% static 'toolbox/icons/clock.svg' %}" alt="pending icon" class="h-4 w-4 icon-warning">
+                <span>{% trans "待处理" %}</span>
+            </div>
+            <div class="stat-value text-warning">{{ pending_count }}</div>
+        </div>
+    </div>
+</div>

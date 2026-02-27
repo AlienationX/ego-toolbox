@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-26 02:02+0000\n"
+"POT-Creation-Date: 2026-02-26 02:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: en\n"
+"Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,37 +21,36 @@ msgstr ""
 #: mysite/templates/login.html:229 mysite/templates/login.html:247
 #: mysite/templates/register.html:51 toolbox/templates/base.html:92
 msgid "登录"
-msgstr "Sign In"
+msgstr "登录"
 
 #: mysite/templates/login.html:215 mysite/templates/register.html:7
 #: mysite/templates/register.html:52 mysite/templates/register.html:64
 msgid "注册"
-msgstr "Register"
+msgstr "注册"
 
 #: mysite/templates/login.html:220 mysite/templates/register.html:57
 msgid "欢迎使用"
-msgstr "Welcome to"
+msgstr "欢迎使用"
 
 #: mysite/templates/login.html:222 mysite/templates/register.html:58
 msgid ""
 "在这里，我们相信建立一个强大的专业网络始于您的参与。我们很高兴为您提供现代"
 "化、用户友好的服务，确保您获得最佳体验。"
 msgstr ""
-"Here, we believe that building a strong professional network begins with "
-"your participation. We are delighted to offer you a modern and user-friendly "
-"service to ensure you have the best experience."
+"在这里，我们相信建立一个强大的专业网络始于您的参与。我们很高兴为您提供现代"
+"化、用户友好的服务，确保您获得最佳体验。"
 
 #: mysite/templates/login.html:224 mysite/templates/register.html:82
 msgid "立即加入！"
-msgstr "Join Now!"
+msgstr "立即加入！"
 
 #: mysite/templates/login.html:236
 msgid "输入邮箱或手机号"
-msgstr "Enter Email or Phone"
+msgstr "输入邮箱或手机号"
 
 #: mysite/templates/login.html:240 mysite/templates/register.html:75
 msgid "密码"
-msgstr "Password"
+msgstr "密码"
 
 #: mysite/templates/login.html:244
 msgid "记住我"
@@ -59,23 +58,23 @@ msgstr ""
 
 #: mysite/templates/login.html:245
 msgid "忘记密码？"
-msgstr "Recover Password?"
+msgstr "忘记密码？"
 
 #: mysite/templates/login.html:250
 msgid "或继续使用"
-msgstr "Or Continue with"
+msgstr "或继续使用"
 
 #: mysite/templates/register.html:59
 msgid "已有账户？"
-msgstr "Already have an account?"
+msgstr "已有账户？"
 
 #: mysite/templates/register.html:71
 msgid "用户名"
-msgstr "Username"
+msgstr "用户名"
 
 #: mysite/templates/register.html:79
 msgid "确认密码"
-msgstr "Confirm Password"
+msgstr "确认密码"
 
 #: mysite/views.py:47
 msgid "您已成功登出"
@@ -83,464 +82,447 @@ msgstr ""
 
 #: toolbox/templates/base.html:130
 msgid "更快、更优雅、更实用的在线工具集合。"
-msgstr "Fast, elegant, practical web tools."
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:4
 msgid "工具箱 - 一站式在线工具"
-msgstr "Toolbox - Smart tools in one place"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:76
 msgid "用更简洁、更智能的方式，搭建你的工具工作流。"
-msgstr "Build your workflow with a cleaner, smarter toolbox."
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:77
 msgid ""
 "参考现代 AI 产品视觉语言，采用更克制的排版、更舒展的留白和更快速的交互，适配"
 "你的高频创作与效率场景。"
 msgstr ""
-"Inspired by modern AI product aesthetics, this page combines strong "
-"typography, calm spacing, and quick interactions for daily creation."
 
 #: toolbox/templates/toolbox/index.html:79
 msgid "从 Todo 开始"
-msgstr "Start with Todo"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:80
 msgid "浏览全部工具"
-msgstr "Explore All Tools"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:93
+#, fuzzy
+#| msgid "浏览工具"
 msgid "工具"
-msgstr "Tools"
+msgstr "浏览工具"
 
 #: toolbox/templates/toolbox/index.html:102
+#, fuzzy
+#| msgid "使用次数"
 msgid "使用"
-msgstr "Usage"
+msgstr "使用次数"
 
 #: toolbox/templates/toolbox/index.html:111
 msgid "分类"
-msgstr "Kinds"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:130
 msgid "专注体验"
-msgstr "Focused Experience"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:132
 msgid "减少视觉噪音，强化信息层级，让你更快找到需要的工具。"
 msgstr ""
-"Reduced visual noise and stronger information hierarchy help you find tools "
-"faster."
 
 #: toolbox/templates/toolbox/index.html:141
 msgid "自适应界面"
-msgstr "Adaptive Interface"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:143
 msgid "一键切换主题和中英文，在不同页面保持一致的浏览流。"
 msgstr ""
-"One-click theme switch and bilingual content keep the same flow across pages."
 
 #: toolbox/templates/toolbox/index.html:152
 msgid "模块可扩展"
-msgstr "Extensible Modules"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:154
 msgid "分类与导航结构已为后续工具扩展和更复杂工作流预留空间。"
 msgstr ""
-"The category and navigation model is ready for future tools and richer "
-"workflows."
 
 #: toolbox/templates/toolbox/index.html:166
 msgid "筛选工具"
-msgstr "Filter Tools"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:168
 msgid "按分类与关键词快速定位"
-msgstr "Quickly locate by category and keyword"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:179
 msgid "搜索工具..."
-msgstr "Search tools..."
+msgstr "搜索工具..."
 
 #: toolbox/templates/toolbox/index.html:189
 msgid "工具画廊"
-msgstr "Tool Gallery"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:217
 msgid "打开"
-msgstr "Open"
+msgstr ""
 
 #: toolbox/templates/toolbox/index.html:230
+#, fuzzy
+#| msgid "未找到匹配的工具"
 msgid "未找到匹配的工具。"
-msgstr "No matching tools found."
+msgstr "未找到匹配的工具"
 
 #: toolbox/templates/toolbox/todo.html:40
 msgid "返回工具箱"
-msgstr "Back to toolbox"
+msgstr ""
 
 #: toolbox/templates/toolbox/todo.html:56
 msgid "总任务"
-msgstr "Total"
+msgstr ""
 
 #: toolbox/templates/toolbox/todo.html:63
 msgid "已完成"
-msgstr "Completed"
+msgstr ""
 
 #: toolbox/templates/toolbox/todo.html:70
 msgid "待处理"
-msgstr "Pending"
+msgstr ""
 
 #: toolbox/templates/toolbox/todo.html:85
 msgid "添加新待办事项..."
-msgstr "Add a new task..."
+msgstr ""
 
 #: toolbox/templates/toolbox/todo.html:88
 msgid "添加"
-msgstr "Add"
+msgstr ""
 
 #: toolbox/templates/toolbox/todo.html:98
 msgid "还没有任务，先添加第一条待办事项吧。"
-msgstr "No tasks yet. Add your first one above."
+msgstr ""
 
 #: toolbox/templates/toolbox/todo_item.html:28
 msgid "删除"
-msgstr "Delete"
+msgstr ""
 
 #: toolbox/views/catalog.py:12 toolbox/views/catalog.py:32
 #: toolbox/views/catalog.py:73
 msgid "效率工具"
-msgstr "Productivity"
+msgstr ""
 
 #: toolbox/views/catalog.py:13 toolbox/views/todo.py:42
 msgid "待办事项"
-msgstr "Todo List"
+msgstr ""
 
 #: toolbox/views/catalog.py:14
 msgid "简单高效的待办事项管理工具，帮助你组织任务和提高效率。"
-msgstr "A lightweight task manager for planning your day."
+msgstr ""
 
 #: toolbox/views/catalog.py:22 toolbox/views/catalog.py:42
 #: toolbox/views/catalog.py:52 toolbox/views/catalog.py:74
 msgid "实用工具"
-msgstr "Utilities"
+msgstr ""
 
 #: toolbox/views/catalog.py:23
 msgid "计算器"
-msgstr "Calculator"
+msgstr ""
 
 #: toolbox/views/catalog.py:24
 msgid "功能齐全的在线计算器，支持基本运算和科学计算。"
-msgstr "A full-featured online calculator for daily and scientific use."
+msgstr ""
 
 #: toolbox/views/catalog.py:33
 msgid "便签"
-msgstr "Notes"
+msgstr ""
 
 #: toolbox/views/catalog.py:34
 msgid "快速记录灵感和想法的便签工具，支持实时保存。"
-msgstr "Capture ideas quickly with auto-save notes."
+msgstr ""
 
 #: toolbox/views/catalog.py:43
 msgid "计时器"
-msgstr "Timer"
+msgstr ""
 
 #: toolbox/views/catalog.py:44
 msgid "精确的计时器和倒计时工具，适用于各种场景。"
-msgstr "Precise timer and countdown tool for focused sessions."
+msgstr ""
 
 #: toolbox/views/catalog.py:53
 msgid "单位转换"
-msgstr "Unit Converter"
+msgstr ""
 
 #: toolbox/views/catalog.py:54
 msgid "支持多种单位之间的转换，包括长度、重量、温度等。"
-msgstr "Convert length, weight, and temperature in one place."
+msgstr ""
 
 #: toolbox/views/catalog.py:62 toolbox/views/catalog.py:75
 msgid "安全工具"
-msgstr "Security"
+msgstr ""
 
 #: toolbox/views/catalog.py:63
 msgid "密码生成"
-msgstr "Password Generator"
+msgstr ""
 
 #: toolbox/views/catalog.py:64
 msgid "安全的密码生成器，帮助你创建强密码。"
-msgstr "Generate secure passwords with customizable rules."
+msgstr ""
 
 #: toolbox/views/catalog.py:72
 msgid "全部"
-msgstr "All"
+msgstr "全部"
 
 #: toolbox/views/catalog.py:76
 msgid "开发工具"
-msgstr "Development"
+msgstr ""
 
 #: toolbox/views/catalog.py:92
 msgid "即将上线"
-msgstr "Coming soon"
+msgstr ""
 
 #: toolbox/views/todo.py:43
 msgid "简单高效的任务管理，帮助你掌控每天节奏。"
-msgstr "Simple and efficient task management to keep your day on track."
+msgstr ""
 
 #~ msgid "Toolbox"
-#~ msgstr "Toolbox"
+#~ msgstr "工具箱"
 
 #~ msgid "在线工具集"
-#~ msgstr "Online Tools"
+#~ msgstr "在线工具集"
 
 #~ msgid "一屏集成灵感、效率与创作"
-#~ msgstr "Integrate inspiration, efficiency and creativity in one screen"
+#~ msgstr "一屏集成灵感、效率与创作"
 
 #~ msgid ""
 #~ "参考 explore / apps 的极简视觉语言，让常用工具以卡片矩阵呈现，轻松开启你的"
 #~ "下一次创作。"
 #~ msgstr ""
-#~ "Reference the minimalist visual language of explore/apps, presenting "
-#~ "common tools in a card matrix to easily start your next creation."
-
-#~ msgid "浏览工具"
-#~ msgstr "Browse Tools"
+#~ "参考 explore / apps 的极简视觉语言，让常用工具以卡片矩阵呈现，轻松开启你的"
+#~ "下一次创作。"
 
 #~ msgid "文档"
-#~ msgstr "Documentation"
+#~ msgstr "文档"
 
 #~ msgid "工具数量"
-#~ msgstr "Tools"
+#~ msgstr "工具数量"
 
 #~ msgid "秒级"
-#~ msgstr "Instant"
+#~ msgstr "秒级"
 
 #~ msgid "加载体验"
-#~ msgstr "Loading"
+#~ msgstr "加载体验"
 
 #~ msgid "创意组合"
-#~ msgstr "Combinations"
+#~ msgstr "创意组合"
 
 #~ msgid "切换到"
-#~ msgstr "Switch to"
-
-#~ msgid "使用次数"
-#~ msgstr "Usage"
+#~ msgstr "切换到"
 
 #~ msgid "精选工具"
-#~ msgstr "Featured Tools"
+#~ msgstr "精选工具"
 
 #~ msgid "最受欢迎和实用的工具推荐"
-#~ msgstr "Most popular and practical tool recommendations"
+#~ msgstr "最受欢迎和实用的工具推荐"
 
 #~ msgid "搜索结果"
-#~ msgstr "Search Results"
+#~ msgstr "搜索结果"
 
 #~ msgid "所有工具"
-#~ msgstr "All Tools"
+#~ msgstr "所有工具"
 
 #~ msgid "探索所有可用工具，找到最适合您需求的工具"
-#~ msgstr ""
-#~ "Explore all available tools and find the one that best suits your needs"
-
-#~ msgid "未找到匹配的工具"
-#~ msgstr "No matching tools found"
+#~ msgstr "探索所有可用工具，找到最适合您需求的工具"
 
 #~ msgid "清除筛选"
-#~ msgstr "Clear Filters"
+#~ msgstr "清除筛选"
 
 #~ msgid "切换主题"
-#~ msgstr "Toggle Theme"
+#~ msgstr "切换主题"
 
 #~ msgid "登出"
-#~ msgstr "Sign Out"
+#~ msgstr "登出"
 
 #~ msgid "邮箱地址"
-#~ msgstr "Email Address"
+#~ msgstr "邮箱地址"
 
 #~ msgid "了解详情"
-#~ msgstr "Learn More"
+#~ msgstr "了解详情"
 
 #~ msgid "关于"
-#~ msgstr "About"
+#~ msgstr "关于"
 
 #~ msgid "使用条款"
-#~ msgstr "Terms of Use"
+#~ msgstr "使用条款"
 
 #~ msgid "隐私政策"
-#~ msgstr "Privacy Policy"
+#~ msgstr "隐私政策"
 
 #~ msgid "Cookie 政策"
-#~ msgstr "Cookie Policy"
+#~ msgstr "Cookie 政策"
 
 #~ msgid "版权政策"
-#~ msgstr "Copyright Policy"
+#~ msgstr "版权政策"
 
 #~ msgid "品牌政策"
-#~ msgstr "Brand Policy"
+#~ msgstr "品牌政策"
 
 #~ msgid "访客控制"
-#~ msgstr "Visitor Controls"
+#~ msgstr "访客控制"
 
 #~ msgid "Login"
-#~ msgstr "Login"
+#~ msgstr "登录"
 
 #~ msgid "Fast, elegant, practical web tools."
-#~ msgstr "Fast, elegant, practical web tools."
+#~ msgstr "更快、更优雅、更实用的在线工具集合。"
 
 #~ msgid "Toolbox - Smart tools in one place"
-#~ msgstr "Toolbox - Smart tools in one place"
+#~ msgstr "工具箱 - 一站式在线工具"
 
 #~ msgid "Build your workflow with a cleaner, smarter toolbox."
-#~ msgstr "Build your workflow with a cleaner, smarter toolbox."
+#~ msgstr "用更简洁、更智能的方式，搭建你的工具工作流。"
 
 #~ msgid ""
 #~ "Inspired by modern AI product aesthetics, this page combines strong "
 #~ "typography, calm spacing, and quick interactions for daily creation."
 #~ msgstr ""
-#~ "Inspired by modern AI product aesthetics, this page combines strong "
-#~ "typography, calm spacing, and quick interactions for daily creation."
+#~ "参考现代 AI 产品视觉语言，采用更克制的排版、更舒展的留白和更快速的交互，适"
+#~ "配你的高频创作与效率场景。"
 
 #~ msgid "Start with Todo"
-#~ msgstr "Start with Todo"
+#~ msgstr "从 Todo 开始"
 
 #~ msgid "Explore All Tools"
-#~ msgstr "Explore All Tools"
+#~ msgstr "浏览全部工具"
 
 #~ msgid "Tools"
-#~ msgstr "Tools"
+#~ msgstr "工具"
 
 #~ msgid "Usage"
-#~ msgstr "Usage"
+#~ msgstr "使用"
 
 #~ msgid "Kinds"
-#~ msgstr "Kinds"
+#~ msgstr "分类"
 
 #~ msgid "Focused Experience"
-#~ msgstr "Focused Experience"
+#~ msgstr "专注体验"
 
 #~ msgid ""
 #~ "Reduced visual noise and stronger information hierarchy help you find "
 #~ "tools faster."
-#~ msgstr ""
-#~ "Reduced visual noise and stronger information hierarchy help you find "
-#~ "tools faster."
+#~ msgstr "减少视觉噪音，强化信息层级，让你更快找到需要的工具。"
 
 #~ msgid "Adaptive Interface"
-#~ msgstr "Adaptive Interface"
+#~ msgstr "自适应界面"
 
 #~ msgid ""
 #~ "One-click theme switch and bilingual content keep the same flow across "
 #~ "pages."
-#~ msgstr ""
-#~ "One-click theme switch and bilingual content keep the same flow across "
-#~ "pages."
+#~ msgstr "一键切换主题和中英文，在不同页面保持一致的浏览流。"
 
 #~ msgid "Extensible Modules"
-#~ msgstr "Extensible Modules"
+#~ msgstr "模块可扩展"
 
 #~ msgid ""
 #~ "The category and navigation model is ready for future tools and richer "
 #~ "workflows."
-#~ msgstr ""
-#~ "The category and navigation model is ready for future tools and richer "
-#~ "workflows."
+#~ msgstr "分类与导航结构已为后续工具扩展和更复杂工作流预留空间。"
 
 #~ msgid "Filter Tools"
-#~ msgstr "Filter Tools"
+#~ msgstr "筛选工具"
 
 #~ msgid "Quickly locate by category and keyword"
-#~ msgstr "Quickly locate by category and keyword"
+#~ msgstr "按分类与关键词快速定位"
 
 #~ msgid "Tool Gallery"
-#~ msgstr "Tool Gallery"
+#~ msgstr "工具画廊"
 
 #~ msgid "Open"
-#~ msgstr "Open"
+#~ msgstr "打开"
 
 #~ msgid "No matching tools found."
-#~ msgstr "No matching tools found."
+#~ msgstr "未找到匹配的工具。"
 
 #~ msgid "Back to toolbox"
-#~ msgstr "Back to toolbox"
+#~ msgstr "返回工具箱"
 
 #~ msgid "Total"
-#~ msgstr "Total"
+#~ msgstr "总任务"
 
 #~ msgid "Completed"
-#~ msgstr "Completed"
+#~ msgstr "已完成"
 
 #~ msgid "Pending"
-#~ msgstr "Pending"
+#~ msgstr "待处理"
 
 #~ msgid "Add a new task..."
-#~ msgstr "Add a new task..."
+#~ msgstr "添加新待办事项..."
 
 #~ msgid "Add"
-#~ msgstr "Add"
+#~ msgstr "添加"
 
 #~ msgid "No tasks yet. Add your first one above."
-#~ msgstr "No tasks yet. Add your first one above."
+#~ msgstr "还没有任务，先添加第一条待办事项吧。"
 
 #~ msgid "Delete"
-#~ msgstr "Delete"
+#~ msgstr "删除"
 
 #~ msgid "Todo List"
-#~ msgstr "Todo List"
+#~ msgstr "待办事项"
 
 #~ msgid "A lightweight task manager for planning your day."
-#~ msgstr "A lightweight task manager for planning your day."
+#~ msgstr "简单高效的待办事项管理工具，帮助你组织任务和提高效率。"
 
 #~ msgid "Calculator"
-#~ msgstr "Calculator"
+#~ msgstr "计算器"
 
 #~ msgid "A full-featured online calculator for daily and scientific use."
-#~ msgstr "A full-featured online calculator for daily and scientific use."
+#~ msgstr "功能齐全的在线计算器，支持基本运算和科学计算。"
 
 #~ msgid "Notes"
-#~ msgstr "Notes"
+#~ msgstr "便签"
 
 #~ msgid "Capture ideas quickly with auto-save notes."
-#~ msgstr "Capture ideas quickly with auto-save notes."
+#~ msgstr "快速记录灵感和想法的便签工具，支持实时保存。"
 
 #~ msgid "Timer"
-#~ msgstr "Timer"
+#~ msgstr "计时器"
 
 #~ msgid "Precise timer and countdown tool for focused sessions."
-#~ msgstr "Precise timer and countdown tool for focused sessions."
+#~ msgstr "精确的计时器和倒计时工具，适用于各种场景。"
 
 #~ msgid "Unit Converter"
-#~ msgstr "Unit Converter"
+#~ msgstr "单位转换"
 
 #~ msgid "Convert length, weight, and temperature in one place."
-#~ msgstr "Convert length, weight, and temperature in one place."
+#~ msgstr "支持多种单位之间的转换，包括长度、重量、温度等。"
 
 #~ msgid "Password Generator"
-#~ msgstr "Password Generator"
+#~ msgstr "密码生成"
 
 #~ msgid "Generate secure passwords with customizable rules."
-#~ msgstr "Generate secure passwords with customizable rules."
+#~ msgstr "安全的密码生成器，帮助你创建强密码。"
 
 #~ msgid "All"
-#~ msgstr "All"
+#~ msgstr "全部"
 
 #~ msgid "Productivity"
-#~ msgstr "Productivity"
+#~ msgstr "效率工具"
 
 #~ msgid "Utilities"
-#~ msgstr "Utilities"
+#~ msgstr "实用工具"
 
 #~ msgid "Security"
-#~ msgstr "Security"
+#~ msgstr "安全工具"
 
 #~ msgid "Development"
-#~ msgstr "Development"
+#~ msgstr "开发工具"
 
 #~ msgid "Coming soon"
-#~ msgstr "Coming soon"
+#~ msgstr "即将上线"
 
 #~ msgid "Simple and efficient task management to keep your day on track."
-#~ msgstr "Simple and efficient task management to keep your day on track."
+#~ msgstr "简单高效的任务管理，帮助你掌控每天节奏。"
 
 #~ msgid "Welcome to Toolbox"
-#~ msgstr "Welcome to Toolbox"
+#~ msgstr "欢迎使用 Toolbox"
 
 #~ msgid "Explore infinite possibilities and start your creative journey"
-#~ msgstr "Explore infinite possibilities and start your creative journey"
+#~ msgstr "探索无限可能，开启您的创意之旅"

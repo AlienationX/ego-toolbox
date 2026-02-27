@@ -1,6 +1,6 @@
 {% load i18n static django_htmx %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:'zh-hans' }}" data-theme="light">
+<html lang="{{ LANGUAGE_CODE|default:'zh_Hans' }}" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
     {% htmx_script %}
     <link rel="stylesheet" href="{% static 'toolbox/css/light.css' %}">
     <link rel="stylesheet" href="{% static 'toolbox/css/dark.css' %}">
+    <link rel="stylesheet" href="{% static 'toolbox/css/style.css' %}">
 
     <!-- logo设置 -->
     <link rel="icon" href="{% static 'toolbox/logo.svg' %}">
@@ -31,7 +32,7 @@
         <div class="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3 min-w-0 flex-1">
                 <div class="dropdown dropdown-bottom lg:hidden">
-                    <button tabindex="0" class="btn btn-sm btn-ghost btn-circle border border-base-300" title="Menu">
+                    <button tabindex="0" class="btn btn-sm btn-ghost btn-circle" title="Menu">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/>
                         </svg>
@@ -102,15 +103,15 @@
                         <input type="hidden" name="next" value="{{ request.get_full_path }}">
                         <input type="hidden" name="language" value="{{ lang.code }}">
                         <button type="submit" class="btn btn-sm btn-ghost rounded-full border border-base-300 px-3" title="Language">
-                            <span aria-hidden="true">🌐</span>
-                            <span>
-                                {% if lang.code|slice:":2" == "en" %}
+                            <img src="{% static 'toolbox/icons/translate.svg' %}" alt="language icon" class="h-4 w-4">
+                            <span>{{ lang.name_local }}
+                                <!-- {% if lang.code|slice:":2" == "en" %}
                                     EN
                                 {% elif lang.code|slice:":2" == "zh" %}
                                     中文
                                 {% else %}
                                     {{ lang.name_local }}
-                                {% endif %}
+                                {% endif %} -->
                             </span>
                         </button>
                     </form>
@@ -126,7 +127,10 @@
 
     <footer class="border-t border-base-300 py-6 bg-base-100/70">
         <div class="container mx-auto px-4 text-sm text-base-content/60 flex flex-col md:flex-row gap-2 md:items-center md:justify-between">
-            <span>© {% now "Y" %} Ego Toolbox</span>
+            <div class="flex items-center gap-2">
+                <img src="{% static 'toolbox/logo.svg' %}" alt="Ego Toolbox logo" class="h-6 w-6">
+                <span>Ego Toolbox © {% now "Y" %}. All Rights Reserved</span>
+            </div>
             <span>{% trans "更快、更优雅、更实用的在线工具集合。" %}</span>
         </div>
     </footer>

@@ -15,26 +15,31 @@ def todo_view(request):
             title = request.POST.get("title")
             if title:
                 todo = Todo.objects.create(title=title)
-                html = render_to_string("toolbox/todo_item.html", {"todo": todo})
-                return HttpResponse(html)
         elif action == "update":
             todo_id = request.POST.get("todo_id")
             if todo_id:
                 todo = Todo.objects.get(id=todo_id)
                 todo.completed = not todo.completed
                 todo.save()
-                html = render_to_string("toolbox/todo_item.html", {"todo": todo})
-                return HttpResponse(html)
         elif action == "delete":
             todo_id = request.POST.get("todo_id")
             if todo_id:
                 todo = Todo.objects.get(id=todo_id)
                 todo.delete()
-                return HttpResponse("")
 
-    todos = list(Todo.objects.order_by("-id"))
-    done_count = sum(1 for todo in todos if todo.completed)
-    total_count = len(todos)
+        # 重新统计数据
+        todos, total_count, done_count, pending_count = _get_todo_stats()
+        stats_data = {"total_count": total_count, "done_count": done_count, "pending_count": pending_count}
+        stats_html = render_to_string("toolbox/partials/todo_stats.html", stats_data)
+        todo_data = {"todo": todo}
+        todo_html = render_to_string("toolbox/partials/todo_item.html", todo_data)
+
+        if action == "delete":
+            return HttpResponse(stats_html)  # 删除操作后只返回统计信息
+        return HttpResponse(todo_html + stats_html)
+
+    # 渲染初始页面
+    todos, total_count, done_count, pending_count = _get_todo_stats()
     all_tools = get_tool_catalog()
 
     todo_info = {
@@ -47,9 +52,18 @@ def todo_view(request):
     context = {
         "tool": todo_info,
         "todos": todos,
-        "done_count": done_count,
         "total_count": total_count,
-        "pending_count": max(total_count - done_count, 0),
+        "done_count": done_count,
+        "pending_count": pending_count,
         "nav_categories": get_nav_categories(all_tools),
     }
+
     return render(request, "toolbox/todo.html", context)
+
+
+def _get_todo_stats():
+    todos = list(Todo.objects.order_by("-id"))
+    done_count = sum(1 for todo in todos if todo.completed)
+    total_count = len(todos)
+    pending_count = max(total_count - done_count, 0)
+    return todos, total_count, done_count, pending_count

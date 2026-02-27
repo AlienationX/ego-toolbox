@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% load i18n static %}
 
 {% block title %}{% trans "工具箱 - 一站式在线工具" %}{% endblock %}
@@ -157,78 +158,8 @@
     </div>
 </section>
 
-<section class="mb-8">
-    <div class="card bg-base-100 border border-base-300">
-        <div class="card-body gap-4">
-            <div class="flex items-center justify-between gap-2">
-                <h2 class="text-xl font-bold flex items-center gap-2">
-                    <img src="{% static 'toolbox/icons/filter.svg' %}" alt="filter icon" class="stat-icon">
-                    <span>{% trans "筛选工具" %}</span>
-                </h2>
-                <p class="text-sm text-base-content/60">{% trans "按分类与关键词快速定位" %}</p>
-            </div>
-            <form method="get" class="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between">
-                <div class="join flex-wrap">
-                    {% for category in categories %}
-                    <button name="category" value="{{ category.key }}" class="btn btn-sm join-item {% if current_category == category.key %}btn-primary{% else %}btn-ghost{% endif %}" type="submit">
-                        {{ category.label }}
-                    </button>
-                    {% endfor %}
-                </div>
-                <label class="input input-bordered flex items-center gap-2 w-full lg:w-96">
-                    <input type="text" class="grow" name="q" value="{{ search_query }}" placeholder="{% trans '搜索工具...' %}">
-                    <img src="{% static 'toolbox/icons/search.svg' %}" alt="search icon" class="h-4 w-4 opacity-60">
-                </label>
-            </form>
-        </div>
-    </div>
-</section>
+{# filter container will be replaced by HTMX out-of-band updates #}
+{% include 'toolbox/partials/index_filter.html' %}
+{% include 'toolbox/partials/index_tool_grid.html' %}
 
-<section id="tool-grid">
-    <div class="flex items-center justify-between mb-4">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">{% trans "工具画廊" %}
-            <span class="text-base-content/50 text-lg">({{ tools|length }})</span>
-        </h2>
-    </div>
-
-    {% if tools %}
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-        {% for tool in tools %}
-            {% if tool.url %}
-            <a href="{{ tool.url }}" class="card bg-base-100 border border-base-300 hover:border-primary hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
-            {% else %}
-            <div class="card bg-base-100 border border-base-300 opacity-95">
-            {% endif %}
-                <div class="card-body">
-                    <div class="flex items-start gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-base-200 grid place-items-center text-2xl">{{ tool.icon }}</div>
-                        <div class="flex-1">
-                            <h3 class="card-title text-lg">{{ tool.title }}</h3>
-                            <p class="text-sm text-base-content/70">{{ tool.description }}</p>
-                            <div class="mt-3 flex gap-2 flex-wrap">
-                                {% for tag in tool.tags %}
-                                <span class="badge badge-outline">{{ tag }}</span>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    {% if tool.url %}
-                    <div class="card-actions justify-end mt-2">
-                        <span class="btn btn-sm btn-primary">{% trans "打开" %}</span>
-                    </div>
-                    {% endif %}
-                </div>
-            {% if tool.url %}
-            </a>
-            {% else %}
-            </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-    {% else %}
-    <div class="alert alert-warning">
-        <span>{% trans "未找到匹配的工具。" %}</span>
-    </div>
-    {% endif %}
-</section>
 {% endblock %}

@@ -1,0 +1,49 @@
+{% load i18n static %}
+<div id="filter-container" hx-swap-oob="outerHTML" class="card mb-8 bg-base-100 border border-base-300">
+    <div class="card-body gap-4">
+        <!-- 筛选工具标题 -->
+        <div class="flex items-center justify-between gap-2">
+            <h2 class="text-xl font-bold flex items-center gap-2">
+                <img src="{% static 'toolbox/icons/filter.svg' %}" alt="filter icon" class="stat-icon">
+                <span>{% trans "筛选工具" %}</span>
+            </h2>
+            <p class="text-sm text-base-content/60">{% trans "按分类与关键词快速定位" %}</p>
+        </div>
+        <!-- 分类筛选按钮 和 搜索框 -->
+        <div class="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between">
+            <div class="join flex-wrap">
+                {% for category in categories %}
+                <!-- 
+                name、value get请求会作为url参数，post请求会做到data数据，
+                hx-vals 用于传递其他静态参数 
+                -->
+                <button 
+                    class="btn btn-sm join-item {% if current_category == category.key %}btn-primary{% else %}btn-ghost{% endif %}" 
+                    name="category" 
+                    value="{{ category.key }}" 
+                    hx-get="{% url 'toolbox:index' %}"
+                    hx-target="#tool-grid"
+                    hx-swap="outerHTML"
+                    hx-vals='{"q": "{{ search_query }}"}'
+                    hx-push-url="true"
+                >
+                    {{ category.label }}
+                </button>
+                {% endfor %}
+            </div>
+            <label class="input input-bordered flex items-center gap-2 w-full lg:w-96">
+                <input 
+                    type="text" class="grow" placeholder="{% trans '搜索工具...' %}"
+                    name="q" 
+                    value="{{ search_query }}" 
+                    hx-get="{% url 'toolbox:index' %}"
+                    hx-target="#tool-grid"
+                    hx-swap="outerHTML"
+                    hx-vals='{"category": "{{ current_category }}"}'
+                    hx-push-url="true"
+                >
+                <img src="{% if search_query %}{% static 'toolbox/icons/x.svg' %}{% else %}{% static 'toolbox/icons/search.svg' %}{% endif %}" alt="search icon" class="h-4 w-4 opacity-60">
+            </label>
+        </div>
+    </div>
+</div>

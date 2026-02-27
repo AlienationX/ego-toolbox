@@ -1,24 +1,12 @@
 {% extends 'base.html' %}
+
 {% load i18n static %}
 
 {% block title %}{{ tool.title }} - Toolbox{% endblock %}
+
 {% block extra_css %}
 <style>
-    .icon-primary {
-        filter: invert(33%) sepia(96%) saturate(2331%) hue-rotate(221deg) brightness(99%) contrast(101%);
-    }
-
-    .icon-success {
-        filter: invert(56%) sepia(79%) saturate(390%) hue-rotate(84deg) brightness(94%) contrast(92%);
-    }
-
-    .icon-warning {
-        filter: invert(68%) sepia(95%) saturate(1063%) hue-rotate(345deg) brightness(101%) contrast(102%);
-    }
-
-    .icon-danger {
-        filter: invert(34%) sepia(96%) saturate(1672%) hue-rotate(337deg) brightness(94%) contrast(106%);
-    }
+    /* 待办页面的样式 */
 </style>
 {% endblock %}
 
@@ -36,29 +24,7 @@
                         <p class="text-base-content/70">{{ tool.description }}</p>
                     </div>
                 </div>
-                <div class="stats stats-vertical lg:stats-horizontal shadow w-full bg-base-100/80">
-                    <div class="stat">
-                        <div class="stat-title flex items-center gap-2">
-                            <img src="{% static 'toolbox/icons/list.svg' %}" alt="total icon" class="h-4 w-4 icon-primary">
-                            <span>{% trans "总任务" %}</span>
-                        </div>
-                        <div class="stat-value">{{ total_count }}</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-title flex items-center gap-2">
-                            <img src="{% static 'toolbox/icons/check-circle.svg' %}" alt="done icon" class="h-4 w-4 icon-success">
-                            <span>{% trans "已完成" %}</span>
-                        </div>
-                        <div class="stat-value text-success">{{ done_count }}</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-title flex items-center gap-2">
-                            <img src="{% static 'toolbox/icons/clock.svg' %}" alt="pending icon" class="h-4 w-4 icon-warning">
-                            <span>{% trans "待处理" %}</span>
-                        </div>
-                        <div class="stat-value text-warning">{{ pending_count }}</div>
-                    </div>
-                </div>
+                {% include 'toolbox/partials/todo_stats.html' %}
             </div>
         </div>
     </div>
@@ -66,12 +32,12 @@
 
 <section class="card bg-base-100 border border-base-300 shadow-sm">
     <div class="card-body">
-        <form class="mb-4" hx-post="{% url 'toolbox:todo' %}" hx-target="#todo-list" hx-swap="afterbegin" hx-vals='{"action": "create"}'>
+        <form class="mb-4" hx-post="{% url 'toolbox:todo' %}" hx-target="#todo-list" hx-swap="afterbegin" hx-vals='{"action": "create"}' hx-on::after-request="this.reset()">
             {% csrf_token %}
             <div class="join w-full">
                 <input type="text" name="title" required class="input input-bordered join-item w-full" placeholder="{% trans '添加新待办事项...' %}">
                 <button class="btn btn-primary join-item gap-2" type="submit">
-                    <img src="{% static 'toolbox/icons/plus.svg' %}" alt="add icon" class="h-4 w-4">
+                    <img src="{% static 'toolbox/icons/plus.svg' %}" alt="add icon" class="h-4 w-4 icon-mask">
                     <span>{% trans "添加" %}</span>
                 </button>
             </div>
@@ -79,7 +45,7 @@
 
         <div id="todo-list" class="space-y-3">
             {% for todo in todos %}
-            {% include 'toolbox/todo_item.html' %}
+            {% include 'toolbox/partials/todo_item.html' %}
             {% empty %}
             <div class="alert alert-info">
                 <span>{% trans "还没有任务，先添加第一条待办事项吧。" %}</span>
