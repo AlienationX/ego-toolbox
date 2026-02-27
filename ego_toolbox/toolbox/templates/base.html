@@ -29,13 +29,11 @@
     {% get_language_info_list for AVAILABLE_LANGUAGES as LANGUAGES_INFO %}
 
     <header class="sticky top-0 z-40 border-b border-base-300 bg-base-100/85 backdrop-blur">
-        <div class="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-            <div class="flex items-center gap-3 min-w-0 flex-1">
+        <div class="container mx-auto px-2 md:px-4 h-16 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-1 md:gap-3 min-w-0 flex-1">
                 <div class="dropdown dropdown-bottom lg:hidden">
                     <button tabindex="0" class="btn btn-sm btn-ghost btn-circle" title="Menu">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/>
-                        </svg>
+                        <img src="{% static 'toolbox/icons/menu.svg' %}" alt="menu icon" class="h-5 w-5">
                     </button>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 border border-base-300 rounded-box w-72 z-50">
                         {% for group in nav_categories %}
@@ -59,7 +57,8 @@
                     </ul>
                 </div>
 
-                <a href="{% url 'toolbox:index' %}" class="btn btn-ghost px-2 text-xl font-semibold normal-case shrink-0">
+                <a href="{% url 'toolbox:index' %}" class="btn btn-ghost px-1 text-xl font-semibold normal-case shrink-0">
+                    <img src="{% static 'toolbox/logo.svg' %}" alt="Ego Toolbox logo" class="h-6 w-6 mr-1 hidden sm:block">
                     <span class="text-primary">Ego</span>
                     <span>Toolbox</span>
                 </a>
@@ -69,9 +68,7 @@
                     <div class="dropdown dropdown-hover dropdown-bottom group">
                         <button tabindex="0" class="btn btn-sm btn-ghost rounded-full gap-1">
                             <span>{{ group.label }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 transition-transform duration-200 group-hover:rotate-180">
-                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.167l3.71-3.938a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd" />
-                            </svg>
+                            <img src="{% static 'toolbox/icons/chevron-down.svg' %}" alt="dropdown icon" class="h-4 w-4 transition-transform duration-200 group-hover:rotate-180">
                         </button>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 border border-base-300 rounded-box min-w-56 max-w-80 w-max z-50">
                             {% for tool in group.tools %}
@@ -121,7 +118,7 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-6 md:py-8 flex-1">
+    <main class="container mx-auto px-4 py-4 md:py-8 flex-1">
         {% block content %}{% endblock %}
     </main>
 

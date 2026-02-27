@@ -1,5 +1,5 @@
 {% load i18n static %}
-<div id="filter-container" hx-swap-oob="outerHTML" class="card mb-8 bg-base-100 border border-base-300">
+<div id="filter-container" hx-swap-oob="outerHTML" class="card mb-4 md:mb-8 bg-base-100 border border-base-300">
     <div class="card-body gap-4">
         <!-- 筛选工具标题 -->
         <div class="flex items-center justify-between gap-2">
@@ -42,7 +42,20 @@
                     hx-vals='{"category": "{{ current_category }}"}'
                     hx-push-url="true"
                 >
-                <img src="{% if search_query %}{% static 'toolbox/icons/x.svg' %}{% else %}{% static 'toolbox/icons/search.svg' %}{% endif %}" alt="search icon" class="h-4 w-4 opacity-60">
+                {% if search_query %}
+                <button 
+                    class="h-4 w-4 flex items-center justify-center text-base-content/60 hover:text-base-content"
+                    hx-get="{% url 'toolbox:index' %}"
+                    hx-target="#tool-grid"
+                    hx-swap="outerHTML"
+                    hx-vals='{"category": "{{ current_category }}"}'
+                    hx-push-url="true"
+                >
+                    <img src="{% static 'toolbox/icons/x.svg' %}" alt="clear icon" class="h-4 w-4">
+                </button>
+                {% else %}
+                <img src="{% static 'toolbox/icons/search.svg' %}" alt="search icon" class="h-4 w-4 opacity-60">
+                {% endif %}
             </label>
         </div>
     </div>
