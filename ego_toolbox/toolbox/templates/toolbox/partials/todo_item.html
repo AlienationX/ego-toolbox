@@ -22,7 +22,6 @@
                 hx-target="closest .todo-item"
                 hx-swap="outerHTML"
                 hx-vals='{"action": "delete", "todo_id": "{{ todo.id }}"}'
-                type="button"
             >
                 <img src="{% static 'toolbox/icons/trash-2.svg' %}" alt="delete icon" class="h-4 w-4 icon-danger">
                 {% trans "删除" %}
