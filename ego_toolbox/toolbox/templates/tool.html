@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block title %}{{ tool.title }} - Toolbox{% endblock %}
+
+{% block tool_info %}
+<!-- Breadcrumb Navigation -->
+<section class="mb-4">
+    <div class="flex items-center gap-2 text-sm text-base-content/60">
+        <a href="{% url 'toolbox:index' %}" class="btn btn-ghost btn-sm gap-1 hover:text-primary">
+            <img src="{% static 'toolbox/icons/arrow-left.svg' %}" alt="back" class="h-4 w-4">
+            {% trans "返回工具箱" %}
+        </a>
+        <span class="text-base-content/30">/</span>
+        <span class="text-base-content">{{ tool.title }}</span>
+    </div>
+</section>
+
+<!-- Tool Header - Compact Style -->
+<section class="mb-4">
+    <div class="max-w-xl mx-auto flex items-center justify-center gap-4 p-2 rounded-2xl">
+        <!-- Tool Icon -->
+        <!-- <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
+            <span class="text-3xl">{{ tool.icon }}</span>
+        </div> -->
+
+        <!-- Tool Info -->
+        <div class="flex flex-col min-w-0 gap-2 items-center justify-center">
+            <div class="flex">
+                <h1 class="text-2xl font-bold text-base-content">{{ tool.title }}</h1>
+
+            </div>
+            <!-- Tool Tags -->
+            <div class="hidden sm:flex flex-wrap gap-1">
+                {% for tag in tool.tags %}
+                <span class="badge badge-soft badge-sm">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            <p class="text-sm text-base-content/60 truncate">{{ tool.description }}</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

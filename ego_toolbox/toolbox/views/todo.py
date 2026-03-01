@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.utils.translation import gettext as _
 
 from ..models import Todo
 from .catalog import get_nav_categories, get_tool_catalog
@@ -41,16 +40,10 @@ def todo_view(request):
     # 渲染初始页面
     todos, total_count, done_count, pending_count = _get_todo_stats()
     all_tools = get_tool_catalog()
-
-    todo_info = {
-        "id": "todo",
-        "title": _("待办事项"),
-        "description": _("简单高效的任务管理，帮助你掌控每天节奏。"),
-        "icon": "📝",
-    }
+    tool = [x for x in all_tools if x["id"] == "todo"][-1]
 
     context = {
-        "tool": todo_info,
+        "tool": tool,
         "todos": todos,
         "total_count": total_count,
         "done_count": done_count,

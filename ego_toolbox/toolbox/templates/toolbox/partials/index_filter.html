@@ -18,7 +18,7 @@
                 hx-vals 用于传递其他静态参数 
                 -->
                 <button 
-                    class="btn btn-sm join-item {% if current_category == category.key %}btn-primary{% else %}btn-ghost{% endif %}" 
+                    class="btn btn-sm join-item {% if current_category == category.key %}btn-primary{% else %}btn-soft{% endif %}" 
                     name="category" 
                     value="{{ category.key }}" 
                     hx-get="{% url 'toolbox:index' %}"

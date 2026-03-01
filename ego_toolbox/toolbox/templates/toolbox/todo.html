@@ -1,41 +1,23 @@
-{% extends 'base.html' %}
-
+{% extends 'tool.html' %}
 {% load i18n static %}
-
-{% block title %}{{ tool.title }} - Toolbox{% endblock %}
-
-{% block extra_css %}
-<style>
-    /* 待办页面的样式 */
-</style>
-{% endblock %}
 
 {% block content %}
 <section class="mb-6">
-    <a href="{% url 'toolbox:index' %}" class="btn btn-ghost mb-4">← {% trans "返回工具箱" %}</a>
-
     <div class="hero rounded-3xl bg-gradient-to-r from-primary/10 to-accent/10 border border-base-300 mb-6">
-        <div class="hero-content w-full py-8">
-            <div class="w-full">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="text-5xl">{{ tool.icon }}</div>
-                    <div>
-                        <h1 class="text-3xl md:text-4xl font-black">{{ tool.title }}</h1>
-                        <p class="text-base-content/70">{{ tool.description }}</p>
-                    </div>
-                </div>
-                {% include 'toolbox/partials/todo_stats.html' %}
-            </div>
+        <div class="w-full">
+            {% include 'toolbox/partials/todo_stats.html' %}
         </div>
     </div>
 </section>
 
 <section class="card bg-base-100 border border-base-300 shadow-sm">
     <div class="card-body">
-        <form class="mb-4" hx-post="{% url 'toolbox:todo' %}" hx-target="#todo-list" hx-swap="afterbegin" hx-vals='{"action": "create"}' hx-on::after-request="this.reset()">
+        <form class="mb-4" hx-post="{% url 'toolbox:todo' %}" hx-target="#todo-list" hx-swap="afterbegin"
+            hx-vals='{"action": "create"}' hx-on::after-request="this.reset()">
             {% csrf_token %}
             <div class="join w-full">
-                <input type="text" name="title" required class="input input-bordered join-item w-full" placeholder="{% trans '添加新待办事项...' %}">
+                <input type="text" name="title" required class="input input-bordered join-item w-full"
+                    placeholder="{% trans '添加新待办事项...' %}">
                 <button class="btn btn-primary join-item gap-2" type="submit">
                     <img src="{% static 'toolbox/icons/plus.svg' %}" alt="add icon" class="h-4 w-4 icon-mask">
                     <span>{% trans "添加" %}</span>

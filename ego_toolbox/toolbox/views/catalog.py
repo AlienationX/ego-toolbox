@@ -9,10 +9,20 @@ def get_tool_catalog():
             "icon": "📝",
             "featured": True,
             "category": "productivity",
-            "tags": [_("效率工具")],
+            "tags": [_("效率工具"), _("待办事项"), _("任务管理")],
             "title": _("待办事项"),
             "description": _("简单高效的待办事项管理工具，帮助你组织任务和提高效率。"),
             "url": reverse("toolbox:todo"),
+        },
+        {
+            "id": "removebg",
+            "icon": "🖼️",
+            "featured": True,
+            "category": "productivity",
+            "tags": [_("效率工具"), _("图片处理"), _("消除背景"), _("抠图")],
+            "title": _("背景移除"),
+            "description": _("简单高效的背景移除工具，帮助你快速移除图片中的背景。"),
+            "url": reverse("toolbox:removebg"),
         },
         {
             "id": "calculator",
@@ -84,10 +94,7 @@ def get_nav_categories(tools: list[dict]):
     nav_groups = []
     for key in nav_keys:
         grouped = [tool for tool in tools if tool["category"] == key]
-        items = [
-            {"title": tool["title"], "url": tool["url"], "icon": tool["icon"]}
-            for tool in grouped
-        ]
+        items = [{"title": tool["title"], "url": tool["url"], "icon": tool["icon"]} for tool in grouped]
         if not items:
             items = [{"title": _("即将上线"), "url": None, "icon": "✨"}]
         nav_groups.append({"key": key, "label": labels[key], "tools": items})

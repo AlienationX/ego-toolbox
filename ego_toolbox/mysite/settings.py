@@ -133,6 +133,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "mysite" / "templates" / "static",
 ]
 
+# Media files (Uploaded files)
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 # Login/Logout settings
 LOGIN_URL = "my_login"
 LOGIN_REDIRECT_URL = "/"

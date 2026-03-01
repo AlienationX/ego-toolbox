@@ -282,6 +282,146 @@ msgstr ""
 msgid "简单高效的任务管理，帮助你掌控每天节奏。"
 msgstr ""
 
+#: toolbox/views/catalog.py:22
+msgid "图片处理"
+msgstr "图片处理"
+
+#: toolbox/views/catalog.py:23
+msgid "消除背景"
+msgstr "消除背景"
+
+#: toolbox/views/catalog.py:24
+msgid "抠图"
+msgstr "抠图"
+
+#: toolbox/views/catalog.py:25
+msgid "背景移除"
+msgstr "背景移除"
+
+#: toolbox/views/catalog.py:26
+msgid "简单高效的背景移除工具，帮助你快速移除图片中的背景。"
+msgstr "简单高效的背景移除工具，帮助你快速移除图片中的背景。"
+
+#: toolbox/templates/toolbox/removebg.html:113
+msgid "拖放图片到这里"
+msgstr "拖放图片到这里"
+
+#: toolbox/templates/toolbox/removebg.html:114
+msgid "或者点击上传图片"
+msgstr "或者点击上传图片"
+
+#: toolbox/templates/toolbox/removebg.html:117
+msgid "选择图片"
+msgstr "选择图片"
+
+#: toolbox/templates/toolbox/removebg.html:120
+msgid "支持 JPG, PNG, WEBP 格式，最大 10MB"
+msgstr "支持 JPG, PNG, WEBP 格式，最大 10MB"
+
+#: toolbox/templates/toolbox/removebg.html:128
+msgid "正在处理中..."
+msgstr "正在处理中..."
+
+#: toolbox/templates/toolbox/removebg.html:129
+msgid "AI 正在移除背景，请稍候"
+msgstr "AI 正在移除背景，请稍候"
+
+#: toolbox/templates/toolbox/removebg.html:135
+msgid "处理结果"
+msgstr "处理结果"
+
+#: toolbox/templates/toolbox/removebg.html:139
+msgid "重新上传"
+msgstr "重新上传"
+
+#: toolbox/templates/toolbox/removebg.html:143
+msgid "下载结果"
+msgstr "下载结果"
+
+#: toolbox/templates/toolbox/removebg.html:151
+msgid "原始图片"
+msgstr "原始图片"
+
+#: toolbox/templates/toolbox/removebg.html:159
+msgid "移除背景后"
+msgstr "移除背景后"
+
+#: toolbox/templates/toolbox/removebg.html:176
+msgid "1. 上传图片"
+msgstr "1. 上传图片"
+
+#: toolbox/templates/toolbox/removebg.html:177
+msgid "选择或拖放需要处理的图片"
+msgstr "选择或拖放需要处理的图片"
+
+#: toolbox/templates/toolbox/removebg.html:185
+msgid "2. 自动处理"
+msgstr "2. 自动处理"
+
+#: toolbox/templates/toolbox/removebg.html:186
+msgid "AI 自动识别并移除背景"
+msgstr "AI 自动识别并移除背景"
+
+#: toolbox/templates/toolbox/removebg.html:194
+msgid "3. 下载结果"
+msgstr "3. 下载结果"
+
+#: toolbox/templates/toolbox/removebg.html:195
+msgid "获取透明背景的高质量图片"
+msgstr "获取透明背景的高质量图片"
+
+#: toolbox/templates/toolbox/removebg.html:240
+msgid "请选择图片文件"
+msgstr "请选择图片文件"
+
+#: toolbox/templates/toolbox/removebg.html:246
+msgid "文件大小不能超过 10MB"
+msgstr "文件大小不能超过 10MB"
+
+#: toolbox/templates/toolbox/removebg.html:283 toolbox/templates/toolbox/removebg.html:291
+msgid "处理失败，请重试"
+msgstr "处理失败，请重试"
+
+#: toolbox/templates/toolbox/removebg.html:159
+msgid "使用步骤"
+msgstr "使用步骤"
+
+#: toolbox/templates/toolbox/removebg.html:160
+msgid "简单三步，快速移除背景"
+msgstr "简单三步，快速移除背景"
+
+#: toolbox/templates/toolbox/removebg.html:171
+msgid "选择或拖放需要处理的图片，支持多种格式"
+msgstr "选择或拖放需要处理的图片，支持多种格式"
+
+#: toolbox/templates/toolbox/removebg.html:183
+msgid "AI 智能识别主体，自动移除背景"
+msgstr "AI 智能识别主体，自动移除背景"
+
+#: toolbox/templates/toolbox/removebg.html:195
+msgid "获取透明背景的高质量 PNG 图片"
+msgstr "获取透明背景的高质量 PNG 图片"
+
+#: toolbox/templates/toolbox/removebg.html:249
+msgid "最大 10MB"
+msgstr "最大 10MB"
+
+#: toolbox/templates/toolbox/removebg.html:274
+msgid "处理完成"
+msgstr "处理完成"
+
+#: toolbox/templates/toolbox/removebg.html:275
+msgid "背景已成功移除"
+msgstr "背景已成功移除"
+
+#: toolbox/templates/toolbox/removebg.html:310
+msgid "透明背景"
+msgstr "透明背景"
+
+#: toolbox/templates/toolbox/removebg.html:336
+msgid "背景移除成功"
+msgstr "背景移除成功"
+
 #~ msgid "Toolbox"
 #~ msgstr "工具箱"
 
