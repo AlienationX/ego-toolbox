@@ -14,7 +14,6 @@
     <div class="card-body">
         <form class="mb-4" 
             hx-post="{% url 'toolbox:todo' %}" 
-            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
             hx-target="#todo-list" 
             hx-swap="afterbegin"
             hx-vals='{"action": "create"}' 

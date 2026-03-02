@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
     <title>{% block title %}Toolbox{% endblock %}</title>
     <!-- logo设置 -->
     <link rel="icon" href="{% static 'toolbox/logo.svg' %}">
@@ -34,7 +36,7 @@
         })();
     </script>
 </head>
-<body class="min-h-screen bg-base-200 flex flex-col" hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
+<body class="min-h-screen bg-base-200 flex flex-col">
     {% get_current_language as CURRENT_LANGUAGE %}
     {% get_available_languages as AVAILABLE_LANGUAGES %}
     {% get_language_info_list for AVAILABLE_LANGUAGES as LANGUAGES_INFO %}
