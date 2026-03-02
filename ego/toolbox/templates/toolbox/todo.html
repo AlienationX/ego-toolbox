@@ -12,8 +12,14 @@
 
 <section class="card bg-base-100 border border-base-300 shadow-sm">
     <div class="card-body">
-        <form class="mb-4" hx-post="{% url 'toolbox:todo' %}" hx-target="#todo-list" hx-swap="afterbegin"
-            hx-vals='{"action": "create"}' hx-on::after-request="this.reset()">
+        <form class="mb-4" 
+            hx-post="{% url 'toolbox:todo' %}" 
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-target="#todo-list" 
+            hx-swap="afterbegin"
+            hx-vals='{"action": "create"}' 
+            hx-on::after-request="this.reset()"
+        >
             {% csrf_token %}
             <div class="join w-full">
                 <input type="text" name="title" required class="input input-bordered join-item w-full"
