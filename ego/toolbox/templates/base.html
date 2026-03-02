@@ -35,7 +35,7 @@
         })();
     </script>
 </head>
-<body class="min-h-screen bg-base-200 flex flex-col" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+<body class="min-h-screen bg-base-200 flex flex-col" hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
     {% get_current_language as CURRENT_LANGUAGE %}
     {% get_available_languages as AVAILABLE_LANGUAGES %}
     {% get_language_info_list for AVAILABLE_LANGUAGES as LANGUAGES_INFO %}
@@ -108,7 +108,6 @@
                 {% for lang in LANGUAGES_INFO %}
                     {% if lang.code|slice:":2" != CURRENT_LANGUAGE|slice:":2" %}
                     <form method="post" action="{% url 'set_language' %}" class="inline">
-                        {% csrf_token %}
                         <input type="hidden" name="next" value="{{ request.get_full_path }}">
                         <input type="hidden" name="language" value="{{ lang.code }}">
                         <button type="submit" class="btn btn-sm btn-ghost rounded-full border border-base-300 px-3" title="Language">

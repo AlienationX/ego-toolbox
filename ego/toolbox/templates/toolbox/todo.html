@@ -19,7 +19,6 @@
             hx-vals='{"action": "create"}' 
             hx-on::after-request="this.reset()"
         >
-            {% csrf_token %}
             <div class="join w-full">
                 <input type="text" name="title" required class="input input-bordered join-item w-full"
                     placeholder="{% trans '添加新待办事项...' %}">
