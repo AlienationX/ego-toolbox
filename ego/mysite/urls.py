@@ -28,7 +28,10 @@ urlpatterns = [
     path("login/", login_view, name="my_login"),
     path("register/", register_view, name="register"),
     path("logout/", logout_view, name="logout"),
-    path("toolbox/", include("toolbox.urls", namespace="toolbox")),
+    # 单应用配置，将 toolbox 应用路由到 / url下
+    path("", include("toolbox.urls", namespace="toolbox")),
+    # 多应用配置，将 toolbox 应用路由到 /toolbox/ url下
+    # path("toolbox/", include("toolbox.urls", namespace="toolbox")),
 ]
 
 # 在开发环境中提供媒体文件服务
