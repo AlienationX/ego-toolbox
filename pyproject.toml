@@ -9,6 +9,7 @@ dependencies = [
     "django-htmx>=1.27.0",
     "gunicorn>=25.1.0",
     "pillow>=12.1.1",
+    "python-decouple>=3.8",
     "rembg[cpu]>=2.0.72",
 ]
 

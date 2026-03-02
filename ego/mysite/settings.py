@@ -10,8 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
+from collections import ChainMap
 from pathlib import Path
 
+from decouple import Config, RepositoryEnv
+
+# 读取环境变量，没有设置时，默认使用prod环境。本机设置为dev：export DJANGO_ENV=dev
+# vim ~/.bash_profile
+# export DJANGO_ENV=dev
+ENV = os.getenv("DJANGO_ENV", "prod")
+config = Config(ChainMap(RepositoryEnv(f".env.{ENV}"), RepositoryEnv(".env")))
+
+# 关键步骤：将 config 对象赋值给一个大写变量，以便暴露给 Django 的设置系统
+DECOUPLE_CONFIG = config  # 变量名必须大写
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +32,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-4(zsfp!svo+!6&t13b9g$!$zaxxw!l0a#3(ga!oo%f==%tr(6x"
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
 
 
 # Application definition
