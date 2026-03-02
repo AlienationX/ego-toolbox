@@ -12,6 +12,6 @@ fi
 
 # source /app/ego-toolbox/.venv/bin/activate
 cd /app/ego-toolbox/ego/
-/app/ego-toolbox/.venv/bin/gunicorn server.wsgi:application -c gunicorn_conf.py -D
+/app/ego-toolbox/.venv/bin/gunicorn mysite.wsgi:application -c gunicorn_conf.py -D
 
 echo "ego-toolbox is started"
