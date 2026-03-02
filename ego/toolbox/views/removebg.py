@@ -72,6 +72,9 @@ def removebg_view(request):
             input_image = input_image.convert("RGBA")
 
         # 移除背景
+        # 注意：rembg 默认使用 u2netp 模型
+        # session = new_session("birefnet-general")  # 可选：使用特定模型
+        # output_image = remove(input_image, session=session)
         output_image = remove(input_image)
 
         # 保存结果

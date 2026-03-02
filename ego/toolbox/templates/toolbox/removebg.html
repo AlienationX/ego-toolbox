@@ -216,7 +216,7 @@
                 <!-- File Info -->
                 <div class="mt-6 flex items-center justify-center gap-4 text-sm text-base-content/50">
                     <span class="flex items-center gap-1">
-                        <img src="{% static 'toolbox/icons/file-image.svg' %}" alt="format" class="h-4 w-4">
+                        <img src="{% static 'toolbox/icons/instagram.svg' %}" alt="format" class="h-4 w-4">
                         JPG, PNG, WEBP
                     </span>
                     <span class="w-1 h-1 rounded-full bg-base-content/30"></span>
@@ -314,7 +314,7 @@
     // Show toast notification
     function showToast(message, type = 'info') {
         const toast = document.createElement('div');
-        toast.className = `toast alert alert-${type} shadow-lg`;
+        toast.className = `toast`;
 
         const icons = {
             success: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
@@ -324,9 +324,11 @@
         };
 
         toast.innerHTML = `
+        <div role="alert" class="alert alert-${type}">
             ${icons[type] || icons.info}
             <span>${message}</span>
             <button class="btn btn-ghost btn-xs btn-circle" onclick="this.parentElement.remove()">✕</button>
+        </div>
         `;
 
         toastContainer.appendChild(toast);
