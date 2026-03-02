@@ -141,9 +141,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "mysite" / "templates" / "static",
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "mysite" / "templates" / "static",
+# ]
+STATIC_ROOT = BASE_DIR / "static"
 
 # Media files (Uploaded files)
 MEDIA_URL = "media/"
