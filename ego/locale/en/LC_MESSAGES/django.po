@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-26 02:02+0000\n"
+"POT-Creation-Date: 2026-03-03 09:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: mysite/templates/login.html:7 mysite/templates/login.html:214
 #: mysite/templates/login.html:229 mysite/templates/login.html:247
-#: mysite/templates/register.html:51 toolbox/templates/base.html:92
+#: mysite/templates/register.html:51 toolbox/templates/base.html:107
 msgid "登录"
 msgstr "Sign In"
 
@@ -55,7 +55,7 @@ msgstr "Password"
 
 #: mysite/templates/login.html:244
 msgid "记住我"
-msgstr ""
+msgstr "Remember Me"
 
 #: mysite/templates/login.html:245
 msgid "忘记密码？"
@@ -79,11 +79,46 @@ msgstr "Confirm Password"
 
 #: mysite/views.py:47
 msgid "您已成功登出"
-msgstr ""
+msgstr "You have successfully logged out"
 
-#: toolbox/templates/base.html:130
+#: toolbox/models.py:17
+msgid "标题"
+msgstr "Title"
+
+#: toolbox/models.py:18 toolbox/templates/toolbox/index.html:111
+msgid "分类"
+msgstr "Kinds"
+
+#: toolbox/models.py:19
+msgid "描述"
+msgstr "Description"
+
+#: toolbox/models.py:20
+msgid "标签"
+msgstr "Tags"
+
+#: toolbox/models.py:21
+msgid "url地址"
+msgstr "URL Address"
+
+#: toolbox/models.py:22
+msgid "状态"
+msgstr "Status"
+
+#: toolbox/templates/base.html:7
+msgid ""
+"Toolbox - 一站式在线工具集合，提供数据处理、图片处理等多种实用工具，满足您的"
+"各种创意和工作需求"
+msgstr ""
+"Toolbox - One-stop online tool collection, providing data processing, image processing and other practical tools to meet your various creative and work needs"
+
+#: toolbox/templates/base.html:148
 msgid "更快、更优雅、更实用的在线工具集合。"
 msgstr "Fast, elegant, practical web tools."
+
+#: toolbox/templates/tool.html:14
+msgid "返回工具箱"
+msgstr "Back to toolbox"
 
 #: toolbox/templates/toolbox/index.html:4
 msgid "工具箱 - 一站式在线工具"
@@ -117,10 +152,6 @@ msgstr "Tools"
 msgid "使用"
 msgstr "Usage"
 
-#: toolbox/templates/toolbox/index.html:111
-msgid "分类"
-msgstr "Kinds"
-
 #: toolbox/templates/toolbox/index.html:130
 msgid "专注体验"
 msgstr "Focused Experience"
@@ -150,279 +181,290 @@ msgstr ""
 "The category and navigation model is ready for future tools and richer "
 "workflows."
 
-#: toolbox/templates/toolbox/index.html:166
+#: toolbox/templates/toolbox/partials/index_filter.html:8
 msgid "筛选工具"
 msgstr "Filter Tools"
 
-#: toolbox/templates/toolbox/index.html:168
+#: toolbox/templates/toolbox/partials/index_filter.html:10
 msgid "按分类与关键词快速定位"
 msgstr "Quickly locate by category and keyword"
 
-#: toolbox/templates/toolbox/index.html:179
+#: toolbox/templates/toolbox/partials/index_filter.html:36
 msgid "搜索工具..."
 msgstr "Search tools..."
 
-#: toolbox/templates/toolbox/index.html:189
+#: toolbox/templates/toolbox/partials/index_tool_grid.html:4
 msgid "工具画廊"
 msgstr "Tool Gallery"
 
-#: toolbox/templates/toolbox/index.html:217
+#: toolbox/templates/toolbox/partials/index_tool_grid.html:33
 msgid "打开"
 msgstr "Open"
 
-#: toolbox/templates/toolbox/index.html:230
+#: toolbox/templates/toolbox/partials/index_tool_grid.html:44
 msgid "未找到匹配的工具。"
 msgstr "No matching tools found."
 
-#: toolbox/templates/toolbox/todo.html:40
-msgid "返回工具箱"
-msgstr "Back to toolbox"
-
-#: toolbox/templates/toolbox/todo.html:56
-msgid "总任务"
-msgstr "Total"
-
-#: toolbox/templates/toolbox/todo.html:63
-msgid "已完成"
-msgstr "Completed"
-
-#: toolbox/templates/toolbox/todo.html:70
-msgid "待处理"
-msgstr "Pending"
-
-#: toolbox/templates/toolbox/todo.html:85
-msgid "添加新待办事项..."
-msgstr "Add a new task..."
-
-#: toolbox/templates/toolbox/todo.html:88
-msgid "添加"
-msgstr "Add"
-
-#: toolbox/templates/toolbox/todo.html:98
-msgid "还没有任务，先添加第一条待办事项吧。"
-msgstr "No tasks yet. Add your first one above."
-
-#: toolbox/templates/toolbox/todo_item.html:28
+#: toolbox/templates/toolbox/partials/todo_item.html:27
 msgid "删除"
 msgstr "Delete"
 
-#: toolbox/views/catalog.py:12 toolbox/views/catalog.py:32
-#: toolbox/views/catalog.py:73
+#: toolbox/templates/toolbox/partials/todo_stats.html:7
+msgid "总任务"
+msgstr "Total"
+
+#: toolbox/templates/toolbox/partials/todo_stats.html:14
+msgid "已完成"
+msgstr "Completed"
+
+#: toolbox/templates/toolbox/partials/todo_stats.html:21
+msgid "待处理"
+msgstr "Pending"
+
+#: toolbox/templates/toolbox/removebg.html:134
+msgid "使用步骤"
+msgstr "How It Works"
+
+#: toolbox/templates/toolbox/removebg.html:135
+msgid "简单三步，快速移除背景"
+msgstr "Three simple steps to remove background"
+
+#: toolbox/templates/toolbox/removebg.html:151
+#, fuzzy
+#| msgid "1. 上传图片"
+msgid "上传图片"
+msgstr "1. Upload Image"
+
+#: toolbox/templates/toolbox/removebg.html:152
+msgid "选择或拖放需要处理的图片，支持多种格式"
+msgstr "Select or drag and drop your image, multiple formats supported"
+
+#: toolbox/templates/toolbox/removebg.html:167
+#, fuzzy
+#| msgid "2. 自动处理"
+msgid "自动处理"
+msgstr "2. Auto Process"
+
+#: toolbox/templates/toolbox/removebg.html:168
+msgid "AI 智能识别主体，自动移除背景"
+msgstr "AI intelligently detects subject and removes background"
+
+#: toolbox/templates/toolbox/removebg.html:183
+#: toolbox/templates/toolbox/removebg.html:263
+msgid "下载结果"
+msgstr "Download Result"
+
+#: toolbox/templates/toolbox/removebg.html:184
+msgid "获取透明背景的高质量 PNG 图片"
+msgstr "Get high-quality PNG image with transparent background"
+
+#: toolbox/templates/toolbox/removebg.html:207
+msgid "拖放图片到这里"
+msgstr "Drag and drop image here"
+
+#: toolbox/templates/toolbox/removebg.html:208
+msgid "或者点击上传图片"
+msgstr "Or click to upload"
+
+#: toolbox/templates/toolbox/removebg.html:213
+msgid "选择图片"
+msgstr "Select Image"
+
+#: toolbox/templates/toolbox/removebg.html:225
+msgid "最大 10MB"
+msgstr "Max 10MB"
+
+#: toolbox/templates/toolbox/removebg.html:239
+msgid "正在处理中..."
+msgstr "Processing..."
+
+#: toolbox/templates/toolbox/removebg.html:240
+msgid "AI 正在移除背景，请稍候"
+msgstr "AI is removing the background, please wait"
+
+#: toolbox/templates/toolbox/removebg.html:252
+msgid "处理完成"
+msgstr "Processing Complete"
+
+#: toolbox/templates/toolbox/removebg.html:253
+msgid "背景已成功移除"
+msgstr "Background successfully removed"
+
+#: toolbox/templates/toolbox/removebg.html:258
+msgid "重新上传"
+msgstr "Upload Again"
+
+#: toolbox/templates/toolbox/removebg.html:275
+msgid "原始图片"
+msgstr "Original Image"
+
+#: toolbox/templates/toolbox/removebg.html:289
+msgid "移除背景后"
+msgstr "After Removal"
+
+#: toolbox/templates/toolbox/removebg.html:290
+msgid "透明背景"
+msgstr "Transparent"
+
+#: toolbox/templates/toolbox/removebg.html:372 toolbox/views/removebg.py:29
+msgid "请选择图片文件"
+msgstr "Please select an image file"
+
+#: toolbox/templates/toolbox/removebg.html:378 toolbox/views/removebg.py:42
+msgid "文件大小不能超过 10MB"
+msgstr "File size cannot exceed 10MB"
+
+#: toolbox/templates/toolbox/removebg.html:414 toolbox/views/removebg.py:87
+msgid "背景移除成功"
+msgstr "Background removed successfully"
+
+#: toolbox/templates/toolbox/removebg.html:416
+#: toolbox/templates/toolbox/removebg.html:424
+msgid "处理失败，请重试"
+msgstr "Processing failed, please try again"
+
+#: toolbox/templates/toolbox/todo.html:24
+msgid "添加新待办事项..."
+msgstr "Add a new task..."
+
+#: toolbox/templates/toolbox/todo.html:27
+msgid "添加"
+msgstr "Add"
+
+#: toolbox/templates/toolbox/todo.html:37
+msgid "还没有任务，先添加第一条待办事项吧。"
+msgstr "No tasks yet. Add your first one above."
+
+#: toolbox/views/catalog.py:12 toolbox/views/catalog.py:22
+#: toolbox/views/catalog.py:42 toolbox/views/catalog.py:83
 msgid "效率工具"
 msgstr "Productivity"
 
-#: toolbox/views/catalog.py:13 toolbox/views/todo.py:42
+#: toolbox/views/catalog.py:12 toolbox/views/catalog.py:13
 msgid "待办事项"
 msgstr "Todo List"
+
+#: toolbox/views/catalog.py:12
+msgid "任务管理"
+msgstr "Task Management"
 
 #: toolbox/views/catalog.py:14
 msgid "简单高效的待办事项管理工具，帮助你组织任务和提高效率。"
 msgstr "A lightweight task manager for planning your day."
 
-#: toolbox/views/catalog.py:22 toolbox/views/catalog.py:42
-#: toolbox/views/catalog.py:52 toolbox/views/catalog.py:74
-msgid "实用工具"
-msgstr "Utilities"
-
-#: toolbox/views/catalog.py:23
-msgid "计算器"
-msgstr "Calculator"
-
-#: toolbox/views/catalog.py:24
-msgid "功能齐全的在线计算器，支持基本运算和科学计算。"
-msgstr "A full-featured online calculator for daily and scientific use."
-
-#: toolbox/views/catalog.py:33
-msgid "便签"
-msgstr "Notes"
-
-#: toolbox/views/catalog.py:34
-msgid "快速记录灵感和想法的便签工具，支持实时保存。"
-msgstr "Capture ideas quickly with auto-save notes."
-
-#: toolbox/views/catalog.py:43
-msgid "计时器"
-msgstr "Timer"
-
-#: toolbox/views/catalog.py:44
-msgid "精确的计时器和倒计时工具，适用于各种场景。"
-msgstr "Precise timer and countdown tool for focused sessions."
-
-#: toolbox/views/catalog.py:53
-msgid "单位转换"
-msgstr "Unit Converter"
-
-#: toolbox/views/catalog.py:54
-msgid "支持多种单位之间的转换，包括长度、重量、温度等。"
-msgstr "Convert length, weight, and temperature in one place."
-
-#: toolbox/views/catalog.py:62 toolbox/views/catalog.py:75
-msgid "安全工具"
-msgstr "Security"
-
-#: toolbox/views/catalog.py:63
-msgid "密码生成"
-msgstr "Password Generator"
-
-#: toolbox/views/catalog.py:64
-msgid "安全的密码生成器，帮助你创建强密码。"
-msgstr "Generate secure passwords with customizable rules."
-
-#: toolbox/views/catalog.py:72
-msgid "全部"
-msgstr "All"
-
-#: toolbox/views/catalog.py:76
-msgid "开发工具"
-msgstr "Development"
-
-#: toolbox/views/catalog.py:92
-msgid "即将上线"
-msgstr "Coming soon"
-
-#: toolbox/views/todo.py:43
-msgid "简单高效的任务管理，帮助你掌控每天节奏。"
-msgstr "Simple and efficient task management to keep your day on track."
-
 #: toolbox/views/catalog.py:22
 msgid "图片处理"
 msgstr "Image Processing"
 
-#: toolbox/views/catalog.py:23
+#: toolbox/views/catalog.py:22
 msgid "消除背景"
 msgstr "Remove Background"
 
-#: toolbox/views/catalog.py:24
+#: toolbox/views/catalog.py:22
 msgid "抠图"
 msgstr "Cutout"
 
-#: toolbox/views/catalog.py:25
+#: toolbox/views/catalog.py:23
 msgid "背景移除"
 msgstr "Background Remover"
 
-#: toolbox/views/catalog.py:26
+#: toolbox/views/catalog.py:24
 msgid "简单高效的背景移除工具，帮助你快速移除图片中的背景。"
-msgstr "A simple and efficient background removal tool to quickly remove backgrounds from images."
+msgstr ""
+"A simple and efficient background removal tool to quickly remove backgrounds "
+"from images."
 
-#: toolbox/templates/toolbox/removebg.html:113
-msgid "拖放图片到这里"
-msgstr "Drag and drop image here"
+#: toolbox/views/catalog.py:32 toolbox/views/catalog.py:52
+#: toolbox/views/catalog.py:62 toolbox/views/catalog.py:84
+msgid "实用工具"
+msgstr "Utilities"
 
-#: toolbox/templates/toolbox/removebg.html:114
-msgid "或者点击上传图片"
-msgstr "Or click to upload"
+#: toolbox/views/catalog.py:33
+msgid "计算器"
+msgstr "Calculator"
 
-#: toolbox/templates/toolbox/removebg.html:117
-msgid "选择图片"
-msgstr "Select Image"
+#: toolbox/views/catalog.py:34
+msgid "功能齐全的在线计算器，支持基本运算和科学计算。"
+msgstr "A full-featured online calculator for daily and scientific use."
 
-#: toolbox/templates/toolbox/removebg.html:120
-msgid "支持 JPG, PNG, WEBP 格式，最大 10MB"
-msgstr "Supports JPG, PNG, WEBP formats, max 10MB"
+#: toolbox/views/catalog.py:43
+msgid "便签"
+msgstr "Notes"
 
-#: toolbox/templates/toolbox/removebg.html:128
-msgid "正在处理中..."
-msgstr "Processing..."
+#: toolbox/views/catalog.py:44
+msgid "快速记录灵感和想法的便签工具，支持实时保存。"
+msgstr "Capture ideas quickly with auto-save notes."
 
-#: toolbox/templates/toolbox/removebg.html:129
-msgid "AI 正在移除背景，请稍候"
-msgstr "AI is removing the background, please wait"
+#: toolbox/views/catalog.py:53
+msgid "计时器"
+msgstr "Timer"
 
-#: toolbox/templates/toolbox/removebg.html:135
-msgid "处理结果"
-msgstr "Result"
+#: toolbox/views/catalog.py:54
+msgid "精确的计时器和倒计时工具，适用于各种场景。"
+msgstr "Precise timer and countdown tool for focused sessions."
 
-#: toolbox/templates/toolbox/removebg.html:139
-msgid "重新上传"
-msgstr "Upload Again"
+#: toolbox/views/catalog.py:63
+msgid "单位转换"
+msgstr "Unit Converter"
 
-#: toolbox/templates/toolbox/removebg.html:143
-msgid "下载结果"
-msgstr "Download Result"
+#: toolbox/views/catalog.py:64
+msgid "支持多种单位之间的转换，包括长度、重量、温度等。"
+msgstr "Convert length, weight, and temperature in one place."
 
-#: toolbox/templates/toolbox/removebg.html:151
-msgid "原始图片"
-msgstr "Original Image"
+#: toolbox/views/catalog.py:72 toolbox/views/catalog.py:85
+msgid "安全工具"
+msgstr "Security"
 
-#: toolbox/templates/toolbox/removebg.html:159
-msgid "移除背景后"
-msgstr "After Removal"
+#: toolbox/views/catalog.py:73
+msgid "密码生成"
+msgstr "Password Generator"
 
-#: toolbox/templates/toolbox/removebg.html:176
-msgid "1. 上传图片"
-msgstr "1. Upload Image"
+#: toolbox/views/catalog.py:74
+msgid "安全的密码生成器，帮助你创建强密码。"
+msgstr "Generate secure passwords with customizable rules."
 
-#: toolbox/templates/toolbox/removebg.html:177
-msgid "选择或拖放需要处理的图片"
-msgstr "Select or drag and drop the image to process"
+#: toolbox/views/catalog.py:82
+msgid "全部"
+msgstr "All"
 
-#: toolbox/templates/toolbox/removebg.html:185
-msgid "2. 自动处理"
-msgstr "2. Auto Process"
+#: toolbox/views/catalog.py:86
+msgid "开发工具"
+msgstr "Development"
 
-#: toolbox/templates/toolbox/removebg.html:186
-msgid "AI 自动识别并移除背景"
-msgstr "AI automatically detects and removes the background"
+#: toolbox/views/catalog.py:99
+msgid "即将上线"
+msgstr "Coming soon"
 
-#: toolbox/templates/toolbox/removebg.html:194
-msgid "3. 下载结果"
-msgstr "3. Download Result"
+#: toolbox/views/removebg.py:37
+msgid "不支持的文件格式，请上传 JPG, PNG 或 WEBP 格式的图片"
+msgstr "Unsupported file format, please upload images in JPG, PNG or WEBP format"
 
-#: toolbox/templates/toolbox/removebg.html:195
-msgid "获取透明背景的高质量图片"
-msgstr "Get high-quality image with transparent background"
-
-#: toolbox/templates/toolbox/removebg.html:240
-msgid "请选择图片文件"
-msgstr "Please select an image file"
-
-#: toolbox/templates/toolbox/removebg.html:246
-msgid "文件大小不能超过 10MB"
-msgstr "File size cannot exceed 10MB"
-
-#: toolbox/templates/toolbox/removebg.html:283 toolbox/templates/toolbox/removebg.html:291
-msgid "处理失败，请重试"
+#: toolbox/views/removebg.py:91
+#, fuzzy
+#| msgid "处理失败，请重试"
+msgid "处理失败"
 msgstr "Processing failed, please try again"
 
-#: toolbox/templates/toolbox/removebg.html:159
-msgid "使用步骤"
-msgstr "How It Works"
+#~ msgid "简单高效的任务管理，帮助你掌控每天节奏。"
+#~ msgstr "Simple and efficient task management to keep your day on track."
 
-#: toolbox/templates/toolbox/removebg.html:160
-msgid "简单三步，快速移除背景"
-msgstr "Three simple steps to remove background"
+#~ msgid "支持 JPG, PNG, WEBP 格式，最大 10MB"
+#~ msgstr "Supports JPG, PNG, WEBP formats, max 10MB"
 
-#: toolbox/templates/toolbox/removebg.html:171
-msgid "选择或拖放需要处理的图片，支持多种格式"
-msgstr "Select or drag and drop your image, multiple formats supported"
+#~ msgid "处理结果"
+#~ msgstr "Result"
 
-#: toolbox/templates/toolbox/removebg.html:183
-msgid "AI 智能识别主体，自动移除背景"
-msgstr "AI intelligently detects subject and removes background"
+#~ msgid "选择或拖放需要处理的图片"
+#~ msgstr "Select or drag and drop the image to process"
 
-#: toolbox/templates/toolbox/removebg.html:195
-msgid "获取透明背景的高质量 PNG 图片"
-msgstr "Get high-quality PNG image with transparent background"
+#~ msgid "AI 自动识别并移除背景"
+#~ msgstr "AI automatically detects and removes the background"
 
-#: toolbox/templates/toolbox/removebg.html:249
-msgid "最大 10MB"
-msgstr "Max 10MB"
+#~ msgid "3. 下载结果"
+#~ msgstr "3. Download Result"
 
-#: toolbox/templates/toolbox/removebg.html:274
-msgid "处理完成"
-msgstr "Processing Complete"
-
-#: toolbox/templates/toolbox/removebg.html:275
-msgid "背景已成功移除"
-msgstr "Background successfully removed"
-
-#: toolbox/templates/toolbox/removebg.html:310
-msgid "透明背景"
-msgstr "Transparent"
-
-#: toolbox/templates/toolbox/removebg.html:336
-msgid "背景移除成功"
-msgstr "Background removed successfully"
+#~ msgid "获取透明背景的高质量图片"
+#~ msgstr "Get high-quality image with transparent background"
 
 #~ msgid "Toolbox"
 #~ msgstr "Toolbox"

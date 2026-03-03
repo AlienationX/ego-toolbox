@@ -1,6 +1,5 @@
 # gunicorn mysite.wsgi:application -c gunicorn_config.py
 
-import multiprocessing
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -11,5 +10,9 @@ workers = 3
 worker_class = "gthread"  # 或 "gevent"
 threads = 4
 timeout = 120
-accesslog = f"{PROJECT_ROOT}/logs/access.log"
-errorlog = f"{PROJECT_ROOT}/logs/error.log"
+loglevel = "info"
+accesslog = "/var/log/gunicorn/ego-toolbox/access.log"
+errorlog = "/var/log/gunicorn/ego-toolbox/error.log"
+
+Path(accesslog).parent.mkdir(parents=True, exist_ok=True)
+Path(errorlog).parent.mkdir(parents=True, exist_ok=True)

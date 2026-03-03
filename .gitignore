@@ -16,6 +16,9 @@ wheels/
 # logs
 logs/
 
+# database
+db.sqlite3
+
 # Asset
 # */toolbox/static/toolbox/icons
 static/
