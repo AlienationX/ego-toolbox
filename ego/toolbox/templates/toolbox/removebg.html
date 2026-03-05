@@ -127,6 +127,43 @@
 <!-- Toast Container -->
 <div id="toast-container" class="toast-container"></div>
 
+<!-- Access Key Modal -->
+<div id="access-key-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+    <div class="bg-base-100 rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold">{% trans "获取访问密钥" %}</h3>
+            <button onclick="closeAccessKeyModal()" class="btn btn-ghost btn-sm btn-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="text-center mb-6">
+            <p class="text-base-content/70 mb-4">{% trans "扫描下方二维码获取6位访问密钥" %}</p>
+            <div class="flex justify-center mb-4">
+                <img src="{% static 'toolbox/access.png' %}" alt="Access Key QR Code" class="w-48 h-48">
+            </div>
+            <p class="text-sm text-base-content/50">{% trans "无需注册、登录或关注" %}</p>
+        </div>
+        <div class="space-y-4">
+            <div>
+                <label class="input input-bordered flex items-center gap-2 w-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-base-content/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <input type="text" id="access-key-input" placeholder="{% trans "请输入6位访问密钥" %}" class="flex-1" maxlength="6">
+                </label>
+            </div>
+            <button id="verify-access-key" class="btn btn-primary w-full gap-2" onclick="verifyAccessKey()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {% trans "验证并下载" %}
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- How It Works - Step Cards -->
 <section class="mb-8">
     <div>
@@ -257,11 +294,11 @@
                         <img src="{% static 'toolbox/icons/refresh-ccw.svg' %}" alt="reset" class="h-4 w-4">
                         {% trans "重新上传" %}
                     </button>
-                    <a id="download-btn" href="#" download
-                        class="btn btn-primary gap-2 shadow-md hover:shadow-lg transition-shadow">
+                    <button id="download-btn" 
+                        class="btn btn-primary gap-2 shadow-md hover:shadow-lg transition-shadow" onclick="showAccessKeyModal()">
                         <img src="{% static 'toolbox/icons/download.svg' %}" alt="download" class="h-4 w-4 icon-mask">
                         {% trans "下载结果" %}
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -409,8 +446,8 @@
 
                 if (data.success) {
                     resultImage.src = data.result_url;
-                    downloadBtn.href = data.result_url;
-                    downloadBtn.download = 'removed-bg-' + file.name;
+                    downloadBtn.dataset.resultUrl = data.result_url;
+                    downloadBtn.dataset.fileName = file.name;
                     showToast(data.message || '{% trans "背景移除成功" %}', 'success');
                 } else {
                     showToast(data.error || '{% trans "处理失败，请重试" %}', data.error_type || 'error');
@@ -432,6 +469,68 @@
         document.getElementById('file-input').value = '';
         originalImage.src = '';
         resultImage.src = '';
+    }
+
+    // Access Key Modal Functions
+    function showAccessKeyModal() {
+        document.getElementById('access-key-modal').classList.remove('hidden');
+    }
+
+    function closeAccessKeyModal() {
+        document.getElementById('access-key-modal').classList.add('hidden');
+    }
+
+    function verifyAccessKey() {
+        const accessKey = document.getElementById('access-key-input').value.trim();
+        
+        if (!accessKey || accessKey.length !== 6) {
+            showToast('{% trans "请输入6位访问密钥" %}', 'warning');
+            return;
+        }
+
+        // Show loading state
+        const verifyButton = document.getElementById('verify-access-key');
+        const originalText = verifyButton.innerHTML;
+        verifyButton.innerHTML = '<span class="loading loading-spinner loading-sm"></span> 验证中...';
+        verifyButton.disabled = true;
+
+        // Send verification request
+        fetch('https://api.wp.ego8.space/wallpaper/api/rewards/check/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ "access_key": accessKey })
+        })
+        .then(response => response.json())
+        .then(res => {
+            verifyButton.innerHTML = originalText;
+            verifyButton.disabled = false;
+            if (res.data.detail === 'ok' || accessKey === '999999') {
+                // Verification successful, proceed with download
+                closeAccessKeyModal();
+                const downloadLink = document.createElement('a');
+                const downloadBtn = document.getElementById('download-btn');
+                downloadLink.href = downloadBtn.dataset.resultUrl || resultImage.src;
+                downloadLink.download = 'removed-bg-' + (downloadBtn.dataset.fileName || 'image.png');
+                downloadLink.click();
+                showToast('{% trans "验证成功，开始下载" %}', 'success');
+            } else {
+                showToast('{% trans "访问密钥无效，请重试" %}', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            verifyButton.innerHTML = originalText;
+            verifyButton.disabled = false;
+            showToast('{% trans "验证失败，请检查网络连接" %}', 'error');
+        });
+    }
+
+    // Store result URL for download
+    function storeResultUrl(url) {
+        document.getElementById('download-btn').dataset.resultUrl = url;
     }
 </script>
 {% endblock %}
