@@ -21,7 +21,7 @@ def removebg_view(request):
             "tool": tool,
             "nav_categories": get_nav_categories(all_tools),
         }
-        return render(request, "toolbox/removebg.html", context)
+        return render(request, "toolbox/pages/removebg.html", context)
 
     # POST 请求处理图片上传
     try:

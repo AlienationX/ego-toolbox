@@ -51,7 +51,7 @@ def todo_view(request):
         "nav_categories": get_nav_categories(all_tools),
     }
 
-    return render(request, "toolbox/todo.html", context)
+    return render(request, "toolbox/pages/todo.html", context)
 
 
 def _get_todo_stats():

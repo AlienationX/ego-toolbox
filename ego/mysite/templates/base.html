@@ -1,0 +1,88 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'zh_Hans' }}" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block description %}{% trans 'Ego Toolbox - 一站式在线工具集合' %}{% endblock %}">
+    <title>{% block title %}Ego Toolbox{% endblock %}</title>
+    <link rel="icon" href="{% static 'toolbox/logo.svg' %}">
+    
+    <!-- DaisyUI & TailwindCSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+        (function () {
+            const saved = localStorage.getItem('theme');
+            const preferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', saved || preferred);
+        })();
+    </script>
+</head>
+<body class="min-h-screen relative">
+    {% get_current_language as CURRENT_LANGUAGE %}
+    {% get_available_languages as AVAILABLE_LANGUAGES %}
+    {% get_language_info_list for AVAILABLE_LANGUAGES as LANGUAGES_INFO %}
+
+    <!-- Top Controls -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="btn btn-sm btn-ghost btn-circle border border-base-300 bg-base-100/50 backdrop-blur" 
+                type="button" title="{% trans '切换主题' %}">
+            <span id="theme-icon" class="text-lg">☀️</span>
+        </button>
+        
+        <!-- Language Switch - Same as toolbox -->
+        {% for lang in LANGUAGES_INFO %}
+            {% if lang.code|slice:':2' != CURRENT_LANGUAGE|slice:':2' %}
+            <form method="post" action="{% url 'set_language' %}" class="inline">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <input type="hidden" name="language" value="{{ lang.code }}">
+                <button type="submit" class="btn btn-sm btn-ghost rounded-full border border-base-300 px-3 gap-1 bg-base-100/50 backdrop-blur" title="{% trans '切换语言' %}">
+                    <img src="{% static 'toolbox/icons/translate.svg' %}" alt="language icon" class="h-4 w-4">
+                    <span class="text-sm">{{ lang.name_local }}</span>
+                </button>
+            </form>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        // Theme Toggle
+        (function () {
+            const html = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+            const icon = document.getElementById('theme-icon');
+            
+            function syncThemeIcon() {
+                const current = html.getAttribute('data-theme') || 'light';
+                icon.textContent = current === 'dark' ? '🌙' : '☀️';
+            }
+            
+            syncThemeToggle();
+            toggle.addEventListener('click', function () {
+                const current = html.getAttribute('data-theme') || 'light';
+                const next = current === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                syncThemeToggle();
+            });
+            
+            function syncThemeToggle() {
+                const current = html.getAttribute('data-theme') || 'light';
+                icon.textContent = current === 'dark' ? '🌙' : '☀️';
+            }
+        })();
+    </script>
+</body>
+</html>

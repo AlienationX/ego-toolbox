@@ -46,4 +46,4 @@ def index_view(request):
         "nav_categories": get_nav_categories(tools),
     }
 
-    return render(request, "toolbox/index.html", context)
+    return render(request, "toolbox/pages/index.html", context)

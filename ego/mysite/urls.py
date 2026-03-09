@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from toolbox.views.error_views import bad_request, not_found, server_error
 
 from .views import login_view, logout_view, register_view
 
@@ -33,6 +34,11 @@ urlpatterns = [
     # 多应用配置，将 toolbox 应用路由到 /toolbox/ url下
     # path("toolbox/", include("toolbox.urls", namespace="toolbox")),
 ]
+
+# 自定义错误页面
+handler400 = bad_request
+handler404 = not_found
+handler500 = server_error
 
 # 在开发环境中提供媒体文件服务
 if settings.DEBUG:

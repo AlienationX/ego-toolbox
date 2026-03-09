@@ -1,88 +1,216 @@
+{% extends 'base.html' %}
 {% load i18n static %}
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:'zh_Hans' }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "注册" %} - Toolbox</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root { color-scheme: light; }
-        * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Sarabun', system-ui, sans-serif; background: #f3f6ff; color: #111827; }
-        .page { min-height: 100vh; padding: 40px 24px 32px; display: flex; flex-direction: column; gap: 24px; }
-        .top-bar { display: flex; justify-content: flex-end; align-items: center; gap: 16px; }
-        .btn { border: none; border-radius: 999px; padding: 10px 18px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
-        .btn-ghost { background: transparent; color: #4b5563; }
-        .btn-primary { background: #3b5bff; color: #fff; box-shadow: 0 8px 20px rgba(59, 91, 255, 0.25); }
-        .layout { display: grid; gap: 32px; align-items: center; }
-        @media (min-width: 980px) { .layout { grid-template-columns: 1.2fr 1fr; } }
-        .left { display: flex; flex-direction: column; gap: 16px; padding: 12px; }
-        .title { font-size: 36px; font-weight: 700; line-height: 1.2; }
-        .subtitle { font-size: 16px; color: #4b5563; max-width: 520px; line-height: 1.6; }
-        .illustration { margin-top: 24px; max-width: 420px; }
-        .card { background: #ffffff; border-radius: 20px; padding: 32px; box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12); }
-        .card h2 { margin: 0 0 24px; font-size: 24px; }
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-size: 14px; margin-bottom: 6px; color: #374151; }
-        .input { width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 14px; font-size: 14px; background: #f8fafc; }
-        .input:focus { outline: none; border-color: #3b5bff; box-shadow: 0 0 0 3px rgba(59, 91, 255, 0.15); background: #fff; }
-        .helper-link { color: #3b5bff; text-decoration: none; font-weight: 600; }
-    </style>
-</head>
-<body>
-    <div class="page">
-        <div class="top-bar">
-            {% get_current_language as CURRENT_LANGUAGE %}
-            {% get_available_languages as AVAILABLE_LANGUAGES %}
-            {% get_language_info_list for AVAILABLE_LANGUAGES as LANGUAGES_INFO %}
-            {% for lang in LANGUAGES_INFO %}
-                {% if lang.code|slice:":2" != CURRENT_LANGUAGE|slice:":2" %}
-                <form method="post" action="{% url 'set_language' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                    <input type="hidden" name="language" value="{{ lang.code }}">
-                    <button type="submit" class="btn btn-ghost">{{ lang.name_local }}</button>
-                </form>
-                {% endif %}
-            {% endfor %}
-            <a class="btn btn-ghost" href="{% url 'my_login' %}">{% trans "登录" %}</a>
-            <a class="btn btn-primary" href="{% url 'register' %}">{% trans "注册" %}</a>
+
+{% block title %}{% trans "注册" %} - Toolbox{% endblock %}
+
+{% block description %}{% trans "注册 Ego Toolbox 账号，开始使用我们的在线工具集合" %}{% endblock %}
+
+{% block content %}
+<div 
+   class="hero min-h-screen bg-cover bg-center bg-no-repeat" 
+   style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);" 
+>
+   <div class="hero-overlay bg-opacity-60"></div> 
+   <div class="hero-content text-white flex-col lg:flex-row gap-8 lg:gap-16 px-4 w-full max-w-6xl">
+        <!-- Left Side - Info -->
+        <div class="text-center lg:text-left max-w-md">
+            <div class="mb-6">
+                <img src="{% static 'toolbox/logo.svg' %}" alt="Ego Toolbox" class="h-20 w-20 mx-auto lg:mx-0 mb-4">
+            </div>
+            <h1 class="text-4xl lg:text-5xl font-bold mb-4">
+                {% trans "创建账号" %}
+            </h1>
+            <p class="text-lg mb-8">
+                {% trans "加入我们，免费使用所有在线工具。简单注册，即刻开始您的创意之旅。" %}
+            </p>
+            <a href="{% url 'toolbox:index' %}" class="btn btn-primary btn gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                {% trans "返回首页" %}
+            </a>
         </div>
-
-        <div class="layout">
-            <section class="left">
-                <div class="title">{% trans "欢迎使用" %} Toolbox</div>
-                <div class="subtitle">{% trans "在这里，我们相信建立一个强大的专业网络始于您的参与。我们很高兴为您提供现代化、用户友好的服务，确保您获得最佳体验。" %}</div>
-                <a class="helper-link" href="{% url 'my_login' %}">{% trans "已有账户？" %}</a>
-                <img class="illustration" src="{% static 'toolbox/images/login-inset.svg' %}" alt="register illustration">
-            </section>
-
-            <section class="card">
-                <h2>{% trans "注册" %}</h2>
-                <form method="post" action="{% url 'register' %}">
+        
+        <!-- Right Side - Form -->
+        <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+            <div class="card-body p-8">
+                <h2 class="text-2xl font-bold text-center mb-6 text-base-content">{% trans "账号注册" %}</h2>
+                
+                <form method="post" action="{% url 'register' %}" 
+                      x-data="{
+                          username: '',
+                          password1: '',
+                          password2: '',
+                          terms: false,
+                          errors: {},
+                          validate() {
+                              this.errors = {};
+                              if (!this.username) {
+                                  this.errors.username = '{% trans "请输入用户名" %}';
+                              } else if (this.username.length < 3) {
+                                  this.errors.username = '{% trans "用户名至少3个字符" %}';
+                              }
+                              if (!this.password1) {
+                                  this.errors.password1 = '{% trans "请输入密码" %}';
+                              } else if (this.password1.length < 8) {
+                                  this.errors.password1 = '{% trans "密码至少8个字符" %}';
+                              }
+                              if (!this.password2) {
+                                  this.errors.password2 = '{% trans "请确认密码" %}';
+                              } else if (this.password1 !== this.password2) {
+                                  this.errors.password2 = '{% trans "两次输入的密码不一致" %}';
+                              }
+                              if (!this.terms) {
+                                  this.errors.terms = '{% trans "请同意服务条款和隐私政策" %}';
+                              }
+                              return Object.keys(this.errors).length === 0;
+                          },
+                          submitForm(e) {
+                              if (!this.validate()) {
+                                  e.preventDefault();
+                              }
+                          }
+                      }" 
+                      @submit="submitForm">
                     {% csrf_token %}
-                    {% if form.non_field_errors %}
-                        <div class="form-group">{{ form.non_field_errors }}</div>
-                    {% endif %}
-                    <div class="form-group">
-                        <label for="username">{% trans "用户名" %}</label>
-                        <input id="username" name="username" class="input" type="text" value="{{ form.username.value|default_if_none:'' }}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password1">{% trans "密码" %}</label>
-                        <input id="password1" name="password1" class="input" type="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password2">{% trans "确认密码" %}</label>
-                        <input id="password2" name="password2" class="input" type="password" required>
-                    </div>
-                    <button class="btn btn-primary" type="submit" style="width:100%">{% trans "立即加入！" %}</button>
+                    
+                    <fieldset class="fieldset gap-3">
+                        <!-- Username -->
+                            <label class="label justify-start">
+                                <span class="label-text font-medium text-base-content">{% trans "用户名" %}</span>
+                            </label>
+                            <input type="text" 
+                                   name="username" 
+                                   x-model="username"
+                                   class="input input-bordered w-full" 
+                                   :class="{'input-error': errors.username}"
+                                   placeholder="{% trans '请输入用户名' %}"
+                                   required 
+                                   autofocus
+                                   value="{{ form.username.value|default:'' }}">
+                            <template x-if="errors.username">
+                                <label class="label justify-start">
+                                    <span class="label-text-alt text-error" x-text="errors.username"></span>
+                                </label>
+                            </template>
+                            {% if form.username.errors %}
+                            <label class="label justify-start">
+                                <span class="label-text-alt text-error">{{ form.username.errors.0 }}</span>
+                            </label>
+                            {% else %}
+                            <label class="label justify-start">
+                                <span class="label-text-alt text-base-content/50">{% trans "只能包含字母、数字和下划线" %}</span>
+                            </label>
+                            {% endif %}
+                        
+                        <!-- Password -->
+                            <label class="label justify-start">
+                                <span class="label-text font-medium text-base-content">{% trans "密码" %}</span>
+                            </label>
+                            <div class="relative">
+                                <input type="password" 
+                                       name="password1" 
+                                       x-model="password1"
+                                       id="password1-input"
+                                       class="input input-bordered w-full pr-10" 
+                                       :class="{'input-error': errors.password1}"
+                                       placeholder="{% trans '请输入密码' %}"
+                                       required>
+                                <button type="button" 
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 btn btn-ghost btn-sm btn-circle"
+                                        x-data="{ show: false }"
+                                        @click="show = !show">
+                                    <span x-text="show ? '🙈' : '👁️'"></span>
+                                </button>
+                            </div>
+                            <template x-if="errors.password1">
+                                <label class="label justify-start">
+                                    <span class="label-text-alt text-error" x-text="errors.password1"></span>
+                                </label>
+                            </template>
+                            {% if form.password1.errors %}
+                            <label class="label justify-start">
+                                <span class="label-text-alt text-error">{{ form.password1.errors.0 }}</span>
+                            </label>
+                            {% else %}
+                            <label class="label justify-start">
+                                <span class="label-text-alt text-base-content/50">{% trans "至少8位，包含字母和数字" %}</span>
+                            </label>
+                            {% endif %}
+                        
+                        <!-- Confirm Password -->
+                            <label class="label justify-start">
+                                <span class="label-text font-medium text-base-content">{% trans "确认密码" %}</span>
+                            </label>
+                            <div class="relative">
+                                <input type="password" 
+                                       name="password2" 
+                                       x-model="password2"
+                                       id="password2-input"
+                                       class="input input-bordered w-full pr-10" 
+                                       :class="{'input-error': errors.password2}"
+                                       placeholder="{% trans '请再次输入密码' %}"
+                                       required>
+                                <button type="button" 
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 btn btn-ghost btn-sm btn-circle"
+                                        x-data="{ show: false }"
+                                        @click="show = !show">
+                                    <span x-text="show ? '🙈' : '👁️'"></span>
+                                </button>
+                            </div>
+                            <template x-if="errors.password2">
+                                <label class="label justify-start">
+                                    <span class="label-text-alt text-error" x-text="errors.password2"></span>
+                                </label>
+                            </template>
+                            {% if form.password2.errors %}
+                            <label class="label justify-start">
+                                <span class="label-text-alt text-error">{{ form.password2.errors.0 }}</span>
+                            </label>
+                            {% endif %}
+                        
+                        <!-- Terms -->
+                            <label class="label cursor-pointer justify-start gap-3">
+                                <input type="checkbox" 
+                                       class="checkbox checkbox-sm checkbox-primary" 
+                                       x-model="terms"
+                                       required>
+                                <span class="label-text text-sm text-base-content">
+                                    {% trans "我已阅读并同意" %}
+                                    <a href="#" class="link link-primary link-hover">{% trans "服务条款" %}</a>
+                                    {% trans "和" %}
+                                    <a href="#" class="link link-primary link-hover">{% trans "隐私政策" %}</a>
+                                </span>
+                            </label>
+                            <template x-if="errors.terms">
+                                <label class="label justify-start">
+                                    <span class="label-text-alt text-error" x-text="errors.terms"></span>
+                                </label>
+                            </template>
+                        
+                        <!-- Non-field Errors -->
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-error alert-sm">
+                            <span>{{ form.non_field_errors.0 }}</span>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-neutral w-full mt-2">
+                            {% trans "注册账号" %}
+                        </button>
+                    </fieldset>
                 </form>
-            </section>
+                
+                <!-- Divider -->
+                <div class="divider text-sm text-base-content">{% trans "已有账号？" %}</div>
+                
+                <!-- Login Link -->
+                <a href="{% url 'my_login' %}" class="btn btn-soft w-full">
+                    {% trans "立即登录" %}
+                </a>
+            </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

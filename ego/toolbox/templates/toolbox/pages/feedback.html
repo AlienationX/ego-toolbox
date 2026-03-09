@@ -1,0 +1,335 @@
+{% extends 'toolbox/base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "问题反馈" %} - Toolbox{% endblock %}
+
+{% block description %}{% trans "问题反馈 - 提交工具bug反馈或功能建议" %}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-3xl"
+     x-data="{
+         feedbackType: 'bug',
+         toolName: '',
+         title: '',
+         content: '',
+         contact: '',
+         images: [],
+         imagePreviews: [],
+         isSubmitting: false,
+         successMessage: '',
+         errorMessage: '',
+         
+         handleImageUpload(event) {
+             const files = event.target.files;
+             if (!files || files.length === 0) return;
+             
+             const remainingSlots = 5 - this.images.length;
+             const filesToAdd = Array.from(files).slice(0, remainingSlots);
+             
+             if (filesToAdd.length === 0) {
+                 this.errorMessage = '{% trans "最多只能上传5张图片" %}';
+                 return;
+             }
+             
+             filesToAdd.forEach(file => {
+                 if (!file.type.startsWith('image/')) {
+                     this.errorMessage = '{% trans "请上传有效的图片文件" %}';
+                     return;
+                 }
+                 
+                 if (file.size > 5 * 1024 * 1024) {
+                     this.errorMessage = '{% trans "图片大小不能超过5MB" %}';
+                     return;
+                 }
+                 
+                 this.images.push(file);
+                 
+                 const reader = new FileReader();
+                 reader.onload = (e) => {
+                     this.imagePreviews.push(e.target.result);
+                 };
+                 reader.readAsDataURL(file);
+             });
+             
+             event.target.value = '';
+         },
+         
+         removeImage(index) {
+             this.images.splice(index, 1);
+             this.imagePreviews.splice(index, 1);
+         },
+         
+         submitFeedback() {
+             if (!this.title.trim()) {
+                 this.errorMessage = '{% trans "请输入反馈标题" %}';
+                 return;
+             }
+             if (!this.content.trim()) {
+                 this.errorMessage = '{% trans "请输入反馈内容" %}';
+                 return;
+             }
+             
+             this.isSubmitting = true;
+             this.errorMessage = '';
+             
+             const formData = new FormData();
+             formData.append('feedback_type', this.feedbackType);
+             formData.append('tool_name', this.toolName);
+             formData.append('title', this.title);
+             formData.append('content', this.content);
+             formData.append('contact', this.contact);
+             
+             this.images.forEach((image, index) => {
+                 formData.append(`image${index + 1}`, image);
+             });
+             
+             fetch('{% url "toolbox:feedback" %}', {
+                 method: 'POST',
+                 headers: {
+                     'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                 },
+                 body: formData
+             })
+             .then(response => response.json())
+             .then(data => {
+                 this.isSubmitting = false;
+                 if (data.success) {
+                     this.successMessage = '{% trans "感谢您的反馈！我们会尽快处理。" %}';
+                     this.resetForm();
+                 } else {
+                     this.errorMessage = data.error || '{% trans "提交失败，请重试" %}';
+                 }
+             })
+             .catch(error => {
+                 this.isSubmitting = false;
+                 this.errorMessage = '{% trans "提交失败，请检查网络连接" %}';
+             });
+         },
+         
+         resetForm() {
+             this.feedbackType = 'bug';
+             this.toolName = '';
+             this.title = '';
+             this.content = '';
+             this.contact = '';
+             this.images = [];
+             this.imagePreviews = [];
+         }
+     }">
+    
+    <!-- Header -->
+    <div class="mb-8 text-center">
+        <h1 class="text-3xl font-bold mb-3">{% trans "问题反馈" %}</h1>
+        <p class="text-base-content/70">{% trans "如果您在使用过程中遇到问题或有任何建议，欢迎向我们反馈" %}</p>
+    </div>
+    
+    <!-- Success Alert -->
+    <div x-show="successMessage" x-transition class="alert alert-success mb-6" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span x-text="successMessage"></span>
+        <button @click="successMessage = ''" class="btn btn-sm btn-ghost">✕</button>
+    </div>
+    
+    <!-- Error Alert -->
+    <div x-show="errorMessage" x-transition class="alert alert-error mb-6" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span x-text="errorMessage"></span>
+        <button @click="errorMessage = ''" class="btn btn-sm btn-ghost">✕</button>
+    </div>
+    
+    <!-- Feedback Form -->
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body p-8">
+            <form @submit.prevent="submitFeedback">
+                {% csrf_token %}
+                
+                <!-- Feedback Type -->
+                <div class="form-control mb-6">
+                    <label class="label mb-2">
+                        <span class="label-text font-semibold">{% trans "反馈类型" %}</span>
+                        <span class="label-text-alt text-error">*</span>
+                    </label>
+                    <div class="flex flex-wrap gap-4">
+                        <label class="label cursor-pointer gap-2">
+                            <input type="radio" x-model="feedbackType" value="bug" class="radio radio-primary" checked>
+                            <span class="label-text">🐛 {% trans "Bug反馈" %}</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="radio" x-model="feedbackType" value="feature" class="radio radio-primary">
+                            <span class="label-text">✨ {% trans "功能建议" %}</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="radio" x-model="feedbackType" value="other" class="radio radio-primary">
+                            <span class="label-text">💬 {% trans "其他意见" %}</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Tool Name -->
+                <div class="form-control mb-6">
+                    <label class="label mb-2">
+                        <span class="label-text font-semibold">{% trans "相关工具" %}</span>
+                    </label>
+                    <select x-model="toolName" class="select select-bordered w-full">
+                        <option value="">{% trans "请选择相关工具（可选）" %}</option>
+                        <option value="excel_splitter">{% trans "Excel拆分工具" %}</option>
+                        <option value="removebg">{% trans "背景移除工具" %}</option>
+                        <option value="remove_watermark">{% trans "水印移除工具" %}</option>
+                        <option value="todo">{% trans "待办事项工具" %}</option>
+                        <option value="other">{% trans "其他/通用问题" %}</option>
+                    </select>
+                </div>
+                
+                <!-- Title -->
+                <div class="form-control mb-6">
+                    <label class="label mb-2">
+                        <span class="label-text font-semibold">{% trans "反馈标题" %}</span>
+                        <span class="label-text-alt text-error">*</span>
+                    </label>
+                    <input type="text" 
+                           x-model="title"
+                           class="input input-bordered w-full"
+                           :placeholder="feedbackType === 'bug' ? '{% trans "请简要描述问题" %}' : '{% trans "请简要描述您的建议" %}'"
+                           maxlength="100">
+                </div>
+                
+                <!-- Content -->
+                <div class="form-control mb-6">
+                    <label class="label mb-2">
+                        <span class="label-text font-semibold">{% trans "详细描述" %}</span>
+                        <span class="label-text-alt text-error">*</span>
+                    </label>
+                    <textarea x-model="content"
+                              class="textarea textarea-bordered w-full h-40"
+                              :placeholder="feedbackType === 'bug' ? '{% trans "请详细描述问题现象、复现步骤等信息" %}' : '{% trans "请详细描述您的建议或需求" %}'"
+                              maxlength="2000"></textarea>
+                    <label class="label">
+                        <span class="label-text-alt text-base-content/50">{% trans "最多2000字" %}</span>
+                    </label>
+                </div>
+                
+                <!-- Image Upload -->
+                <div class="form-control mb-6">
+                    <label class="label mb-2">
+                        <span class="label-text font-semibold">{% trans "上传截图" %}</span>
+                        <span class="label-text-alt">{% trans "（可选，最多5张）" %}</span>
+                    </label>
+                    
+                    <div class="flex flex-wrap gap-3 mb-3">
+                        <template x-for="(preview, index) in imagePreviews" :key="index">
+                            <div class="relative">
+                                <img :src="preview" class="w-24 h-24 object-cover rounded-lg border border-base-300">
+                                <button type="button"
+                                        @click="removeImage(index)"
+                                        class="absolute -top-2 -right-2 btn btn-circle btn-xs btn-error">
+                                    ✕
+                                </button>
+                            </div>
+                        </template>
+                        
+                        <label x-show="images.length < 5" 
+                               class="w-24 h-24 border-2 border-dashed border-base-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-primary transition-colors">
+                            <input type="file" 
+                                   accept="image/*"
+                                   multiple
+                                   class="hidden"
+                                   @change="handleImageUpload">
+                            <div class="text-center text-base-content/50">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                </svg>
+                                <span class="text-xs">{% trans "添加图片" %}</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <p class="text-xs text-base-content/50">
+                        {% trans "支持 JPG、PNG、GIF 格式，单张图片不超过5MB" %}
+                    </p>
+                </div>
+                
+                <!-- Contact -->
+                <div class="form-control mb-8">
+                    <label class="label mb-2">
+                        <span class="label-text font-semibold">{% trans "联系方式" %}</span>
+                        <span class="label-text-alt">{% trans "（可选）" %}</span>
+                    </label>
+                    <input type="text" 
+                           x-model="contact"
+                           class="input input-bordered w-full"
+                           placeholder="{% trans "邮箱或其他联系方式，方便我们回复您" %}">
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="flex gap-4">
+                    <button type="submit"
+                            :disabled="isSubmitting"
+                            class="btn btn-primary flex-1">
+                        <span x-show="!isSubmitting">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                            {% trans "提交反馈" %}
+                        </span>
+                        <span x-show="isSubmitting" style="display: none;">
+                            <span class="loading loading-spinner loading-sm mr-2"></span>
+                            {% trans "提交中..." %}
+                        </span>
+                    </button>
+                    
+                    <button type="button" 
+                            @click="resetForm"
+                            class="btn btn-outline btn-ghost">
+                        {% trans "重置" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- FAQ Section -->
+    <div class="card bg-base-100 shadow-lg mt-8">
+        <div class="card-body p-8">
+            <h3 class="card-title text-lg mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {% trans "常见问题" %}
+            </h3>
+            <div class="space-y-4 text-sm text-base-content/70">
+                <div class="collapse collapse-arrow bg-base-200">
+                    <input type="radio" name="faq-accordion" /> 
+                    <div class="collapse-title font-medium">
+                        {% trans "反馈后多久能收到回复？" %}
+                    </div>
+                    <div class="collapse-content">
+                        <p>{% trans "我们会尽快处理您的反馈，一般情况下会在3-5个工作日内查看。如果您留下了联系方式，我们会通过您提供的方式回复。" %}</p>
+                    </div>
+                </div>
+                <div class="collapse collapse-arrow bg-base-200">
+                    <input type="radio" name="faq-accordion" /> 
+                    <div class="collapse-title font-medium">
+                        {% trans "提交Bug反馈时需要注意什么？" %}
+                    </div>
+                    <div class="collapse-content">
+                        <p>{% trans "请尽量详细描述问题现象、复现步骤、使用的浏览器或设备信息，并附上相关截图，这有助于我们快速定位和修复问题。" %}</p>
+                    </div>
+                </div>
+                <div class="collapse collapse-arrow bg-base-200">
+                    <input type="radio" name="faq-accordion" /> 
+                    <div class="collapse-title font-medium">
+                        {% trans "功能建议会被采纳吗？" %}
+                    </div>
+                    <div class="collapse-content">
+                        <p>{% trans "我们会认真评估每一条功能建议，综合考虑用户需求和技术可行性。虽然无法保证所有建议都会被实现，但您的反馈对我们改进产品非常重要。" %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
