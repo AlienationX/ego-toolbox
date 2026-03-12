@@ -9,7 +9,7 @@
     <!-- google adsence 广告 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2470197048871525" crossorigin="anonymous"></script>
 
-    <title>{% block title %}Toolbox{% endblock %}</title>
+    <title>{% block title %}Ego Toolbox - 本我工具箱{% endblock %}</title>
 
     <!-- logo设置 -->
     <link rel="icon" href="{% static 'toolbox/logo.svg' %}">
@@ -22,12 +22,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- 引入alpinejs -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
+    <!-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.8/dist/cdn.min.js"></script> -->
+    <!-- <script defer src="{% static 'toolbox/js/alpinejs@3.15.8.min.js' %}"></script> -->
 
     {% block extra_import %}{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'toolbox/css/light.css' %}">
-    <link rel="stylesheet" href="{% static 'toolbox/css/dark.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'toolbox/css/light.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'toolbox/css/dark.css' %}"> -->
     <link rel="stylesheet" href="{% static 'toolbox/css/style.css' %}">
 
     {% block extra_css %}{% endblock %}
@@ -39,6 +41,26 @@
             document.documentElement.setAttribute('data-theme', saved || preferred);
         })();
     </script>
+
+    {% block extra_alpinejs %}{% endblock %}
+    <!-- <script>
+        // alpine全局状态变量，初始化全局状态。在每个tool页面中使用
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('global', {
+                count: 0
+            });
+        });
+
+        // 全局状态变量示例：增加全局计数按钮和显示当前计数
+        // <div x-data>
+        //     <button @click="$store.global.count++">增加全局计数</button>
+        //     <span x-text="$store.global.count"></span>
+        // </div>
+
+        // <div x-data>
+        //     另一个组件：<span x-text="$store.global.count"></span>
+        // </div>
+    </script> -->
 </head>
 <body class="min-h-screen bg-base-200 flex flex-col" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     {% get_current_language as CURRENT_LANGUAGE %}

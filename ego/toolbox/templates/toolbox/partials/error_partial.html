@@ -1,0 +1,24 @@
+{% load i18n static %}
+<div class="alert alert-warning py-4 items-start mt-4">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current mt-0.5" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <div class="flex-1">
+        <h3 class="font-semibold text-lg">{% if error_title %}{{ error_title }}{% else %}{% trans "请求失败" %}{% endif %}</h3>
+        <p class="text-sm">
+            {% if error_message %}
+                {{ error_message }}
+            {% else %}
+                {% trans "抱歉，处理您的请求时出现了问题。请稍后重试。" %}
+            {% endif %}
+        </p>
+
+        {% if error_details and debug %}
+        <details class="mt-2 text-xs">
+            <summary>{% trans "错误详情" %}</summary>
+            <pre class="bg-base-200 p-2 rounded mt-1 overflow-x-auto whitespace-pre-wrap break-all"><code>{{ error_details }}</code></pre>
+        </details>
+        {% endif %}
+    </div>
+    <button onclick="this.closest('.alert').style.display = 'none'" class="btn btn-sm btn-ghost mt-0">✕</button>
+</div>

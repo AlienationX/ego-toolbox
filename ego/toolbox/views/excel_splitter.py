@@ -1,16 +1,19 @@
-import uuid
+import logging
+import time
+import traceback
 import zipfile
 from pathlib import Path
 
 import pandas as pd
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
 
 from .catalog import get_nav_categories, get_tool_catalog
+
+logger = logging.getLogger(__name__)
 
 
 def excel_splitter_view(request):
@@ -27,56 +30,123 @@ def excel_splitter_view(request):
 
     # POST 请求处理文件拆分
     try:
-        if "file" not in request.FILES:
-            return JsonResponse({"success": False, "error": _("请上传Excel文件")})
-
-        uploaded_file = request.FILES["file"]
-        split_field = request.POST.get("split_field", "")
-        split_mode = request.POST.get("split_mode", "files")
-        sheet_name_prefix = request.POST.get("sheet_name_prefix", "数据")
-
-        # 验证文件类型
-        if not uploaded_file.name.endswith((".xlsx", ".xls")):
-            return JsonResponse({"success": False, "error": _("请上传Excel文件(.xlsx或.xls)")})
-
-        # 验证拆分字段
-        if not split_field:
-            return JsonResponse({"success": False, "error": _("请选择拆分字段")})
-
-        # 读取Excel文件
-        df = pd.read_excel(uploaded_file)
-
-        # 验证拆分字段是否存在
-        if split_field not in df.columns:
-            return JsonResponse({"success": False, "error": _("拆分字段不存在")})
-
-        # 创建工作目录
+        timestamp_seconds = int(time.time())
+        # 设置并创建工作目录
         work_dir = Path(settings.MEDIA_ROOT) / "excel_splitter"
         work_dir.mkdir(parents=True, exist_ok=True)
 
-        # 生成唯一ID
-        unique_id = str(uuid.uuid4())[:8]
+        if request.htmx:
+            # 处理文件预览
+            uploaded_file = request.FILES.get("file")
+            logger.info(f"Received file: {uploaded_file.name}")
 
-        if split_mode == "files":
-            # 拆分为多个文件
-            zip_path = _split_to_files(df, split_field, work_dir, unique_id)
+            # 验证文件类型
+            if not uploaded_file.name.endswith((".xlsx", ".xls")):
+                return render(
+                    request,
+                    "toolbox/partials/error_partial.html",
+                    {"error_title": _("文件类型错误"), "error_message": _("请上传Excel文件(.xlsx或.xls)")},
+                )
+
+            # 验证文件大小
+            max_size = 10 * 1024 * 1024  # 10MB
+            if uploaded_file.size > max_size:
+                return render(
+                    request,
+                    "toolbox/partials/error_partial.html",
+                    {"error_title": _("文件大小错误"), "error_message": _("文件大小不能超过10MB")},
+                )
+
+            file_path = work_dir / f"{timestamp_seconds}_{uploaded_file.name}"
+            with open(file_path, "wb") as f:
+                for chunk in uploaded_file.chunks():
+                    f.write(chunk)
+
+            df = pd.read_excel(file_path)
+            headers = list(df.columns)
+            # TODO 获取所有sheet名称
+            sheet_names = ["Sheet1", "Sheet2"]
+
+            # 获取前5行数据
+            preview_data = []
+            for idx, row in df.head(5).iterrows():
+                row_list = []
+                for col in headers:
+                    value = row[col]
+                    # 处理NaN值
+                    if pd.isna(value):
+                        row_list.append("")
+                    else:
+                        row_list.append(str(value)[:100])  # 限制长度
+                preview_data.append(row_list)
+
+            context = {
+                "headers": headers,
+                "preview_data": preview_data,
+                "total_rows": len(df),
+                "sheet_names": sheet_names,
+                "file_name": uploaded_file.name,
+                "file_path": file_path,
+            }
+            return render(request, "toolbox/partials/excel_splitter_preview.html", context)
+
+            # elif action == "split":
         else:
-            # 拆分为多个sheet
-            zip_path = _split_to_sheets(df, split_field, work_dir, unique_id, sheet_name_prefix)
+            # POST请求，处理拆分操作
+            file_path = request.POST.get("file_path")
+            split_field = request.POST.get("split_field")
+            split_mode = request.POST.get("split_mode")
+            name_prefix = request.POST.get("name_prefix")
 
-        # 读取ZIP文件内容并返回
-        with open(zip_path, "rb") as f:
-            from django.http import HttpResponse
+            # 验证文件路径是否存在
+            if not Path(file_path).exists():
+                return render_to_string(
+                    "toolbox/partials/error_partial.html",
+                    {"error_title": _("文件不存在"), "error_message": _("请重新上传文件")},
+                )
 
-            response = HttpResponse(f.read(), content_type="application/zip")
-            response["Content-Disposition"] = f'attachment; filename="拆分文件_{unique_id}.zip"'
-            return response
+            df = pd.read_excel(file_path)
+            # 验证拆分字段是否存在
+            if split_field not in df.columns:
+                return render_to_string(
+                    "toolbox/partials/error_partial.html",
+                    {"error_title": _("字段不存在"), "error_message": _("拆分字段不存在")},
+                )
+
+            # 生成唯一ID
+            # unique_id = str(uuid.uuid4())[:8]
+            unique_id = f"{timestamp_seconds}"
+
+            if split_mode == "files":
+                # 拆分为多个文件
+                zip_path = _split_to_files(df, split_field, work_dir, unique_id, name_prefix)
+            else:
+                # 拆分为多个sheet
+                zip_path = _split_to_sheets(df, split_field, work_dir, unique_id, name_prefix)
+
+            # 读取ZIP文件内容并返回
+            # 必须使用django的POST请求触发，htmx只能返回代码片段，无法返回下载文件
+            with open(zip_path, "rb") as f:
+                response = HttpResponse(f.read(), content_type="application/zip")
+                response["Content-Disposition"] = f'attachment; filename="拆分文件_{unique_id}.zip"'
+                return response
 
     except Exception as e:
-        return JsonResponse({"success": False, "error": f"{_('处理失败')}: {str(e)}"})
+        error_details = traceback.format_exc() if settings.DEBUG else str(e)
+        context = {
+            "error_title": _("处理失败"),
+            "error_message": _("系统处理您的请求时遇到了问题，请稍后重试。"),
+            "error_details": error_details,
+            "debug": settings.DEBUG,
+        }
+        return render(
+            request,
+            "toolbox/partials/excel_splitter_preview.html",
+            context,
+        )
 
 
-def _split_to_files(df, split_field, work_dir, unique_id):
+def _split_to_files(df, split_field, work_dir, unique_id, name_prefix):
     """拆分为多个Excel文件，返回ZIP文件路径"""
     # 按字段分组
     grouped = df.groupby(split_field, sort=False)
@@ -89,7 +159,7 @@ def _split_to_files(df, split_field, work_dir, unique_id):
         for field_value, group_df in grouped:
             # 清理文件名（移除非法字符）
             safe_name = str(field_value).replace("/", "_").replace("\\", "_")[:50]
-            excel_filename = f"{safe_name}.xlsx"
+            excel_filename = f"{name_prefix}_{safe_name}.xlsx" if name_prefix else f"{safe_name}.xlsx"
             excel_path = work_dir / excel_filename
 
             # 保存为Excel
@@ -104,7 +174,7 @@ def _split_to_files(df, split_field, work_dir, unique_id):
     return zip_path
 
 
-def _split_to_sheets(df, split_field, work_dir, unique_id, sheet_name_prefix):
+def _split_to_sheets(df, split_field, work_dir, unique_id, name_prefix):
     """拆分为多个Sheet页，返回ZIP文件路径"""
     # 按字段分组
     grouped = df.groupby(split_field, sort=False)
@@ -123,9 +193,9 @@ def _split_to_sheets(df, split_field, work_dir, unique_id, sheet_name_prefix):
                 .replace("?", "")
                 .replace("*", "")
                 .replace("[", "")
-                .replace("]", "")[:31]
+                .replace("]", "")
             )
-            sheet_name = f"{sheet_name_prefix}_{safe_name}" if sheet_name_prefix else safe_name
+            sheet_name = f"{name_prefix}_{safe_name}" if name_prefix else safe_name
 
             # 写入sheet
             group_df.to_excel(writer, sheet_name=sheet_name, index=False)
@@ -141,54 +211,3 @@ def _split_to_sheets(df, split_field, work_dir, unique_id, sheet_name_prefix):
     excel_path.unlink()
 
     return zip_path
-
-
-@csrf_exempt
-@require_http_methods(["POST"])
-def excel_splitter_preview(request):
-    """预览Excel文件内容"""
-    try:
-        if "file" not in request.FILES:
-            return JsonResponse({"success": False, "error": _("请上传Excel文件")})
-
-        uploaded_file = request.FILES["file"]
-
-        # 验证文件类型
-        if not uploaded_file.name.endswith((".xlsx", ".xls")):
-            return JsonResponse({"success": False, "error": _("请上传Excel文件(.xlsx或.xls)")})
-
-        # 读取Excel文件
-        df = pd.read_excel(uploaded_file)
-
-        # 获取表头
-        headers = list(df.columns)
-
-        # 获取前5行数据
-        preview_data = []
-        for idx, row in df.head(5).iterrows():
-            row_dict = {"index": idx}
-            for col in headers:
-                value = row[col]
-                # 处理NaN值
-                if pd.isna(value):
-                    row_dict[col] = ""
-                else:
-                    row_dict[col] = str(value)[:100]  # 限制长度
-            preview_data.append(row_dict)
-
-        # 获取sheet名称
-        excel_file = pd.ExcelFile(uploaded_file)
-        sheet_name = excel_file.sheet_names[0] if excel_file.sheet_names else "Sheet1"
-
-        return JsonResponse(
-            {
-                "success": True,
-                "headers": headers,
-                "preview": preview_data,
-                "sheet_name": sheet_name,
-                "total_rows": len(df),
-            }
-        )
-
-    except Exception as e:
-        return JsonResponse({"success": False, "error": f"{_('解析失败')}: {str(e)}"})

@@ -6,7 +6,7 @@
 {% block description %}{% trans "问题反馈 - 提交工具bug反馈或功能建议" %}{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8 max-w-3xl"
+<div class="container mx-auto px-0 sm:px-4 py-0 sm:py-8 max-w-3xl"
      x-data="{
          feedbackType: 'bug',
          toolName: '',
@@ -175,7 +175,7 @@
                         <span class="label-text font-semibold">{% trans "相关工具" %}</span>
                     </label>
                     <select x-model="toolName" class="select select-bordered w-full">
-                        <option value="">{% trans "请选择相关工具（可选）" %}</option>
+                        <option disabled value="">{% trans "请选择相关工具（可选）" %}</option>
                         <option value="excel_splitter">{% trans "Excel拆分工具" %}</option>
                         <option value="removebg">{% trans "背景移除工具" %}</option>
                         <option value="remove_watermark">{% trans "水印移除工具" %}</option>
@@ -265,10 +265,10 @@
                 </div>
                 
                 <!-- Submit Button -->
-                <div class="flex gap-4">
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <button type="submit"
                             :disabled="isSubmitting"
-                            class="btn btn-primary flex-1">
+                            class="btn btn-primary sm:flex-1">
                         <span x-show="!isSubmitting">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -283,7 +283,7 @@
                     
                     <button type="button" 
                             @click="resetForm"
-                            class="btn btn-outline btn-ghost">
+                            class="btn btn-outline btn-ghost w-full sm:w-auto sm:min-w-[100px]">
                         {% trans "重置" %}
                     </button>
                 </div>

@@ -1,0 +1,134 @@
+{% load i18n static %}
+<div id="excel-splitter-preview">
+    {% if file_name %}
+    <!-- File Info -->
+    <div class="form-control mb-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <span class="text-xs text-base-content/50">
+                {% trans "文件名：" %} <strong>{{ file_name }}</strong>
+            </span>
+        </div>
+    </div>
+    
+    <!-- Preview Data -->
+    <div class="form-control mb-6">
+        <label class="label mb-3">
+            <span class="label-text font-semibold">{% trans "数据预览" %}</span>
+        </label>
+        <div class="overflow-x-auto border rounded-lg mb-2">
+            <table class="table table-sm w-full" id="preview-table">
+                <thead>
+                    <tr>
+                        {% for header in headers %}
+                            <th class="whitespace-nowrap bg-base-300 text-base-content py-2 px-3">{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for row in preview_data %}
+                        <tr>
+                            {% for val in row %}
+                                <td class="whitespace-nowrap">{{ val }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p class="text-xs text-base-content/50">
+            {% trans "共" %} {{ headers|length }} {% trans "个字段，" %} {{ total_rows }} {% trans "行数据。" %}{% trans "仅显示前5行数据。" %}
+        </p>
+    </div>
+    
+    <!-- Split Form -->
+    <form 
+        method="POST" 
+        action="{% url 'toolbox:excel_splitter' %}"
+        enctype="multipart/form-data"
+        target="_blank">
+        {% csrf_token %}
+        
+        <!-- Split Options -->
+        <div class="space-y-6 mb-4">
+            <!-- Split Field -->
+            <div class="form-control">
+                <label class="label mb-2 flex flex-col items-start sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <span class="label-text font-semibold">{% trans "选择拆分字段" %}</span>
+                    <span class="label-text-alt text-base-content/60 text-xs">{% trans "系统将根据此字段的唯一值进行拆分" %}</span>
+                </label>
+                
+                <select name="split_field" class="select select-bordered w-full sm:w-1/2" required>
+                    <option value="" disabled>{% trans "请选择字段" %}</option>
+                    {% for header in headers %}
+                        <option value="{{ header }}">{{ header }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Split Mode -->
+            <div class="form-control">
+                <label class="label mb-2">
+                    <span class="label-text font-semibold">{% trans "拆分方式" %}</span>
+                </label>
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                    <label class="label cursor-pointer gap-2">
+                        <input type="radio" name="split_mode" value="files" class="radio radio-primary" checked>
+                        <span class="label-text">{% trans "拆分为多个Excel文件" %}</span>
+                    </label>
+                    <label class="label cursor-pointer gap-2">
+                        <input type="radio" name="split_mode" value="sheets" class="radio radio-primary">
+                        <span class="label-text">{% trans "拆分为多个Sheet页" %}</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Sheet Name (for sheets mode) -->
+            <div class="form-control">
+                <label class="label mb-2 flex flex-col items-start sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <span class="label-text font-semibold">{% trans "名称前缀" %}</span>
+                    <span class="label-text-alt text-base-content/60 text-xs">{% trans "每个Excel将命名为：前缀_原文件名，每个Sheet页将命名为：前缀_字段值" %}</span>
+                </label>
+                <div class="w-full">
+                    <input 
+                        type="text" 
+                        name="name_prefix" 
+                        class="input input-bordered w-full sm:w-1/2"
+                        placeholder="{% trans '例如：部门' %}" 
+                        value="数据">
+                </div>
+            </div>
+        </div>
+        
+        <input type="hidden" name="file_path" value="{{ file_path }}" />
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
+            <button type="submit" class="btn btn-primary sm:flex-1">
+                <span class="btn-text-normal">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                    </span>
+                    {% trans "开始拆分并下载" %}
+                </span>
+                <span class="btn-text-loading">
+                    <span class="loading loading-spinner loading-xs"></span>
+                    拆分并下载中...
+                </span>
+            </button>
+
+            <!-- 增加一个计时器，显示拆分耗时 -->
+            <div id="split-timer" class="text-sm text-base-content/60"></div>
+            
+            <!-- <button type="button" onclick="window.location.reload()" class="btn btn-outline btn-ghost w-full sm:w-auto sm:min-w-[100px]">
+                {% trans "重置" %}
+            </button> -->
+        </div>
+    </form>
+    {% endif %}
+
+    {% if error_message %}
+        {% include 'toolbox/partials/error_partial.html' %}
+    {% endif %}
+</div>

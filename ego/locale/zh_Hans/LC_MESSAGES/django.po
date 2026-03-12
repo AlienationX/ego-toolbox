@@ -666,3 +666,11 @@ msgstr "背景移除成功"
 
 #~ msgid "Explore infinite possibilities and start your creative journey"
 #~ msgstr "探索无限可能，开启您的创意之旅"
+
+#: toolbox/views/error_views.py:29
+msgid "服务器错误"
+msgstr "服务器错误"
+
+#: toolbox/views/error_views.py:32
+msgid "系统处理您的请求时遇到了问题，请稍后重试。"
+msgstr "系统处理您的请求时遇到了问题，请稍后重试。"

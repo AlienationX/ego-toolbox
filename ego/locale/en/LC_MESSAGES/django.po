@@ -726,3 +726,11 @@ msgstr "Processing failed, please try again"
 
 #~ msgid "Explore infinite possibilities and start your creative journey"
 #~ msgstr "Explore infinite possibilities and start your creative journey"
+
+#: toolbox/views/error_views.py:29
+msgid "服务器错误"
+msgstr "Server Error"
+
+#: toolbox/views/error_views.py:32
+msgid "系统处理您的请求时遇到了问题，请稍后重试。"
+msgstr "The system encountered a problem while processing your request. Please try again later."
