@@ -3,12 +3,12 @@ import time
 import traceback
 import zipfile
 from pathlib import Path
+from urllib.parse import quote
 
 import pandas as pd
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
 from .catalog import get_nav_categories, get_tool_catalog
@@ -90,7 +90,6 @@ def excel_splitter_view(request):
             }
             return render(request, "toolbox/partials/excel_splitter_preview.html", context)
 
-            # elif action == "split":
         else:
             # POST请求，处理拆分操作
             file_path = request.POST.get("file_path")
@@ -100,7 +99,8 @@ def excel_splitter_view(request):
 
             # 验证文件路径是否存在
             if not Path(file_path).exists():
-                return render_to_string(
+                return render(
+                    request,
                     "toolbox/partials/error_partial.html",
                     {"error_title": _("文件不存在"), "error_message": _("请重新上传文件")},
                 )
@@ -108,7 +108,8 @@ def excel_splitter_view(request):
             df = pd.read_excel(file_path)
             # 验证拆分字段是否存在
             if split_field not in df.columns:
-                return render_to_string(
+                return render(
+                    request,
                     "toolbox/partials/error_partial.html",
                     {"error_title": _("字段不存在"), "error_message": _("拆分字段不存在")},
                 )
@@ -128,7 +129,13 @@ def excel_splitter_view(request):
             # 必须使用django的POST请求触发，htmx只能返回代码片段，无法返回下载文件
             with open(zip_path, "rb") as f:
                 response = HttpResponse(f.read(), content_type="application/zip")
-                response["Content-Disposition"] = f'attachment; filename="拆分文件_{unique_id}.zip"'
+                # 同时提供 ASCII 兜底文件名 + RFC 5987 编码，避免浏览器回退成“下载.zip”
+                filename = f"{Path(file_path).stem}.zip"
+                encoded_filename = quote(filename)
+                ascii_fallback = f"split_{unique_id}.zip"
+                response["Content-Disposition"] = (
+                    f"attachment; filename=\"{ascii_fallback}\"; filename*=UTF-8''{encoded_filename}"
+                )
                 return response
 
     except Exception as e:

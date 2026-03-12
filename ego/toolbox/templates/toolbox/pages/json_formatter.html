@@ -1,0 +1,135 @@
+{% extends 'toolbox/tool.html' %}
+{% load i18n static %}
+
+{% block content %}
+<div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
+    <!-- Main Form -->
+    <div class="card bg-base-100 shadow-xl mb-8">
+        <div class="card-body p-4 sm:p-6 md:p-8">
+            <!-- JSON Input Section -->
+            <div class="form-control mb-6">
+                <label class="label mb-3">
+                    <span class="label-text font-semibold text-lg">{% trans "JSON输入" %}</span>
+                </label>
+                
+                <div class="relative">
+                    <textarea 
+                        id="json-input" 
+                        name="json_input" 
+                        class="textarea textarea-bordered w-full h-64 font-mono text-sm"
+                        placeholder='{"name": "John", "age": 30}'
+                        hx-post="{% url 'toolbox:json_formatter' %}"
+                        hx-target="#json-result"
+                        hx-trigger="keyup changed delay:500ms"
+                        hx-vals='{"action": "format"}'
+                    ></textarea>
+                    
+                    <!-- Clear Button -->
+                    <button 
+                        id="clear-btn"
+                        class="absolute top-2 right-2 btn btn-sm btn-ghost opacity-50 hover:opacity-100"
+                        onclick="document.getElementById('json-input').value = ''; document.getElementById('json-input').dispatchEvent(new Event('input'));">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-3 mb-6">
+                <button 
+                    type="button"
+                    class="btn btn-primary"
+                    hx-post="{% url 'toolbox:json_formatter' %}"
+                    hx-target="#json-result"
+                    hx-vals='{"action": "format"}'
+                    hx-include="#json-input">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                    {% trans "格式化" %}
+                </button>
+                
+                <button 
+                    type="button"
+                    class="btn btn-secondary"
+                    hx-post="{% url 'toolbox:json_formatter' %}"
+                    hx-target="#json-result"
+                    hx-vals='{"action": "minify"}'
+                    hx-include="#json-input">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                    {% trans "压缩" %}
+                </button>
+                
+                <button 
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="copyResult()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    {% trans "复制结果" %}
+                </button>
+            </div>
+            
+            <!-- Result Section -->
+            <div id="json-result">
+                <!-- Result will be loaded here by HTMX -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Instructions -->
+    <div class="card bg-base-100 shadow-lg">
+        <div class="card-body p-4 sm:p-6 md:p-8">
+            <h3 class="card-title text-lg mb-2">
+                <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
+                <span>{% trans "使用说明" %}</span>
+            </h3>
+            <div class="space-y-3 text-sm text-base-content/70">
+                <p>1. {% trans "在输入框中输入JSON字符串" %}</p>
+                <p>2. {% trans "系统会自动验证JSON语法并格式化" %}</p>
+                <p>3. {% trans "点击'格式化'按钮美化JSON，点击'压缩'按钮去除空格和换行" %}</p>
+                <p>4. {% trans "可以点击'复制结果'按钮复制格式化后的JSON" %}</p>
+                <p class="text-warning mt-4">⚠️ {% trans "注意：支持折叠和展开JSON对象和数组" %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 显示DaisyUI通知
+function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type} toast-center toast-middle z-50`;
+    toast.innerHTML = `
+        <div class="alert alert-${type}">
+            <span>${message}</span>
+        </div>
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+function copyResult() {
+    const resultElement = document.querySelector('#json-result pre code');
+    if (resultElement) {
+        const text = resultElement.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('{% trans "已复制到剪贴板" %}', 'info');
+        }).catch(err => {
+            console.error('复制失败:', err);
+            showToast('{% trans "复制失败，请手动复制" %}', 'error');
+        });
+    } else {
+        showToast('{% trans "没有可复制的内容" %}', 'warning');
+    }
+}
+</script>
+{% endblock %}

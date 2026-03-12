@@ -45,6 +45,36 @@ def get_tool_catalog():
             "url": reverse("toolbox:excel_splitter"),
         },
         {
+            "id": "json_formatter",
+            "icon": "📝",
+            "featured": True,
+            "category": "dev",
+            "tags": [_("开发工具"), _("JSON"), _("格式化"), _("验证")],
+            "title": _("JSON格式化"),
+            "description": _("JSON格式化、验证和压缩工具，支持自动格式化、语法验证和折叠展开。"),
+            "url": reverse("toolbox:json_formatter"),
+        },
+        {
+            "id": "base64_converter",
+            "icon": "🔢",
+            "featured": True,
+            "category": "dev",
+            "tags": [_("开发工具"), _("Base64"), _("编码"), _("解码"), _("图片")],
+            "title": _("图片Base64转换"),
+            "description": _("图片的Base64编码解码工具，支持双向转换。"),
+            "url": reverse("toolbox:base64_converter"),
+        },
+        {
+            "id": "dino_game",
+            "icon": "🦖",
+            "featured": True,
+            "category": "game",
+            "tags": [_("游戏"), _("休闲"), _("恐龙")],
+            "title": _("小恐龙游戏"),
+            "description": _("经典的Google小恐龙游戏，躲避仙人掌障碍物，挑战最高分！"),
+            "url": reverse("toolbox:dino_game"),
+        },
+        {
             "id": "calculator",
             "icon": "🧮",
             "featured": True,
@@ -104,12 +134,13 @@ def get_category_labels():
         "utility": _("实用工具"),
         "security": _("安全工具"),
         "dev": _("开发工具"),
+        "game": _("游戏"),
     }
 
 
 def get_nav_categories(tools: list[dict]):
     labels = get_category_labels()
-    nav_keys = ["productivity", "utility", "security", "dev"]
+    nav_keys = ["productivity", "utility", "security", "dev", "game"]
 
     nav_groups = []
     for key in nav_keys:

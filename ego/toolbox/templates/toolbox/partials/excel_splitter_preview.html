@@ -45,7 +45,7 @@
         method="POST" 
         action="{% url 'toolbox:excel_splitter' %}"
         enctype="multipart/form-data"
-        target="_blank">
+        >
         {% csrf_token %}
         
         <!-- Split Options -->
@@ -94,7 +94,7 @@
                         name="name_prefix" 
                         class="input input-bordered w-full sm:w-1/2"
                         placeholder="{% trans '例如：部门' %}" 
-                        value="数据">
+                    >
                 </div>
             </div>
         </div>
