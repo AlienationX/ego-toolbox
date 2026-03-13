@@ -33,7 +33,7 @@ def json_formatter_view(request):
                 if not json_input:
                     return render(
                         request,
-                        "toolbox/partials/error_partial.html",
+                        "toolbox/components/alert.html",
                         {"error_title": _("输入为空"), "error_message": _("请输入JSON字符串")},
                     )
 
@@ -58,7 +58,7 @@ def json_formatter_view(request):
                 except json.JSONDecodeError as e:
                     return render(
                         request,
-                        "toolbox/partials/error_partial.html",
+                        "toolbox/components/alert.html",
                         {
                             "error_title": _("JSON格式错误"),
                             "error_message": f"第{e.lineno}行，第{e.colno}列: {e.msg}",
@@ -73,7 +73,7 @@ def json_formatter_view(request):
                 if not json_input:
                     return render(
                         request,
-                        "toolbox/partials/error_partial.html",
+                        "toolbox/components/alert.html",
                         {"error_title": _("输入为空"), "error_message": _("请输入JSON字符串")},
                     )
 
@@ -95,7 +95,7 @@ def json_formatter_view(request):
                 except json.JSONDecodeError as e:
                     return render(
                         request,
-                        "toolbox/partials/error_partial.html",
+                        "toolbox/components/alert.html",
                         {
                             "error_title": _("JSON格式错误"),
                             "error_message": f"第{e.lineno}行，第{e.colno}列: {e.msg}",
@@ -107,7 +107,7 @@ def json_formatter_view(request):
         logger.error(f"JSON格式化工具错误: {str(e)}")
         return render(
             request,
-            "toolbox/partials/error_partial.html",
+            "toolbox/components/alert.html",
             {
                 "error_title": _("处理失败"),
                 "error_message": _("系统处理您的请求时遇到了问题，请稍后重试。"),

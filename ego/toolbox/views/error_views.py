@@ -35,4 +35,4 @@ def process_exception(request, error_details):
             "debug": settings.DEBUG,
         }
 
-        return render(request, "toolbox/partials/error_partial.html", context)
+        return render(request, "toolbox/components/alert.html", context)

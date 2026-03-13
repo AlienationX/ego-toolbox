@@ -44,7 +44,7 @@ def excel_splitter_view(request):
             if not uploaded_file.name.endswith((".xlsx", ".xls")):
                 return render(
                     request,
-                    "toolbox/partials/error_partial.html",
+                    "toolbox/components/alert.html",
                     {"error_title": _("文件类型错误"), "error_message": _("请上传Excel文件(.xlsx或.xls)")},
                 )
 
@@ -53,7 +53,7 @@ def excel_splitter_view(request):
             if uploaded_file.size > max_size:
                 return render(
                     request,
-                    "toolbox/partials/error_partial.html",
+                    "toolbox/components/alert.html",
                     {"error_title": _("文件大小错误"), "error_message": _("文件大小不能超过10MB")},
                 )
 
@@ -101,7 +101,7 @@ def excel_splitter_view(request):
             if not Path(file_path).exists():
                 return render(
                     request,
-                    "toolbox/partials/error_partial.html",
+                    "toolbox/components/alert.html",
                     {"error_title": _("文件不存在"), "error_message": _("请重新上传文件")},
                 )
 
@@ -110,7 +110,7 @@ def excel_splitter_view(request):
             if split_field not in df.columns:
                 return render(
                     request,
-                    "toolbox/partials/error_partial.html",
+                    "toolbox/components/alert.html",
                     {"error_title": _("字段不存在"), "error_message": _("拆分字段不存在")},
                 )
 
