@@ -3,16 +3,21 @@
 
 {% block content %}
 <div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
+    <!-- Header -->
     
     <!-- Tab Navigation -->
     <div role="tablist" class="tabs tabs-box mb-6">
+        <!-- Image to Base64 Tab -->
         <input type="radio" name="image_tabs" role="tab" class="tab" aria-label="{% trans '图片转Base64' %}" checked />
         <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <!-- Image to Base64 -->
-            <div class="space-y-4">
+            <div class="space-y-6">
+                <!-- Upload Section -->
                 <div class="form-control">
                     <label class="label mb-2">
-                        <span class="label-text font-semibold">{% trans "选择图片" %}</span>
+                        <span class="label-text text-sm font-semibold flex items-center gap-2">
+                            <img src="{% static 'toolbox/icons/upload.svg' %}" alt="upload icon" class="h-5 w-5">
+                            {% trans "选择图片" %}
+                        </span>
                     </label>
                     <input 
                         type="file" 
@@ -22,13 +27,22 @@
                         onchange="convertImageToBase64()">
                 </div>
                 
-                <div id="imagePreview" class="hidden flex items-center justify-center mb-4">
-                    <img id="previewImg" class="max-w-full max-h-64 rounded-lg border border-base-300 shadow-lg" />
+                <!-- Image Preview -->
+                <div id="imagePreview" class="hidden">
+                    <div class="flex flex-col items-center space-y-4">
+                        <div class="relative">
+                            <img id="previewImg" class="max-w-full max-h-64 rounded-lg border border-base-300 shadow-lg" />
+                        </div>
+                    </div>
                 </div>
                 
+                <!-- Base64 Result -->
                 <div class="form-control">
-                    <label class="label mb-2 justify-between">
-                        <span class="label-text font-semibold">{% trans "Base64结果" %}</span>
+                    <label class="label mb-2 flex justify-between">
+                        <span class="label-text text-sm font-semibold flex items-center gap-2">
+                            <img src="{% static 'toolbox/icons/code.svg' %}" alt="code icon" class="h-5 w-5">
+                            {% trans "Base64结果" %}
+                        </span>
                         <button 
                             class="btn btn-sm btn-ghost gap-2"
                             onclick="copyToClipboard('imageBase64Output')">
@@ -40,28 +54,34 @@
                     </label>
                     <textarea 
                         id="imageBase64Output" 
-                        class="textarea textarea-bordered w-full h-48 font-mono text-sm" 
+                        class="textarea textarea-bordered w-full h-48 text-xs text-base-content/60" 
                         readonly></textarea>
-                </div>
+                </div> 
                 
-                <div class="flex gap-2">
-                    <button class="btn btn-primary flex-1" onclick="convertImageToBase64()">
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button class="btn btn-primary min-w-[160px]" onclick="convertImageToBase64()">
+                        <img src="{% static 'toolbox/icons/send.svg' %}" alt="command icon" class="h-4 w-4 icon-mask">
                         {% trans "转换" %}
                     </button>
-                    <button class="btn btn-outline flex-1" onclick="clearImageFields()">
+                    <button class="btn btn-outline min-w-[160px] text-base-content/60" onclick="clearImageFields()">
                         {% trans "清空" %}
                     </button>
                 </div>
             </div>
         </div>
         
+        <!-- Base64 to Image Tab -->
         <input type="radio" name="image_tabs" role="tab" class="tab" aria-label="{% trans 'Base64转图片' %}" />
         <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <!-- Base64 to Image -->
-            <div class="space-y-4">
+            <div class="space-y-6">
+                <!-- Input Section -->
                 <div class="form-control">
-                    <label class="label mb-2 justify-between">
-                        <span class="label-text font-semibold">{% trans "输入Base64" %}</span>
+                    <label class="label mb-2 flex justify-between">
+                        <span class="label-text text-sm font-semibold flex items-center gap-2">
+                            <img src="{% static 'toolbox/icons/code.svg' %}" alt="code icon" class="h-5 w-5">
+                            {% trans "输入Base64" %}
+                        </span>
                         <button 
                             class="btn btn-sm btn-ghost gap-2"
                             onclick="copyToClipboard('base64ImageInput')">
@@ -73,34 +93,37 @@
                     </label>
                     <textarea 
                         id="base64ImageInput" 
-                        class="textarea textarea-bordered w-full h-48 font-mono text-sm" 
+                        class="textarea textarea-bordered w-full h-48 text-sm text-base-content/60" 
                         placeholder="{% trans '请输入图片的Base64编码...' %}"></textarea>
                 </div>
                 
+                <!-- Image Preview -->
                 <div class="form-control">
-                    <label class="label mb-2">
-                        <span class="label-text font-semibold">{% trans "图片预览" %}</span>
+                    <label class="label mb-2 flex justify-between">
+                        <span class="label-text text-sm font-semibold flex items-center gap-2">
+                            <img src="{% static 'toolbox/icons/image.svg' %}" alt="image icon" class="h-5 w-5">
+                            {% trans "图片预览" %}
+                        </span>
+                        <div id="downloadSection" class="hidden">
+                            <button id="downloadBtn" class="btn btn-sm btn-secondary w-full sm:w-auto">
+                                <img src="{% static 'toolbox/icons/download.svg' %}" alt="download icon" class="h-4 w-4 icon-mask">
+                                {% trans "下载图片" %}
+                            </button>
+                        </div>
                     </label>
                     <div id="imageOutput" class="min-h-48 flex items-center justify-center bg-base-200 rounded-lg border border-dashed border-base-300">
                         <span class="text-base-content/50 text-sm">{% trans "图片将在这里显示" %}</span>
                     </div>
                 </div>
                 
-                <div class="flex gap-2">
-                    <button class="btn btn-primary flex-1" onclick="convertBase64ToImage()">
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button class="btn btn-primary min-w-[160px]" onclick="convertBase64ToImage()">
+                        <img src="{% static 'toolbox/icons/send.svg' %}" alt="command icon" class="h-4 w-4 icon-mask">
                         {% trans "转换" %}
                     </button>
-                    <button class="btn btn-outline flex-1" onclick="clearImageOutputFields()">
+                    <button class="btn btn-outline min-w-[160px] text-base-content/60" onclick="clearImageOutputFields()">
                         {% trans "清空" %}
-                    </button>
-                </div>
-                
-                <div id="downloadSection" class="hidden mt-4">
-                    <button id="downloadBtn" class="btn btn-success w-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        {% trans "下载图片" %}
                     </button>
                 </div>
             </div>
@@ -110,17 +133,35 @@
     <!-- Instructions -->
     <div class="card bg-base-100 shadow-lg">
         <div class="card-body p-4 sm:p-6 md:p-8">
-            <h3 class="card-title text-lg mb-4">
+            <h3 class="card-title text-lg mb-4 flex items-center gap-2 text-base-content/70">
                 <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
                 <span>{% trans "使用说明" %}</span>
             </h3>
-            <div class="space-y-3 text-sm text-base-content/70">
-                <p>1. {% trans "图片转Base64：选择图片文件，点击转换按钮" %}</p>
-                <p>2. {% trans "Base64转图片：输入Base64编码，点击转换按钮" %}</p>
-                <p>3. {% trans "支持多种图片格式：PNG、JPG、GIF等" %}</p>
-                <p>4. {% trans "点击复制按钮可以快速复制Base64结果" %}</p>
-                <p>5. {% trans "Base64转图片后可以下载保存" %}</p>
-                <p class="text-warning mt-4">⚠️ {% trans "注意：大文件转换可能需要较长时间" %}</p>
+            <div class="space-y-3 text-sm text-base-content/50">
+                <p class="flex items-start gap-2">
+                    <span class="font-bold text-base-content/50">1.</span>
+                    <span>{% trans "图片转Base64：选择图片文件，点击转换按钮" %}</span>
+                </p>
+                <p class="flex items-start gap-2">
+                    <span class="font-bold text-base-content/50">2.</span>
+                    <span>{% trans "Base64转图片：输入Base64编码，点击转换按钮" %}</span>
+                </p>
+                <p class="flex items-start gap-2">
+                    <span class="font-bold text-base-content/50">3.</span>
+                    <span>{% trans "支持多种图片格式：PNG、JPG、GIF等" %}</span>
+                </p>
+                <p class="flex items-start gap-2">
+                    <span class="font-bold text-base-content/50">4.</span>
+                    <span>{% trans "点击复制按钮可以快速复制Base64结果" %}</span>
+                </p>
+                <p class="flex items-start gap-2">
+                    <span class="font-bold text-base-content/50">5.</span>
+                    <span>{% trans "Base64转图片后可以下载保存" %}</span>
+                </p>
+                <p class="text-warning mt-4 flex items-start gap-2">
+                    <span>⚠️</span>
+                    <span>{% trans "注意：大文件转换可能需要较长时间" %}</span>
+                </p>
             </div>
         </div>
     </div>
@@ -164,13 +205,11 @@ function convertImageToBase64() {
     const file = fileInput.files[0];
     
     if (file) {
-        // 显示预览
         const reader = new FileReader();
         reader.onload = function(e) {
             const base64 = e.target.result.split(',')[1];
             document.getElementById('imageBase64Output').value = base64;
             
-            // 显示预览图
             const previewImg = document.getElementById('previewImg');
             previewImg.src = e.target.result;
             document.getElementById('imagePreview').classList.remove('hidden');
@@ -188,10 +227,8 @@ function convertBase64ToImage() {
     
     if (base64) {
         try {
-            // 检测是否包含data URL前缀
             let dataUrl = base64;
             if (!base64.startsWith('data:image')) {
-                // 尝试检测图片类型
                 let imageType = 'image/png';
                 if (base64.startsWith('/9j/')) {
                     imageType = 'image/jpeg';
@@ -205,12 +242,10 @@ function convertBase64ToImage() {
             img.onload = function() {
                 imageOutput.innerHTML = `<img src="${dataUrl}" class="max-w-full max-h-64 rounded-lg shadow-lg" />`;
                 
-                // 显示下载按钮
                 const downloadSection = document.getElementById('downloadSection');
                 const downloadBtn = document.getElementById('downloadBtn');
                 downloadSection.classList.remove('hidden');
                 
-                // 设置下载链接
                 downloadBtn.onclick = function() {
                     const link = document.createElement('a');
                     link.href = dataUrl;

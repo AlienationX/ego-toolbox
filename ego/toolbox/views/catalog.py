@@ -65,6 +65,16 @@ def get_tool_catalog():
             "url": reverse("toolbox:base64_converter"),
         },
         {
+            "id": "qrcode_tool",
+            "icon": "📱",
+            "featured": True,
+            "category": "dev",
+            "tags": [_("开发工具"), _("二维码"), _("生成"), _("解码")],
+            "title": _("二维码工具"),
+            "description": _("二维码生成与解码工具，支持文本/URL生成二维码和图片解码。"),
+            "url": reverse("toolbox:qrcode_tool"),
+        },
+        {
             "id": "dino_game",
             "icon": "🦖",
             "featured": True,
