@@ -1,0 +1,207 @@
+{% extends 'toolbox/tool.html' %}
+{% load i18n static %}
+
+{% block content %}
+<div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
+    <!-- Header -->
+    <div class="mb-6">
+        <h2 class="text-3xl font-bold flex items-center">
+            <img src="{% static 'toolbox/icons/excel-csv.svg' %}" alt="converter icon" class="h-10 w-10 mr-3">
+            <span>{% trans "Excel/CSV转换" %}</span>
+        </h2>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div role="tablist" class="tabs tabs-box mb-6">
+        <!-- Excel to CSV Tab -->
+        <input type="radio" name="converter_tabs" role="tab" class="tab" aria-label="{% trans 'Excel转CSV' %}" checked />
+        <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+            <form 
+                hx-post="{% url 'toolbox:excel_csv_converter' %}"
+                hx-target="#excelResultContainer"
+                hx-encoding="multipart/form-data">
+                <div class="space-y-6">
+                <!-- Upload Section -->
+                <div class="form-control">
+                    <label class="label mb-2">
+                        <span class="label-text font-semibold flex items-center gap-2">
+                            <img src="{% static 'toolbox/icons/upload-cloud.svg' %}" alt="upload icon" class="h-5 w-5">
+                            {% trans "上传Excel文件" %}
+                        </span>
+                    </label>
+                    <input 
+                        type="file" 
+                        name="excel_file"
+                        class="file-input file-input-bordered w-full" 
+                        accept=".xlsx,.xls"
+                        onchange="handleExcelUpload()">
+                </div>
+                
+                <!-- Sheet Selection -->
+                <div class="form-control">
+                    <label class="label mb-2">
+                        <span class="label-text text-sm font-semibold flex items-center gap-2">
+                            <img src="{% static 'toolbox/icons/grid.svg' %}" alt="sheet icon" class="h-5 w-5">
+                            {% trans "工作表名称" %}
+                        </span>
+                    </label>
+                    <input 
+                        type="text" 
+                        name="sheet_name"
+                        id="sheetName"
+                        class="input input-bordered w-full" 
+                        placeholder="{% trans '默认第一个工作表' %}">
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button type="submit" name="action" value="excel_to_csv" class="btn btn-primary flex-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                        {% trans "转换为CSV" %}
+                    </button>
+                    <button type="button" class="btn btn-outline flex-1" onclick="clearExcel()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        {% trans "清空" %}
+                    </button>
+                </div>
+                
+                <!-- Result Container -->
+                <div id="excelResultContainer">
+                    <!-- Result will be loaded here by HTMX -->
+                </div>
+                </div>
+            </form>
+        </div>
+        
+        <!-- CSV to Excel Tab -->
+        <input type="radio" name="converter_tabs" role="tab" class="tab" aria-label="{% trans 'CSV转Excel' %}" />
+        <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+            <form 
+                hx-post="{% url 'toolbox:excel_csv_converter' %}"
+                hx-target="#csvResultContainer">
+                <div class="space-y-6">
+                <!-- CSV Input Section -->
+                <div class="form-control">
+                    <label class="label mb-2">
+                        <span class="label-text font-semibold flex items-center gap-2">
+                            <img src="{% static 'toolbox/icons/file-text.svg' %}" alt="csv icon" class="h-5 w-5">
+                            {% trans "CSV输入" %}
+                        </span>
+                    </label>
+                    <textarea 
+                        name="csv_input"
+                        id="csvInput"
+                        class="textarea textarea-bordered w-full h-64 font-mono text-sm"
+                        placeholder="name,age,city&#10;John,30,New York&#10;Jane,25,London"
+                        oninput="validateCSV()"></textarea>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button type="submit" name="action" value="csv_to_excel" class="btn btn-primary flex-1" disabled id="csvToExcelBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                        {% trans "转换为Excel" %}
+                    </button>
+                    <button type="button" class="btn btn-outline flex-1" onclick="clearCSV()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        {% trans "清空" %}
+                    </button>
+                </div>
+                
+                <!-- Result Container -->
+                <div id="csvResultContainer">
+                    <!-- Result will be loaded here by HTMX -->
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Instructions -->
+    <div class="card bg-base-100 shadow-lg">
+        <div class="card-body p-4 sm:p-6 md:p-8">
+            <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
+                <span>{% trans "使用说明" %}</span>
+            </h3>
+            <div class="space-y-3 text-sm text-base-content/70">
+                <p class="flex items-start gap-2">
+                    <span class="font-bold text-base-content/50">1.</span>
+                    <span>{% trans "Excel转CSV：上传Excel文件，选择工作表，点击转换" %}</span>
+                </p>
+                <p class="flex items-start gap-2">
+                    <span class="font-bold text-base-content/50">2.</span>
+                    <span>{% trans "CSV转Excel：输入CSV数据，点击转换" %}</span>
+                </p>
+                <p class="flex items-start gap-2">
+                    <span class="font-bold text-base-content/50">3.</span>
+                    <span>{% trans "支持.xlsx和.xls格式的Excel文件" %}</span>
+                </p>
+                <p class="flex items-start gap-2">
+                    <span class="font-bold text-base-content/50">4.</span>
+                    <span>{% trans "转换结果可以下载使用" %}</span>
+                </p>
+                <p class="text-warning mt-4 flex items-start gap-2">
+                    <span>⚠️</span>
+                    <span>{% trans "注意：大文件可能需要较长处理时间" %}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 处理Excel上传
+function handleExcelUpload() {
+    const fileInput = document.querySelector('input[type="file"]');
+    const file = fileInput.files[0];
+    
+    if (file) {
+        const fileName = document.createElement('div');
+        fileName.className = 'mt-2 text-sm';
+        fileName.innerHTML = `<span class="font-semibold">{% trans "已选择" %}:</span> ${file.name}`;
+        fileInput.parentNode.insertBefore(fileName, fileInput.nextSibling);
+    }
+}
+
+// 验证CSV
+function validateCSV() {
+    const input = document.getElementById('csvInput').value.trim();
+    const csvToExcelBtn = document.getElementById('csvToExcelBtn');
+    
+    if (!input) {
+        csvToExcelBtn.disabled = true;
+        return;
+    }
+    
+    csvToExcelBtn.disabled = false;
+}
+
+// 清空Excel
+function clearExcel() {
+    const fileInput = document.querySelector('input[type="file"]');
+    fileInput.value = '';
+    document.getElementById('excelResultContainer').innerHTML = '';
+    
+    const fileName = document.querySelector('.mt-2.text-sm');
+    if (fileName) {
+        fileName.remove();
+    }
+}
+
+// 清空CSV
+function clearCSV() {
+    document.getElementById('csvInput').value = '';
+    document.getElementById('csvResultContainer').innerHTML = '';
+    document.getElementById('csvToExcelBtn').disabled = true;
+}
+</script>
+{% endblock %}
