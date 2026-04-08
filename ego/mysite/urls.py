@@ -19,8 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from toolbox.views.error_views import bad_request, not_found, server_error
 
+from .error_views import bad_request, not_found, server_error
 from .views import login_view, logout_view, register_view
 
 urlpatterns = [

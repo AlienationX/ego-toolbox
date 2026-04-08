@@ -1,0 +1,47 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "隐私政策" %} - Ego Toolbox{% endblock %}
+{% block description %}{% trans "在 Ego Toolbox，我们高度重视您的隐私和数据安全，这是我们对于数据收集和使用的承诺。" %}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12 max-w-4xl">
+    <div class="bg-base-100 border border-base-300 rounded-3xl p-8 md:p-12 shadow-sm">
+        <h1 class="text-4xl font-black mb-8">{% trans "隐私政策" %}</h1>
+        
+        <p class="text-base-content/60 mb-8">{% trans "生效日期：2024年01月01日" %}</p>
+        
+        <div class="space-y-8 text-base-content/80 leading-relaxed text-lg">
+            <section>
+                <h2 class="text-2xl font-bold text-base-content mb-4">{% trans "1. 数据收集与处理声明" %}</h2>
+                <p class="mb-4">{% blocktrans %}Ego Toolbox（以下简称“本网站”）提供多种在线工具（如数据格式转换、文本处理等）。我们深知您的文件和数据极其重要，因此我们在设计工具时遵循以下核心隐私原则：{% endblocktrans %}</p>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>{% blocktrans %}<strong>不会保存您的文件：</strong> 我们不收集、不存储、不备份您在使用工具时上传或生成的任何文件。{% endblocktrans %}</li>
+                    <li>{% blocktrans %}<strong>内存即时处理：</strong> 绝大多数在线服务都是在服务器内存中即时处理您的请求，并在返回结果后立即释放，不会在硬盘中写入您的个人数据。{% endblocktrans %}</li>
+                    <li>{% blocktrans %}<strong>部分前端工具：</strong> 部分工具甚至完全在您的浏览器本地执行，您的数据不会离开您的设备。{% endblocktrans %}</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-base-content mb-4">{% trans "2. 我们收集的信息类型" %}</h2>
+                <p>{% blocktrans %}为了维护网站的基本安全和性能监控，我们可能会自动接收和记录您的浏览设备和浏览器信息，包括但不限于：您的 IP 地址、浏览器类型、使用的语言、访问日期和时间、软硬件特征信息及您需求的网页记录。这些信息将仅用于统计匿名流量和防御恶意攻击，不会与任何个人特征相关联。{% endblocktrans %}</p>
+            </section>
+            
+            <section>
+                <h2 class="text-2xl font-bold text-base-content mb-4">{% trans "3. Cookie 的使用" %}</h2>
+                <p>{% blocktrans %}我们可能会使用 Cookie 来保存您的网站偏好设置（如主题暗黑/明亮模式切换、语言偏好）以及管理您的用户会话（如您的登录状态）。我们同时也集成了 Google AdSense 等第三方服务，这些第三方伙伴可能会使用 Cookie 收集关于您访问本网站及其他网站的信息，以向您展示相关的广告。{% endblocktrans %}</p>
+            </section>
+            
+            <section>
+                <h2 class="text-2xl font-bold text-base-content mb-4">{% trans "4. 第三方服务" %}</h2>
+                <p>{% blocktrans %}为确保提供服务并展示与您相关的广告，本网站接入了由第三方提供的功能，如 Google AdSense。这些第三方服务受其各自独立的隐私政策约束，我们不对其收集的数据负责。您可以在浏览器设置中选择禁用 Cookie 来拒绝第三方追踪。{% endblocktrans %}</p>
+            </section>
+            
+            <section>
+                <h2 class="text-2xl font-bold text-base-content mb-4">{% trans "5. 修改与更新" %}</h2>
+                <p>{% blocktrans %}我们随时可能更新本隐私政策，恕不提前通知。新版声明一旦发布到本页面即刻生效。继续使用我们的服务即表明您同意接受更新后的隐私政策。{% endblocktrans %}</p>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

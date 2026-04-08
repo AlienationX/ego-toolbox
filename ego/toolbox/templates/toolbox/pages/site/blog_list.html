@@ -1,0 +1,41 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "博客与效率指南" %} - Ego Toolbox{% endblock %}
+{% block description %}{% trans "阅读有关开发效率提升、文档转换原理、在线工具指南等精选技术文章，发现更高效的工作方式。" %}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12 max-w-5xl">
+    <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-black mb-6">{% trans "数字效率指南" %}</h1>
+        <p class="text-xl text-base-content/60 max-w-2xl mx-auto">{% trans "分享我们在构建工具过程中关于生产力、数据处理和极简主义的深度思考。" %}</p>
+    </div>
+
+    <div class="grid gap-8">
+        {% for post in posts %}
+        <article class="bg-base-100 border border-base-300 hover:border-primary/50 transition-colors duration-300 rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-start group shadow-sm hover:shadow-md">
+            <div class="flex-1 space-y-4">
+                <div class="flex items-center gap-4 text-sm text-base-content/50">
+                    <time datetime="{{ post.date }}">{{ post.date }}</time>
+                    <span class="badge badge-ghost badge-sm">{% trans "深度长文" %}</span>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold group-hover:text-primary transition-colors">
+                    <a href="{% url 'toolbox:blog_detail' post.id %}">{{ post.title }}</a>
+                </h2>
+                <p class="text-base-content/70 text-lg leading-relaxed">{{ post.excerpt }}</p>
+                <div>
+                    <a href="{% url 'toolbox:blog_detail' post.id %}" class="btn btn-outline btn-sm rounded-full">
+                        {% trans "阅读全文" %} 
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                </div>
+            </div>
+            <!-- 可选配图，如果没配图这里保持空白 -->
+            <div class="w-full sm:w-48 h-48 bg-base-200 object-cover rounded-2xl hidden sm:flex items-center justify-center opacity-70">
+                <img src="{% static 'toolbox/icons/book-open.svg' %}" alt="article icon" class="w-12 h-12 opacity-50">
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

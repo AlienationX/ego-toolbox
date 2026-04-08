@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-26 02:11+0000\n"
+"POT-Creation-Date: 2026-04-08 08:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,410 +17,2664 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: mysite/templates/login.html:7 mysite/templates/login.html:214
-#: mysite/templates/login.html:229 mysite/templates/login.html:247
-#: mysite/templates/register.html:51 toolbox/templates/base.html:92
+#: mysite/error_views.py:29 mysite/error_views.py:32
+#: mysite/templates/errors/500.html:25
+msgid "服务器错误"
+msgstr "服务器错误"
+
+#: mysite/error_views.py:33
+#: toolbox/views/tools/productivity/excel_splitter.py:142
+msgid "系统处理您的请求时遇到了问题，请稍后重试。"
+msgstr "系统处理您的请求时遇到了问题，请稍后重试。"
+
+#: mysite/templates/base.html:7
+msgid "Ego Toolbox - 一站式在线工具集合"
+msgstr ""
+
+#: mysite/templates/base.html:35
+msgid "切换主题"
+msgstr "切换主题"
+
+#: mysite/templates/base.html:46
+msgid "切换语言"
+msgstr ""
+
+#: mysite/templates/errors/400.html:4
+msgid "400 - 请求错误"
+msgstr ""
+
+#: mysite/templates/errors/400.html:6
+msgid "400错误 - 您的请求存在问题，请检查输入内容"
+msgstr ""
+
+#: mysite/templates/errors/400.html:25
+msgid "请求错误"
+msgstr ""
+
+#: mysite/templates/errors/400.html:29
+msgid ""
+"您的请求存在问题，可能是参数格式不正确或缺少必要信息。请检查输入内容后重试。"
+msgstr ""
+
+#: mysite/templates/errors/400.html:38 mysite/templates/errors/404.html:37
+#: mysite/templates/errors/500.html:38 mysite/templates/login.html:30
+#: mysite/templates/register.html:30
+msgid "返回首页"
+msgstr ""
+
+#: mysite/templates/errors/400.html:45 mysite/templates/errors/404.html:44
+#: mysite/templates/errors/500.html:45
+msgid "反馈问题"
+msgstr ""
+
+#: mysite/templates/errors/400.html:52 mysite/templates/errors/500.html:52
+msgid "如果问题持续存在，请"
+msgstr ""
+
+#: mysite/templates/errors/400.html:53 mysite/templates/errors/500.html:53
+msgid "联系我们"
+msgstr ""
+
+#: mysite/templates/errors/400.html:54 mysite/templates/errors/500.html:54
+msgid "或稍后再试"
+msgstr ""
+
+#: mysite/templates/errors/404.html:4
+msgid "404 - 页面未找到"
+msgstr ""
+
+#: mysite/templates/errors/404.html:6
+msgid "404错误 - 您访问的页面不存在"
+msgstr ""
+
+#: mysite/templates/errors/404.html:24
+msgid "页面未找到"
+msgstr ""
+
+#: mysite/templates/errors/404.html:28
+msgid "抱歉，您访问的页面不存在。可能是链接错误或页面已被删除。"
+msgstr ""
+
+#: mysite/templates/errors/404.html:51
+msgid "您可能想要访问："
+msgstr ""
+
+#: mysite/templates/errors/404.html:55
+#: toolbox/templates/toolbox/pages/site/feedback.html:56
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:31
+msgid "Excel拆分工具"
+msgstr ""
+
+#: mysite/templates/errors/404.html:58
+#: toolbox/templates/toolbox/pages/site/feedback.html:57
+#, fuzzy
+#| msgid "背景移除"
+msgid "背景移除工具"
+msgstr "背景移除"
+
+#: mysite/templates/errors/404.html:61
+#: toolbox/templates/toolbox/pages/site/feedback.html:59
+msgid "待办事项工具"
+msgstr ""
+
+#: mysite/templates/errors/500.html:4
+#, fuzzy
+#| msgid "服务器错误"
+msgid "500 - 服务器错误"
+msgstr "服务器错误"
+
+#: mysite/templates/errors/500.html:6
+msgid "500错误 - 服务器遇到了问题，我们正在努力修复"
+msgstr ""
+
+#: mysite/templates/errors/500.html:29
+msgid ""
+"服务器遇到了意外情况，无法完成您的请求。我们的技术团队已经收到通知，正在努力"
+"修复这个问题。"
+msgstr ""
+
+#: mysite/templates/login.html:4 mysite/templates/login.html:133
+#: toolbox/templates/toolbox/layouts/base.html:135
 msgid "登录"
 msgstr "登录"
 
-#: mysite/templates/login.html:215 mysite/templates/register.html:7
-#: mysite/templates/register.html:52 mysite/templates/register.html:64
-msgid "注册"
-msgstr "注册"
-
-#: mysite/templates/login.html:220 mysite/templates/register.html:57
-msgid "欢迎使用"
-msgstr "欢迎使用"
-
-#: mysite/templates/login.html:222 mysite/templates/register.html:58
-msgid ""
-"在这里，我们相信建立一个强大的专业网络始于您的参与。我们很高兴为您提供现代"
-"化、用户友好的服务，确保您获得最佳体验。"
-msgstr ""
-"在这里，我们相信建立一个强大的专业网络始于您的参与。我们很高兴为您提供现代"
-"化、用户友好的服务，确保您获得最佳体验。"
-
-#: mysite/templates/login.html:224 mysite/templates/register.html:82
-msgid "立即加入！"
-msgstr "立即加入！"
-
-#: mysite/templates/login.html:236
-msgid "输入邮箱或手机号"
-msgstr "输入邮箱或手机号"
-
-#: mysite/templates/login.html:240 mysite/templates/register.html:75
-msgid "密码"
-msgstr "密码"
-
-#: mysite/templates/login.html:244
-msgid "记住我"
+#: mysite/templates/login.html:6
+msgid "登录 Ego Toolbox 账号，访问更多功能和个性化设置"
 msgstr ""
 
-#: mysite/templates/login.html:245
-msgid "忘记密码？"
-msgstr "忘记密码？"
+#: mysite/templates/login.html:21
+msgid "欢迎回来"
+msgstr ""
 
-#: mysite/templates/login.html:250
-msgid "或继续使用"
-msgstr "或继续使用"
+#: mysite/templates/login.html:24
+msgid "登录您的账号，访问我们强大的在线工具集合。简单、高效、免费使用。"
+msgstr ""
 
-#: mysite/templates/register.html:59
-msgid "已有账户？"
-msgstr "已有账户？"
+#: mysite/templates/login.html:37
+msgid "账号登录"
+msgstr ""
 
-#: mysite/templates/register.html:71
+#: mysite/templates/login.html:47 mysite/templates/login.html:73
+#: mysite/templates/register.html:49 mysite/templates/register.html:87
+msgid "请输入用户名"
+msgstr ""
+
+#: mysite/templates/login.html:50 mysite/templates/login.html:99
+#: mysite/templates/register.html:54 mysite/templates/register.html:117
+msgid "请输入密码"
+msgstr ""
+
+#: mysite/templates/login.html:66 mysite/templates/register.html:80
 msgid "用户名"
 msgstr "用户名"
 
-#: mysite/templates/register.html:79
+#: mysite/templates/login.html:90 mysite/templates/register.html:108
+msgid "密码"
+msgstr "密码"
+
+#: mysite/templates/login.html:128
+msgid "忘记密码？"
+msgstr "忘记密码？"
+
+#: mysite/templates/login.html:139
+msgid "还没有账号？"
+msgstr ""
+
+#: mysite/templates/login.html:143
+msgid "立即注册"
+msgstr ""
+
+#: mysite/templates/register.html:4
+msgid "注册"
+msgstr "注册"
+
+#: mysite/templates/register.html:6
+msgid "注册 Ego Toolbox 账号，开始使用我们的在线工具集合"
+msgstr ""
+
+#: mysite/templates/register.html:21
+msgid "创建账号"
+msgstr ""
+
+#: mysite/templates/register.html:24
+msgid "加入我们，免费使用所有在线工具。简单注册，即刻开始您的创意之旅。"
+msgstr ""
+
+#: mysite/templates/register.html:37
+msgid "账号注册"
+msgstr ""
+
+#: mysite/templates/register.html:51
+msgid "用户名至少3个字符"
+msgstr ""
+
+#: mysite/templates/register.html:56
+msgid "密码至少8个字符"
+msgstr ""
+
+#: mysite/templates/register.html:59
+#, fuzzy
+#| msgid "确认密码"
+msgid "请确认密码"
+msgstr "确认密码"
+
+#: mysite/templates/register.html:61
+msgid "两次输入的密码不一致"
+msgstr ""
+
+#: mysite/templates/register.html:64
+msgid "请同意服务条款和隐私政策"
+msgstr ""
+
+#: mysite/templates/register.html:102
+msgid "只能包含字母、数字和下划线"
+msgstr ""
+
+#: mysite/templates/register.html:137
+msgid "至少8位，包含字母和数字"
+msgstr ""
+
+#: mysite/templates/register.html:143
 msgid "确认密码"
 msgstr "确认密码"
+
+#: mysite/templates/register.html:152
+msgid "请再次输入密码"
+msgstr ""
+
+#: mysite/templates/register.html:179
+msgid "我已阅读并同意"
+msgstr ""
+
+#: mysite/templates/register.html:180
+#: toolbox/templates/toolbox/layouts/base.html:196
+#: toolbox/templates/toolbox/pages/site/terms.html:4
+#: toolbox/templates/toolbox/pages/site/terms.html:9
+msgid "服务条款"
+msgstr ""
+
+#: mysite/templates/register.html:181
+msgid "和"
+msgstr ""
+
+#: mysite/templates/register.html:182
+#: toolbox/templates/toolbox/layouts/base.html:195
+#: toolbox/templates/toolbox/pages/site/privacy.html:4
+#: toolbox/templates/toolbox/pages/site/privacy.html:10
+msgid "隐私政策"
+msgstr "隐私政策"
+
+#: mysite/templates/register.html:200
+msgid "注册账号"
+msgstr ""
+
+#: mysite/templates/register.html:206
+msgid "已有账号？"
+msgstr ""
+
+#: mysite/templates/register.html:210
+msgid "立即登录"
+msgstr ""
 
 #: mysite/views.py:47
 msgid "您已成功登出"
 msgstr ""
 
-#: toolbox/templates/base.html:130
-msgid "更快、更优雅、更实用的在线工具集合。"
+#: toolbox/admin.py:16
+msgid "基本信息"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:4
-msgid "工具箱 - 一站式在线工具"
+#: toolbox/admin.py:19
+msgid "图片附件"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:76
+#: toolbox/admin.py:22
+msgid "状态信息"
+msgstr ""
+
+#: toolbox/admin.py:25
+msgid "系统信息"
+msgstr ""
+
+#: toolbox/admin.py:37 toolbox/views/core/catalog.py:76
+#: toolbox/views/core/catalog.py:96
+#, fuzzy
+#| msgid "图片处理"
+msgid "图片"
+msgstr "图片处理"
+
+#: toolbox/models.py:13
+msgid "标题"
+msgstr ""
+
+#: toolbox/models.py:14 toolbox/templates/toolbox/pages/site/index.html:109
+msgid "分类"
+msgstr ""
+
+#: toolbox/models.py:15
+msgid "描述"
+msgstr ""
+
+#: toolbox/models.py:16
+msgid "标签"
+msgstr ""
+
+#: toolbox/models.py:17
+msgid "url地址"
+msgstr ""
+
+#: toolbox/models.py:18 toolbox/models.py:61
+msgid "状态"
+msgstr ""
+
+#: toolbox/models.py:38 toolbox/templates/toolbox/pages/site/feedback.html:36
+msgid "Bug反馈"
+msgstr ""
+
+#: toolbox/models.py:39 toolbox/templates/toolbox/pages/site/feedback.html:40
+msgid "功能建议"
+msgstr ""
+
+#: toolbox/models.py:40 toolbox/templates/toolbox/pages/site/feedback.html:44
+msgid "其他意见"
+msgstr ""
+
+#: toolbox/models.py:44 toolbox/templates/toolbox/partials/todo/stats.html:21
+msgid "待处理"
+msgstr ""
+
+#: toolbox/models.py:45
+#, fuzzy
+#| msgid "正在处理中..."
+msgid "处理中"
+msgstr "正在处理中..."
+
+#: toolbox/models.py:46 toolbox/templates/toolbox/partials/todo/stats.html:14
+msgid "已完成"
+msgstr ""
+
+#: toolbox/models.py:49 toolbox/templates/toolbox/pages/site/feedback.html:30
+msgid "反馈类型"
+msgstr ""
+
+#: toolbox/models.py:50 toolbox/templates/toolbox/pages/site/feedback.html:52
+msgid "相关工具"
+msgstr ""
+
+#: toolbox/models.py:51 toolbox/templates/toolbox/pages/site/feedback.html:67
+msgid "反馈标题"
+msgstr ""
+
+#: toolbox/models.py:52 toolbox/templates/toolbox/pages/site/feedback.html:78
+msgid "详细描述"
+msgstr ""
+
+#: toolbox/models.py:53 toolbox/templates/toolbox/pages/site/feedback.html:130
+msgid "联系方式"
+msgstr ""
+
+#: toolbox/models.py:54
+#, fuzzy
+#| msgid "图片处理"
+msgid "图片1"
+msgstr "图片处理"
+
+#: toolbox/models.py:55
+#, fuzzy
+#| msgid "图片处理"
+msgid "图片2"
+msgstr "图片处理"
+
+#: toolbox/models.py:56
+#, fuzzy
+#| msgid "图片处理"
+msgid "图片3"
+msgstr "图片处理"
+
+#: toolbox/models.py:57
+#, fuzzy
+#| msgid "图片处理"
+msgid "图片4"
+msgstr "图片处理"
+
+#: toolbox/models.py:58
+#, fuzzy
+#| msgid "图片处理"
+msgid "图片5"
+msgstr "图片处理"
+
+#: toolbox/models.py:59
+msgid "IP地址"
+msgstr ""
+
+#: toolbox/models.py:60
+msgid "用户代理"
+msgstr ""
+
+#: toolbox/models.py:62
+msgid "创建时间"
+msgstr ""
+
+#: toolbox/models.py:63
+msgid "更新时间"
+msgstr ""
+
+#: toolbox/models.py:66 toolbox/models.py:67
+#: toolbox/templates/toolbox/layouts/base.html:129
+#: toolbox/templates/toolbox/pages/site/feedback.html:4
+#: toolbox/templates/toolbox/pages/site/feedback.html:17
+msgid "问题反馈"
+msgstr ""
+
+#: toolbox/templates/toolbox/components/alert.html:7
+#: toolbox/templates/toolbox/partials/shared/error_partial.html:7
+msgid "请求失败"
+msgstr ""
+
+#: toolbox/templates/toolbox/components/alert.html:12
+#: toolbox/templates/toolbox/partials/shared/error_partial.html:12
+#, fuzzy
+#| msgid "系统处理您的请求时遇到了问题，请稍后重试。"
+msgid "抱歉，处理您的请求时出现了问题。请稍后重试。"
+msgstr "系统处理您的请求时遇到了问题，请稍后重试。"
+
+#: toolbox/templates/toolbox/components/alert.html:18
+#: toolbox/templates/toolbox/partials/shared/error_partial.html:18
+msgid "错误详情"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/base.html:7
+msgid ""
+"Toolbox - 一站式在线工具集合，提供数据处理、图片处理等多种实用工具，满足您的"
+"各种创意和工作需求"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/base.html:133
+msgid "反馈"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/base.html:179
+msgid ""
+"致力于为您提供现代、极简与高效的数据处理与效率工具组合。无需安装，即刻使用。"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/base.html:186
+msgid "发现"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/base.html:187
+msgid "工具大厅"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/base.html:188
+msgid "效率指南 (Blog)"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/base.html:189
+#: toolbox/templates/toolbox/pages/site/feedback.html:146
+msgid "提交反馈"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/base.html:193
+msgid "关于与法律"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/base.html:194
+#: toolbox/templates/toolbox/pages/site/about.html:4
+#: toolbox/templates/toolbox/pages/site/about.html:10
+msgid "关于我们"
+msgstr ""
+
+#: toolbox/templates/toolbox/layouts/tool.html:14
+msgid "返回工具箱"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/about.html:5
+msgid "Ego Toolbox 的诞生是为了提供更简单、更快速、更纯粹的在线工具体验。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/about.html:14
+msgid "我们的使命"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/about.html:15
+msgid ""
+"Ego Toolbox 诞生于对“干净、纯粹、高效”工具的渴望。在数字时代，我们每天都需要"
+"进行各种数据转换和处理，但网上充斥着大量带有弹窗广告、界面繁杂甚至存在隐私泄"
+"露风险的工具。我们希望改变这一现状，为您提供一个现代、极简、即用即走的在线工"
+"具平台。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/about.html:19
+msgid "专注体验，克制设计"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/about.html:20
+msgid ""
+"我们深受现代产品设计的启发，采用了极其克制的视觉排版和自适应的交互逻辑。无论"
+"是 Excel 与 CSV 的互转，还是基础的开发工具格式化，我们都将“少即是多”的理念融"
+"入每一个像素中，帮助您专注于真正的创作和工作流之中。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/about.html:24
+msgid "隐私与安全优先"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/about.html:25
+msgid ""
+"作为开发者工具团队，我们非常注重数据隐私。Ego Toolbox 中的大部分工具均采用纯"
+"前端或即时处理后销毁的技术方案。您所上传的任何文件、填写的任何代码和文本，都"
+"不会被保存在我们的服务器中。您的数据只属于您自己。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/about.html:29
+msgid "探索与反馈"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/about.html:30
+msgid ""
+"Ego Toolbox 目前仍在快速成长期，我们将持续添加更多开发、办公和生活效率工具。"
+"如果您对工具的体验有任何想法，或者希望我们提供某种新工具，欢迎通过顶部的反馈"
+"入口联系我们。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:4
+msgid "CSV与Excel格式对比及最佳适用场景 - Ego Toolbox博客"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:5
+msgid ""
+"深入探讨数据分析与传输中最常见的两种格式：Excel (.xlsx) 和 CSV。为什么我们要"
+"在线保留格式互相转换的工具？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:12
+msgid "数据基础科普"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:13
+msgid "CSV与Excel格式对比及原理适用场景"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:17
+msgid ""
+"在日常办公、财务分析甚至是后端开发的数据交互中，电子表格无疑是最重要的数据载"
+"体。然而，很多人往往对 .xls/.xlsx 与 .csv 文件之间的核心差异缺乏了解。在这"
+"里，我们将对其进行拆解并解释为什么类似于 Ego Toolbox 提供的“Excel与CSV互相转"
+"换工具”是开发者必备的利器。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:19
+msgid "1. 底层原理：富文本结构与纯文本"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:20
+msgid ""
+"<strong>Excel 文件（.xlsx）</strong> 本质上是一个包含多个文件、文件夹的压缩包"
+"（ZIP 容器）。解压它，您会看到它由一堆 XML 文件组成。正因为这个特性，它可以包"
+"含极其丰富的信息：单元格背景色、字体样式、合并单元格信息、复杂的图表，甚至含"
+"有可执行的 VBA 宏代码。这一切意味着文件尺寸庞大并且解析它需要微软专有或者复杂"
+"的第三方库（比如 Apache POI 或 Python 的 `openpyxl`）。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:21
+msgid ""
+"<strong>CSV（Comma-Separated Values，逗号分隔值）</strong> 则相反。它是一个最"
+"为彻底的纯文本文件。所有的行用换行符分开，所有的列用逗号（有时是制表符或分"
+"号）隔开。你不仅可以用任何一款轻量级编辑器（如记事本，VSCode）瞬间打开它，世"
+"界上几乎所有的编程语言生态都可以用仅仅几行代码完美读取和解析它。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:23
+msgid "2. 我们为什么需要在两者中切换？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:24
+msgid ""
+"既然 Excel 如此强大，为什么还要转换给 CSV？答案是<strong>传输效率、机读友好性"
+"和跨平台阻抗匹配</strong>。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:26
+msgid ""
+"<strong>场景 A：大数据导入。</strong> 当你需要将财务提供的 10 万行销售数据导"
+"入 MySQL 或 PostgreSQL 用户表时，数据库系统本身提供了超高速的 `LOAD DATA "
+"INFILE` 或类似 `COPY` 语句。但它们通常仅支持极简的纯文本格式如 CSV。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:27
+msgid ""
+"<strong>场景 B：机器学习训练。</strong> 在 Python 数据科学生态里，"
+"`pandas.read_csv()` 永远是加载速度最快、消耗内存控制最精准的第一优先级。而直"
+"接读取大体积 Excel 会极大拖累性能。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:28
+msgid ""
+"<strong>场景 C：业务沟通。</strong> 当程序员完成数据清洗之后，要交付给运营和"
+"财务同事看时，毫无疑问你需要将枯燥的纯文本（或者来自后端的 CSV 报表）转变成带"
+"有颜色标记和自动列宽的 Excel 以供汇报。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:31
+msgid "3. 工具带来的解决之道"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:32
+msgid ""
+"许多业务人员发现他们自己打开 CSV 时经常出现“乱码”，核心原因是 Excel 用系统默"
+"认的 ANSI 编码（比如 GBK），而生成的 CSV 多为 UTF-8。这也是许多在线转换工具能"
+"够通过简单的选项直接解决文字乱码的好处所在。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:33
+msgid ""
+"使用 Ego Toolbox，无论是将包含复杂表头的 Excel 提取出纯粹的二维数据（CSV），"
+"还是想要将一团毫无美感的字符（CSV）变成美观的 Excel 输出文件，都只需要一次点"
+"击。我们将所有关于编码识别、行尾符解析和 Sheet 工作表剥离的操作隐藏在后台。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_csv_vs_excel.html:39
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:41
+msgid "返回文章列表"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:4
+msgid "如何利用在线工具提升开发与工作效率 - Ego Toolbox博客"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:5
+msgid ""
+"在这个信息爆炸的时代，如何利用在线工具如Ego Toolbox提升我们的开发与工作效率？"
+"本文探讨应对碎片化任务的最佳策略。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:12
+msgid "效率指南"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:13
+#: toolbox/views/core/pages.py:22
+msgid "如何利用在线工具提升开发与工作效率"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:17
+msgid ""
+"在这个快节奏的数字时代，程序员和办公人员的日常工作不仅是编写宏大的软件架构或"
+"制作精美的演示文稿。更多时候，我们的精力被无数琐碎的小问题所牵扯：如何把这段"
+"乱码一样的 JSON 数据格式化？怎么把一个几十万行的 Excel 数据给前端作 Mock 使"
+"用？怎么快速给张图去个底色？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:19
+msgid "1. 那些消耗你不经意时间的“伪痛点”"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:20
+msgid ""
+"之所以称之为“伪痛点”，是因为这些小问题似乎并不需要什么高深的技术。写个 "
+"Python 脚本，用 `pandas` 或者原生的 `json` 模块，也就是三两分钟的事；或者你可"
+"以去搜索引擎搜“JSON 格式化工具”，点开前几个链接，粘贴进去搞定。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:21
+msgid ""
+"然而，细究这背后的心流损失：你需要跳出当前的工作环境，打开新的脚本文件，敲击 "
+"Boilerplate 代码（模板代码），或者忍受搜索引擎前几个充斥着大量牛皮癣广告和诱"
+"导点击的垃圾网站。当你最终获得正确的返回结果时，大脑的工作下文可能已经断片"
+"了。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:23
+msgid "2. 克制与即用即走（Plug and Play）的哲学"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:24
+msgid "这就是创立 Ego Toolbox 的初衷。一个优秀的工具库应该如同瑞士军刀："
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:26
+msgid ""
+"<strong>它不喧宾夺主：</strong> 没有弹窗提示，没有充值会员按钮，没有闪烁的通"
+"知。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:27
+#, python-format
+msgid ""
+"<strong>它单一且专注：</strong> 工具列表清晰。Excel 转 CSV 就只做这个事情。不"
+"需要过多的参数选择，预设默认值能满足 90%% 的需求。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:28
+msgid ""
+"<strong>它是安全的后盾：</strong> 提供基于浏览器的本地处理，或即时丢弃的内存"
+"中转服务，消除您对上传重要内部数据或源码的安全顾虑。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:31
+msgid "3. 建立你的桌面工具流标签"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:32
+msgid ""
+"要想真正提升这些碎片化操作的效率，我们建议您将常用的高频在线工具建立单独的浏"
+"览器书签文件夹，或者利用类似 Raycast、Alfred 等启动器为这些 URL 创建快捷方"
+"式。当需要验证某段 Base64 字符串时，敲下 `Ctrl + Space`，输入 `b64`，秒进解析"
+"网站，转换，复制，关闭。这也是所谓“手指记忆”的终极体现。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:34
+msgid "结语"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_improve_efficiency.html:35
+msgid ""
+"工具是延展人类能力的杠杆，而不应该是消耗心智的累赘。使用干净、高速的 Ego "
+"Toolbox，将那些原本必须切分精力的低价值重复处理任务“外包”出去，从而把最锐利的"
+"思维，留给真正有挑战性的架构与业务逻辑开发中。期待您在我们的平台上发现属于您"
+"的效率之美！"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_list.html:4
+msgid "博客与效率指南"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_list.html:5
+msgid ""
+"阅读有关开发效率提升、文档转换原理、在线工具指南等精选技术文章，发现更高效的"
+"工作方式。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_list.html:10
+msgid "数字效率指南"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_list.html:11
+msgid "分享我们在构建工具过程中关于生产力、数据处理和极简主义的深度思考。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_list.html:20
+msgid "深度长文"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/blog_list.html:28
+msgid "阅读全文"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:6
+msgid "问题反馈 - 提交工具bug反馈或功能建议"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:18
+msgid "如果您在使用过程中遇到问题或有任何建议，欢迎向我们反馈"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:55
+msgid "请选择相关工具（可选）"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:58
+msgid "水印移除工具"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:60
+msgid "其他/通用问题"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:71
+msgid " 请简要描述问题"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:71
+msgid "请简要描述您的建议"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:82
+msgid " 请详细描述问题现象、复现步骤等信息"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:83
+msgid "请详细描述您的建议或需求"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:86
+msgid "最多2000字"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:93
+msgid "上传截图"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:94
+msgid "（可选，最多5张）"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:117
+msgid "添加图片"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:123
+msgid "支持 JPG、PNG、GIF 格式，单张图片不超过5MB"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:131
+msgid "（可选）"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:150
+msgid "提交中..."
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:156
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:106
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:172
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:125
+msgid "重置"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:192
+msgid "常见问题"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:198
+msgid "反馈后多久能收到回复？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:201
+msgid ""
+"我们会尽快处理您的反馈，一般情况下会在3-5个工作日内查看。如果您留下了联系方"
+"式，我们会通过您提供的方式回复。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:207
+msgid "提交Bug反馈时需要注意什么？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:210
+msgid ""
+"请尽量详细描述问题现象、复现步骤、使用的浏览器或设备信息，并附上相关截图，这"
+"有助于我们快速定位和修复问题。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:216
+msgid "功能建议会被采纳吗？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/feedback.html:219
+msgid ""
+"我们会认真评估每一条功能建议，综合考虑用户需求和技术可行性。虽然无法保证所有"
+"建议都会被实现，但您的反馈对我们改进产品非常重要。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/index.html:74
 msgid "用更简洁、更智能的方式，搭建你的工具工作流。"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:77
+#: toolbox/templates/toolbox/pages/site/index.html:75
 msgid ""
 "参考现代 AI 产品视觉语言，采用更克制的排版、更舒展的留白和更快速的交互，适配"
 "你的高频创作与效率场景。"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:79
+#: toolbox/templates/toolbox/pages/site/index.html:77
 msgid "从 Todo 开始"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:80
+#: toolbox/templates/toolbox/pages/site/index.html:78
 msgid "浏览全部工具"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:93
+#: toolbox/templates/toolbox/pages/site/index.html:91
 #, fuzzy
 #| msgid "浏览工具"
 msgid "工具"
 msgstr "浏览工具"
 
-#: toolbox/templates/toolbox/index.html:102
+#: toolbox/templates/toolbox/pages/site/index.html:100
 #, fuzzy
 #| msgid "使用次数"
 msgid "使用"
 msgstr "使用次数"
 
-#: toolbox/templates/toolbox/index.html:111
-msgid "分类"
-msgstr ""
-
-#: toolbox/templates/toolbox/index.html:130
+#: toolbox/templates/toolbox/pages/site/index.html:128
 msgid "专注体验"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:132
+#: toolbox/templates/toolbox/pages/site/index.html:130
 msgid "减少视觉噪音，强化信息层级，让你更快找到需要的工具。"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:141
+#: toolbox/templates/toolbox/pages/site/index.html:139
 msgid "自适应界面"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:143
+#: toolbox/templates/toolbox/pages/site/index.html:141
 msgid "一键切换主题和中英文，在不同页面保持一致的浏览流。"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:152
+#: toolbox/templates/toolbox/pages/site/index.html:150
 msgid "模块可扩展"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:154
+#: toolbox/templates/toolbox/pages/site/index.html:152
 msgid "分类与导航结构已为后续工具扩展和更复杂工作流预留空间。"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:166
+#: toolbox/templates/toolbox/pages/site/privacy.html:5
+msgid ""
+"在 Ego Toolbox，我们高度重视您的隐私和数据安全，这是我们对于数据收集和使用的"
+"承诺。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:12
+msgid "生效日期：2024年01月01日"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:16
+msgid "1. 数据收集与处理声明"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:17
+msgid ""
+"Ego Toolbox（以下简称“本网站”）提供多种在线工具（如数据格式转换、文本处理"
+"等）。我们深知您的文件和数据极其重要，因此我们在设计工具时遵循以下核心隐私原"
+"则："
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:19
+msgid ""
+"<strong>不会保存您的文件：</strong> 我们不收集、不存储、不备份您在使用工具时"
+"上传或生成的任何文件。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:20
+msgid ""
+"<strong>内存即时处理：</strong> 绝大多数在线服务都是在服务器内存中即时处理您"
+"的请求，并在返回结果后立即释放，不会在硬盘中写入您的个人数据。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:21
+msgid ""
+"<strong>部分前端工具：</strong> 部分工具甚至完全在您的浏览器本地执行，您的数"
+"据不会离开您的设备。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:26
+msgid "2. 我们收集的信息类型"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:27
+msgid ""
+"为了维护网站的基本安全和性能监控，我们可能会自动接收和记录您的浏览设备和浏览"
+"器信息，包括但不限于：您的 IP 地址、浏览器类型、使用的语言、访问日期和时间、"
+"软硬件特征信息及您需求的网页记录。这些信息将仅用于统计匿名流量和防御恶意攻"
+"击，不会与任何个人特征相关联。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:31
+msgid "3. Cookie 的使用"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:32
+msgid ""
+"我们可能会使用 Cookie 来保存您的网站偏好设置（如主题暗黑/明亮模式切换、语言偏"
+"好）以及管理您的用户会话（如您的登录状态）。我们同时也集成了 Google AdSense "
+"等第三方服务，这些第三方伙伴可能会使用 Cookie 收集关于您访问本网站及其他网站"
+"的信息，以向您展示相关的广告。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:36
+msgid "4. 第三方服务"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:37
+msgid ""
+"为确保提供服务并展示与您相关的广告，本网站接入了由第三方提供的功能，如 "
+"Google AdSense。这些第三方服务受其各自独立的隐私政策约束，我们不对其收集的数"
+"据负责。您可以在浏览器设置中选择禁用 Cookie 来拒绝第三方追踪。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:41
+msgid "5. 修改与更新"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/privacy.html:42
+msgid ""
+"我们随时可能更新本隐私政策，恕不提前通知。新版声明一旦发布到本页面即刻生效。"
+"继续使用我们的服务即表明您同意接受更新后的隐私政策。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:13
+msgid ""
+"欢迎访问 Ego Toolbox。通过访问本网站或使用本站提供的任何在线工具，即表示您同"
+"意接受以下服务条款。如果您不同意这些条款的任何内容，请不要使用我们的网站与服"
+"务。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:17
+msgid "1. 服务的使用规范"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:18
+msgid ""
+"我们授权您出于个人或商业目的免费使用我们公开提供的数字工具。但在使用过程中，"
+"您同意："
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:20
+msgid ""
+"不会利用我们的接口发起大规模自动化攻击、爬虫或任何试图造成服务器过载的脚本。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:21
+msgid ""
+"不得使用我们的工具去处理任何侵犯知识产权、包含非法内容、或者违反适用法律的数"
+"据。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:22
+msgid "不得试图反向工程或入侵本网站的底层服务框架。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:27
+msgid "2. 免责声明"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:28
+#, python-format
+msgid ""
+"Ego Toolbox 按照“现状”和“可用”的基础提供所有工具及服务。我们不保证我们的工具"
+"100%%无错误、不中断，亦不保证处理结果绝对正确无误。对于用户因使用本站服务或处"
+"理特定的工作流产生的任何直接、间接或附带损失（包括数据丢失），本站概不负责。"
+"使用我们的工具带来的风险由您自行承担。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:32
+msgid "3. 隐私与数据安全"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:33
+msgid ""
+"您在使用基于服务器资源的工具（如文件格式转换）时，需知晓服务运行的特性。虽然"
+"我们保证一旦完成请求处理就会从系统内存中销毁您的文件，且决不有意收集与泄露此"
+"信息，但由于公网传输的本质特点，我们无法保证通讯链接途中的绝对保密。更多详尽"
+"规定请查阅我们的《隐私政策》。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:37
+msgid "4. 权利与归属"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:38
+msgid ""
+"本网站的所有内容、界面设计、交互逻辑、相关代码（包括公开展示和后台运行）的著"
+"作权均归 Ego Toolbox 所有。禁止未经授权的直接克隆和商业转售。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:42
+msgid "5. 条款变更权利"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/site/terms.html:43
+msgid ""
+"Ego Toolbox 保留在不事先通知的情况下，于任意时间更新或修改本服务条款的权利。"
+"您的持续使用将被视为对最新版服务条款的接受。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:11
+msgid "图片转Base64"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:19
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:249
+msgid "选择图片"
+msgstr "选择图片"
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:44
+msgid "Base64结果"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:52
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:91
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:100
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:193
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:127
+#: toolbox/templates/toolbox/partials/excel/excel_csv_result.html:29
+#: toolbox/templates/toolbox/partials/ocr/result.html:14
+msgid "复制"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:65
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:123
+#: toolbox/views/core/catalog.py:106 toolbox/views/core/catalog.py:116
+msgid "转换"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:68
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:126
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:72
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:165
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:68
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:115
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:113
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:78
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:64
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:149
+msgid "清空"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:75
+msgid "Base64转图片"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:83
+msgid "输入Base64"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:97
+msgid "请输入图片的Base64编码..."
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:105
+msgid "图片预览"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:110
+msgid "下载图片"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:115
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:285
+msgid "图片将在这里显示"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:138
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:211
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:133
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:131
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:114
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:96
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:168
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:95
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:186
+msgid "使用说明"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:143
+msgid "图片转Base64：选择图片文件，点击转换按钮"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:147
+msgid "Base64转图片：输入Base64编码，点击转换按钮"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:151
+msgid "支持多种图片格式：PNG、JPG、GIF等"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:155
+msgid "点击复制按钮可以快速复制Base64结果"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:159
+msgid "Base64转图片后可以下载保存"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:163
+msgid "注意：大文件转换可能需要较长时间"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:192
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:391
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:404
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:261
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:146
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:319
+#: toolbox/templates/toolbox/partials/excel/excel_csv_result.html:55
+msgid "已复制到剪贴板"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:195
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:394
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:407
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:264
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:149
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:322
+#: toolbox/templates/toolbox/partials/excel/excel_csv_result.html:58
+msgid "复制失败，请手动复制"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:198
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:152
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:325
+msgid "没有可复制的内容"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:217
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:258
+msgid "图片转换成功"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:261
+msgid "无效的Base64编码"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:263
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:270
+msgid "转换失败，请检查Base64编码"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/base64_converter.html:268
+msgid "转换失败"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:10
+#: toolbox/views/core/catalog.py:107
+msgid "CSV/JSON转换"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:17
+msgid "CSV转JSON"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:25
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:92
+msgid "CSV输入"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:39
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:132
+msgid "分隔符"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:51
+msgid "首行作为键"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:54
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:147
+msgid "是"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:55
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:148
+msgid "否"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:66
+msgid "转换为JSON"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:92
+msgid "JSON结果"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:110
+msgid "JSON转CSV"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:118
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:22
+msgid "JSON输入"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:144
+msgid "包含表头"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:159
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:62
+msgid "转换为CSV"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:185
+msgid "CSV结果"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:216
+msgid "CSV转JSON：输入CSV数据，选择分隔符和表头选项，点击转换"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:220
+msgid "JSON转CSV：输入JSON数组，选择分隔符和表头选项，点击转换"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:224
+msgid "支持自定义分隔符：逗号、分号、制表符、竖线"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:228
+msgid "转换结果可以复制使用"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:232
+msgid "注意：CSV数据应该格式正确，JSON应该是数组格式"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:345
+msgid "CSV转JSON成功"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/csv_json_converter.html:380
+msgid "JSON转CSV成功"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:10
+#: toolbox/views/core/catalog.py:117
+msgid "Excel/CSV转换"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:17
+msgid "Excel转CSV"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:29
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:71
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:46
+msgid "上传Excel文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:45
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:53
+msgid "工作表名称"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:53
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:60
+msgid "默认第一个工作表"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:81
+msgid "CSV转Excel"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:109
+msgid "转换为Excel"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:138
+msgid "Excel转CSV：上传Excel文件，选择工作表，点击转换"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:142
+msgid "CSV转Excel：输入CSV数据，点击转换"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:146
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:144
+msgid "支持.xlsx和.xls格式的Excel文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:150
+msgid "转换结果可以下载使用"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:154
+msgid "注意：大文件可能需要较长处理时间"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:162
+msgid "关于 Excel 与 CSV 格式转换的深度说明"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:165
+msgid "什么是 CSV 格式？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:166
+msgid ""
+"CSV（Comma-Separated Values，逗号分隔值）是一种基于纯文本的文件格式。它使用特"
+"定的字符（通常是逗号）来分隔数据项，是数据库和电子表格之间进行数据交换的最标"
+"准格式之一。与庞大的 Excel 文件（如.xlsx）不同，CSV 不包含任何图表、公式或单"
+"元格格式，这使得它的数据体积极小，对机器处理和代码读取极其友好。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:169
+msgid "为什么需要将 Excel 转换为 CSV？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:170
+msgid ""
+"尽管 Excel 格式在日常人工浏览和排版中具备强大的表现力，但在进行后端开发、数据"
+"科学处理及跨系统迁移时，解析庞大的 XML 压缩节点往往会引发内存过载。将报表提取"
+"为纯文本 CSV，能够使诸如 Python 的 Pandas 库、MySQL 的数据导入等操作成倍提升"
+"解析效率。这是现代数据工作栈中最基础且必不可少的处理环节。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:173
+msgid "Ego Toolbox：极致的安全与隐私保障"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:174
+msgid ""
+"作为效率工具，我们深知商业与个人数据的敏感性。在使用我们的格式转换功能时，由"
+"于采用了轻量级的转换架构，您的表格只会由系统内存即时读取并响应，处理结果下发"
+"后即刻从内存中彻底销毁。本站绝不收集、备份或保留任何用户上传的工作表文件。您"
+"的数据只属于您自己。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:177
+msgid "如何解决 CSV 文本中常见的字符乱码？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:178
+msgid ""
+"中文乱码通常源于编码不一致——例如业务系统默认导出为 UTF-8 编码，而较早版本的 "
+"Excel 则默认使用本地系统的 ANSI 编码打开。通过利用我们的『CSV转Excel』工具，"
+"底层的自动编码探测器将帮助您抹平编码阻抗，直接输出原生支持解析的正确格式文"
+"件，省去您手动添加 UTF-8 BOM 签名的繁琐流程。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_csv_converter.html:193
+msgid "已选择"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:10
+#: toolbox/views/core/catalog.py:127
+msgid "Excel文件合并"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:19
+msgid "合并选项"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:28
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:22
+msgid "合并模式"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:37
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:25
+msgid "横向合并"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:44
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:27
+msgid "纵向合并"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:82
+msgid "选择Excel文件（至少两个）"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:96
+msgid "已选择的文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:107
+msgid "合并文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:136
+msgid "横向合并：将多个Excel文件的内容并排合并，适合不同列的数据"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:140
+msgid "纵向合并：将多个Excel文件的内容垂直堆叠，适合相同结构的数据"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:148
+msgid "可以指定工作表名称进行合并"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/excel_merger.html:152
+msgid "注意：请确保上传的Excel文件具有兼容的结构"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:10
+#: toolbox/views/core/catalog.py:67
+msgid "JSON格式化"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:51
+#: toolbox/views/core/catalog.py:66
+msgid "格式化"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:58
+msgid "压缩"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:65
+msgid "复制结果"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:85
+#: toolbox/templates/toolbox/partials/json_formatter_result_bak.html:38
+msgid "格式化结果"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:88
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:94
+#: toolbox/templates/toolbox/partials/json_formatter_result_bak.html:25
+msgid "键数量"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:89
+msgid "深度"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:98
+#: toolbox/templates/toolbox/partials/json_formatter_result_bak.html:29
+msgid "嵌套深度"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:119
+msgid "在输入框中输入JSON字符串"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:123
+msgid "系统会自动验证JSON语法"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:127
+msgid "点击\"格式化\"按钮美化JSON，点击\"压缩\"按钮去除空格和换行"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:131
+msgid "点击\"复制结果\"按钮复制格式化后的JSON"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:135
+msgid "注意：支持折叠和展开JSON对象和数组"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:143
+msgid "关于 JSON 格式化的技术科普"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:146
+msgid "什么是 JSON？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:147
+msgid ""
+"JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。它基于 "
+"ECMAScript 的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。由于"
+"其天生具有结构清晰、层级分明且极大程度降低了信息冗余（相比于 XML）的特点，"
+"JSON 已经成为了现代 Web API 和微服务前后端通信的绝对标准格式。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:150
+msgid "我们为什么需要 JSON 格式化工具？"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:151
+msgid ""
+"在实际的代码开发与抓包调试中，服务端返回的 JSON 数据通常被“压缩（Minified）”"
+"成了没有空格和换行的单行长字符串，以此来节约网络传输带宽。但这对于人类开发者"
+"来说是极其难以阅读和排错的。利用我们的 JSON 格式化解析器，不仅能够瞬间将其转"
+"换为结构化的缩进树，还能帮助您定位缺少括号、引号错位等常见的语法 Syntax "
+"Error。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:154
+msgid "纯本地处理，拒绝数据上传"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:155
+#, python-format
+msgid ""
+"很多在线 JSON 工具会将您提交的文本发送到后台服务器进行解析，这存在极大的安全"
+"漏洞——因为 JSON 经常包含诸如 Access Token、数据库连接串、或者是包含用户隐私的"
+"业务报文。Ego Toolbox 的 JSON 解析器 100%% 运行在您的浏览器本地（利用原生的 "
+"JavaScript 引擎处理）。当您关闭页面时，所有数据灰飞烟灭，绝无拦截与记录。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:158
+msgid "JSON 压缩 (Minify) 的使用场景"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/json_formatter.html:159
+msgid ""
+"除了格式化（Beautify）使其适于阅读外，本工具提供的“压缩”功能同样重要。当您需"
+"要将静态的 JSON 配置项硬编码写入数据库字段（如 MySQL 的 LongText 或 JSON "
+"列），或者将参数填入 POSTman / Curl 终端时，去除所有的换行和空格能够有效避免"
+"不可见控制字符引发的解析错误。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:10
+#: toolbox/views/core/catalog.py:97
+msgid "OCR图片文字提取"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:27
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:187
+#, fuzzy
+#| msgid "1. 上传图片"
+msgid "上传图片"
+msgstr "1. 上传图片"
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:51
+msgid "识别语言"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:72
+msgid "提取文字"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:101
+msgid "上传包含文字的图片（支持JPG、PNG、GIF等格式）"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:105
+msgid "选择要识别的语言（支持多种语言）"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:109
+msgid "点击\"提取文字\"按钮开始识别"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:113
+msgid "识别结果可以复制或下载为文本文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:117
+msgid ""
+"注意：识别准确度取决于图片质量和文字清晰度。建议使用清晰、对比度高的图片以获"
+"得更好的识别效果。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/ocr_tool.html:168
+msgid "没有可下载的内容"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:10
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:58
+msgid "生成二维码"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:16
+msgid "输入文本或URL"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:21
+msgid "请输入要生成二维码的文本或URL..."
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:28
+msgid "二维码大小"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:39
+msgid "前景色"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:46
+msgid "背景色"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:85
+msgid "下载二维码"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:93
+msgid "解码二维码"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:99
+msgid "上传二维码图片"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:120
+msgid "解码结果"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:143
+#: toolbox/views/core/catalog.py:76 toolbox/views/core/catalog.py:86
+msgid "解码"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:173
+msgid "生成二维码：输入文本或URL，选择颜色和大小，点击生成"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:177
+msgid "解码二维码：上传二维码图片，自动解码内容"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:181
+msgid "支持自定义二维码的颜色和尺寸"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:185
+msgid "生成的二维码可以下载保存"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:189
+msgid "解码结果可以一键复制"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:193
+msgid "注意：请确保上传的二维码图片清晰可见"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:223
+msgid "请输入文本或URL"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:243
+msgid "二维码生成成功"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:246
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:250
+msgid "生成二维码失败"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:263
+msgid "二维码已下载"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:279
+msgid "请上传二维码图片"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:301
+msgid "二维码解码成功"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:303
+msgid "无法识别二维码，请上传清晰的二维码图片"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/dev/qrcode_tool.html:307
+msgid "图片加载失败"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:13
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:39
+#: toolbox/views/core/catalog.py:147
+msgid "小恐龙游戏"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:16
+msgid "分数"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:27
+msgid "游戏结束"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:28
+msgid "你的分数"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:33
+msgid "重新开始"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:40
+msgid "按空格键或点击屏幕跳跃"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:45
+msgid "开始游戏"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:53
+msgid "最高分"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:56
+msgid "按空格键跳跃，躲避障碍物"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:67
+msgid "游戏说明"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:70
+msgid "按空格键、向上箭头键或点击屏幕让恐龙跳跃"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:71
+msgid "躲避移动的仙人掌障碍物"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:72
+msgid "随着游戏进行，速度会越来越快"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:73
+msgid "碰到障碍物游戏结束，点击重新开始"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/game/dino_game.html:74
+msgid "支持移动端触摸操作"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:34
+msgid "按指定字段拆分Excel文件，支持拆分为多个文件或多个sheet页"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:71
+msgid "正在解析文件..."
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:80
+msgid "解析完成"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:98
+msgid "上传需要拆分的Excel文件（支持.xlsx和.xls格式，默认读取第一个sheet页）"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:99
+msgid "选择要作为拆分依据的字段（如：部门、地区、类别等）"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:100
+msgid "选择拆分方式："
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:102
+msgid "拆分为多个Excel文件：每个唯一值生成一个独立的Excel文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:103
+msgid "拆分为多个Sheet页：所有数据在一个Excel文件中，按字段值分Sheet"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:105
+msgid "点击开始拆分并下载，系统将生成压缩包供您下载"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/excel_splitter.html:106
+msgid "注意：大文件处理可能需要一些时间，请耐心等待"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:136
+msgid "获取访问密钥"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:138
+msgid "扫描下方二维码获取6位访问密钥"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:142
+msgid "无需注册、登录或关注"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:150
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:488
+msgid "请输入6位访问密钥"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:157
+msgid "验证并下载"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:170
+msgid "使用步骤"
+msgstr "使用步骤"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:171
+msgid "简单三步，快速移除背景"
+msgstr "简单三步，快速移除背景"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:188
+msgid "选择或拖放需要处理的图片，支持多种格式"
+msgstr "选择或拖放需要处理的图片，支持多种格式"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:203
+#, fuzzy
+#| msgid "2. 自动处理"
+msgid "自动处理"
+msgstr "2. 自动处理"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:204
+msgid "AI 智能识别主体，自动移除背景"
+msgstr "AI 智能识别主体，自动移除背景"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:219
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:299
+msgid "下载结果"
+msgstr "下载结果"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:220
+msgid "获取透明背景的高质量 PNG 图片"
+msgstr "获取透明背景的高质量 PNG 图片"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:243
+msgid "拖放图片到这里"
+msgstr "拖放图片到这里"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:244
+msgid "或者点击上传图片"
+msgstr "或者点击上传图片"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:261
+msgid "最大 10MB"
+msgstr "最大 10MB"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:275
+msgid "正在处理中..."
+msgstr "正在处理中..."
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:276
+msgid "AI 正在移除背景，请稍候"
+msgstr "AI 正在移除背景，请稍候"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:288
+msgid "处理完成"
+msgstr "处理完成"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:289
+msgid "背景已成功移除"
+msgstr "背景已成功移除"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:294
+msgid "重新上传"
+msgstr "重新上传"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:311
+msgid "原始图片"
+msgstr "原始图片"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:325
+msgid "移除背景后"
+msgstr "移除背景后"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:326
+msgid "透明背景"
+msgstr "透明背景"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:408
+#: toolbox/views/tools/productivity/removebg.py:22
+msgid "请选择图片文件"
+msgstr "请选择图片文件"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:414
+#: toolbox/views/tools/productivity/removebg.py:35
+msgid "文件大小不能超过 10MB"
+msgstr "文件大小不能超过 10MB"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:450
+#: toolbox/views/tools/productivity/removebg.py:80
+msgid "背景移除成功"
+msgstr "背景移除成功"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:452
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:460
+msgid "处理失败，请重试"
+msgstr "处理失败，请重试"
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:519
+msgid "验证成功，开始下载"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:521
+msgid "访问密钥无效，请重试"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/removebg.html:528
+msgid "验证失败，请检查网络连接"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/todo.html:25
+msgid "添加新待办事项..."
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/todo.html:28
+msgid "添加"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/productivity/todo.html:38
+msgid "还没有任务，先添加第一条待办事项吧。"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:14
+#: toolbox/views/core/catalog.py:136 toolbox/views/core/catalog.py:137
+msgid "计时器"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:22
+#: toolbox/views/core/catalog.py:136
+msgid "倒计时"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:29
+msgid "小时"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:41
+msgid "分钟"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:53
+#, fuzzy
+#| msgid "秒级"
+msgid "秒"
+msgstr "秒级"
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:97
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:154
+msgid "暂停"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:112
+#: toolbox/views/core/catalog.py:136
+msgid "秒表"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:123
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:163
+msgid "计次"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:191
+msgid "倒计时：设置小时、分钟、秒，点击开始进行倒计时"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:195
+msgid "秒表：点击开始计时，可以暂停和计次"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:199
+msgid "倒计时结束时会显示提示"
+msgstr ""
+
+#: toolbox/templates/toolbox/pages/tools/utility/timer.html:203
+msgid "计次功能可以记录多个时间点"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/csv_excel_result.html:6
+#: toolbox/templates/toolbox/partials/excel/excel_csv_result.html:6
+msgid "转换结果"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/csv_excel_result.html:11
+#: toolbox/templates/toolbox/partials/excel/excel_csv_result.html:11
+msgid "行数"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/csv_excel_result.html:15
+#: toolbox/templates/toolbox/partials/excel/excel_csv_result.html:15
+msgid "列数"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/csv_excel_result.html:24
+msgid "Excel文件已生成，请点击下方按钮下载"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/csv_excel_result.html:34
+msgid "下载Excel文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/csv_excel_result.html:59
+#: toolbox/templates/toolbox/partials/excel/excel_csv_result.html:73
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:73
+msgid "文件下载已开始"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/excel_csv_result.html:22
+msgid "CSV内容"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/excel_csv_result.html:45
+msgid "下载CSV文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:6
+msgid "合并完成"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:13
+msgid "Excel文件已成功合并"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:18
+msgid "文件数量"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:32
+msgid "总行数"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:36
+msgid "总列数"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/merger_result.html:48
+msgid "下载合并后的Excel文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:8
+msgid "文件名："
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:16
+msgid "数据预览"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:39
+msgid "共"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:39
+msgid "个字段，"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:39
+msgid "行数据。"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:39
+msgid "仅显示前5行数据。"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:56
+msgid "选择拆分字段"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:57
+msgid "系统将根据此字段的唯一值进行拆分"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:61
+msgid "请选择字段"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:71
+msgid "拆分方式"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:76
+msgid "拆分为多个Excel文件"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:80
+msgid "拆分为多个Sheet页"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:88
+msgid "名称前缀"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:89
+msgid "每个Excel将命名为：前缀_原文件名，每个Sheet页将命名为：前缀_字段值"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:96
+msgid "例如：部门"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/excel/splitter_preview.html:113
+msgid "开始拆分并下载"
+msgstr ""
+
+#: toolbox/templates/toolbox/partials/home/index_filter.html:8
 msgid "筛选工具"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:168
+#: toolbox/templates/toolbox/partials/home/index_filter.html:10
 msgid "按分类与关键词快速定位"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:179
+#: toolbox/templates/toolbox/partials/home/index_filter.html:36
 msgid "搜索工具..."
 msgstr "搜索工具..."
 
-#: toolbox/templates/toolbox/index.html:189
+#: toolbox/templates/toolbox/partials/home/index_tool_grid.html:4
 msgid "工具画廊"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:217
+#: toolbox/templates/toolbox/partials/home/index_tool_grid.html:33
 msgid "打开"
 msgstr ""
 
-#: toolbox/templates/toolbox/index.html:230
+#: toolbox/templates/toolbox/partials/home/index_tool_grid.html:44
 #, fuzzy
 #| msgid "未找到匹配的工具"
 msgid "未找到匹配的工具。"
 msgstr "未找到匹配的工具"
 
-#: toolbox/templates/toolbox/todo.html:40
-msgid "返回工具箱"
+#: toolbox/templates/toolbox/partials/json_formatter_result_bak.html:10
+msgid "JSON格式正确"
 msgstr ""
 
-#: toolbox/templates/toolbox/todo.html:56
-msgid "总任务"
+#: toolbox/templates/toolbox/partials/json_formatter_result_bak.html:13
+msgid "已压缩JSON，去除了所有空格和换行"
 msgstr ""
 
-#: toolbox/templates/toolbox/todo.html:63
-msgid "已完成"
+#: toolbox/templates/toolbox/partials/json_formatter_result_bak.html:15
+msgid "已成功格式化JSON"
 msgstr ""
 
-#: toolbox/templates/toolbox/todo.html:70
-msgid "待处理"
+#: toolbox/templates/toolbox/partials/json_formatter_result_bak.html:41
+msgid "压缩格式"
 msgstr ""
 
-#: toolbox/templates/toolbox/todo.html:85
-msgid "添加新待办事项..."
+#: toolbox/templates/toolbox/partials/json_formatter_result_bak.html:43
+msgid "美化格式"
 msgstr ""
 
-#: toolbox/templates/toolbox/todo.html:88
-msgid "添加"
+#: toolbox/templates/toolbox/partials/ocr/result.html:5
+msgid "识别结果"
 msgstr ""
 
-#: toolbox/templates/toolbox/todo.html:98
-msgid "还没有任务，先添加第一条待办事项吧。"
+#: toolbox/templates/toolbox/partials/ocr/result.html:22
+#, fuzzy
+#| msgid "下载结果"
+msgid "下载"
+msgstr "下载结果"
+
+#: toolbox/templates/toolbox/partials/ocr/result.html:29
+msgid "识别的文字将显示在这里..."
 msgstr ""
 
-#: toolbox/templates/toolbox/todo_item.html:28
+#: toolbox/templates/toolbox/partials/todo/item.html:27
 msgid "删除"
 msgstr ""
 
-#: toolbox/views/catalog.py:12 toolbox/views/catalog.py:32
-#: toolbox/views/catalog.py:73
+#: toolbox/templates/toolbox/partials/todo/stats.html:7
+msgid "总任务"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:26 toolbox/views/core/catalog.py:36
+#: toolbox/views/core/catalog.py:46 toolbox/views/core/catalog.py:56
+#: toolbox/views/core/catalog.py:166 toolbox/views/core/catalog.py:197
 msgid "效率工具"
 msgstr ""
 
-#: toolbox/views/catalog.py:13 toolbox/views/todo.py:42
+#: toolbox/views/core/catalog.py:26 toolbox/views/core/catalog.py:27
 msgid "待办事项"
 msgstr ""
 
-#: toolbox/views/catalog.py:14
+#: toolbox/views/core/catalog.py:26
+msgid "任务管理"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:28
 msgid "简单高效的待办事项管理工具，帮助你组织任务和提高效率。"
 msgstr ""
 
-#: toolbox/views/catalog.py:22 toolbox/views/catalog.py:42
-#: toolbox/views/catalog.py:52 toolbox/views/catalog.py:74
-msgid "实用工具"
-msgstr ""
-
-#: toolbox/views/catalog.py:23
-msgid "计算器"
-msgstr ""
-
-#: toolbox/views/catalog.py:24
-msgid "功能齐全的在线计算器，支持基本运算和科学计算。"
-msgstr ""
-
-#: toolbox/views/catalog.py:33
-msgid "便签"
-msgstr ""
-
-#: toolbox/views/catalog.py:34
-msgid "快速记录灵感和想法的便签工具，支持实时保存。"
-msgstr ""
-
-#: toolbox/views/catalog.py:43
-msgid "计时器"
-msgstr ""
-
-#: toolbox/views/catalog.py:44
-msgid "精确的计时器和倒计时工具，适用于各种场景。"
-msgstr ""
-
-#: toolbox/views/catalog.py:53
-msgid "单位转换"
-msgstr ""
-
-#: toolbox/views/catalog.py:54
-msgid "支持多种单位之间的转换，包括长度、重量、温度等。"
-msgstr ""
-
-#: toolbox/views/catalog.py:62 toolbox/views/catalog.py:75
-msgid "安全工具"
-msgstr ""
-
-#: toolbox/views/catalog.py:63
-msgid "密码生成"
-msgstr ""
-
-#: toolbox/views/catalog.py:64
-msgid "安全的密码生成器，帮助你创建强密码。"
-msgstr ""
-
-#: toolbox/views/catalog.py:72
-msgid "全部"
-msgstr "全部"
-
-#: toolbox/views/catalog.py:76
-msgid "开发工具"
-msgstr ""
-
-#: toolbox/views/catalog.py:92
-msgid "即将上线"
-msgstr ""
-
-#: toolbox/views/todo.py:43
-msgid "简单高效的任务管理，帮助你掌控每天节奏。"
-msgstr ""
-
-#: toolbox/views/catalog.py:22
+#: toolbox/views/core/catalog.py:36 toolbox/views/core/catalog.py:46
 msgid "图片处理"
 msgstr "图片处理"
 
-#: toolbox/views/catalog.py:23
+#: toolbox/views/core/catalog.py:36
 msgid "消除背景"
 msgstr "消除背景"
 
-#: toolbox/views/catalog.py:24
+#: toolbox/views/core/catalog.py:36
 msgid "抠图"
 msgstr "抠图"
 
-#: toolbox/views/catalog.py:25
+#: toolbox/views/core/catalog.py:37
 msgid "背景移除"
 msgstr "背景移除"
 
-#: toolbox/views/catalog.py:26
+#: toolbox/views/core/catalog.py:38
 msgid "简单高效的背景移除工具，帮助你快速移除图片中的背景。"
 msgstr "简单高效的背景移除工具，帮助你快速移除图片中的背景。"
 
-#: toolbox/templates/toolbox/removebg.html:113
-msgid "拖放图片到这里"
-msgstr "拖放图片到这里"
+#: toolbox/views/core/catalog.py:46 toolbox/views/core/catalog.py:47
+msgid "水印移除"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:114
-msgid "或者点击上传图片"
-msgstr "或者点击上传图片"
+#: toolbox/views/core/catalog.py:48
+#, fuzzy
+#| msgid "简单高效的背景移除工具，帮助你快速移除图片中的背景。"
+msgid "简单高效的水印移除工具，帮助你快速移除图片中的水印。"
+msgstr "简单高效的背景移除工具，帮助你快速移除图片中的背景。"
 
-#: toolbox/templates/toolbox/removebg.html:117
-msgid "选择图片"
-msgstr "选择图片"
+#: toolbox/views/core/catalog.py:56
+msgid "数据处理"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:120
-msgid "支持 JPG, PNG, WEBP 格式，最大 10MB"
-msgstr "支持 JPG, PNG, WEBP 格式，最大 10MB"
+#: toolbox/views/core/catalog.py:56 toolbox/views/core/catalog.py:116
+#: toolbox/views/core/catalog.py:126
+msgid "Excel"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:128
-msgid "正在处理中..."
-msgstr "正在处理中..."
+#: toolbox/views/core/catalog.py:57
+msgid "Excel拆分"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:129
-msgid "AI 正在移除背景，请稍候"
-msgstr "AI 正在移除背景，请稍候"
+#: toolbox/views/core/catalog.py:58
+msgid "按指定字段拆分Excel文件，支持拆分为多个文件或多个Sheet页，打包下载。"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:135
-msgid "处理结果"
-msgstr "处理结果"
+#: toolbox/views/core/catalog.py:66 toolbox/views/core/catalog.py:76
+#: toolbox/views/core/catalog.py:86 toolbox/views/core/catalog.py:96
+#: toolbox/views/core/catalog.py:106 toolbox/views/core/catalog.py:116
+#: toolbox/views/core/catalog.py:126 toolbox/views/core/catalog.py:136
+#: toolbox/views/core/catalog.py:200
+msgid "开发工具"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:139
-msgid "重新上传"
-msgstr "重新上传"
+#: toolbox/views/core/catalog.py:66 toolbox/views/core/catalog.py:106
+msgid "JSON"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:143
-msgid "下载结果"
-msgstr "下载结果"
+#: toolbox/views/core/catalog.py:66
+msgid "验证"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:151
-msgid "原始图片"
-msgstr "原始图片"
+#: toolbox/views/core/catalog.py:68
+msgid "JSON格式化、验证和压缩工具，支持自动格式化、语法验证和折叠展开。"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:159
-msgid "移除背景后"
-msgstr "移除背景后"
+#: toolbox/views/core/catalog.py:76
+msgid "Base64"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:176
-msgid "1. 上传图片"
-msgstr "1. 上传图片"
+#: toolbox/views/core/catalog.py:76
+msgid "编码"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:177
-msgid "选择或拖放需要处理的图片"
-msgstr "选择或拖放需要处理的图片"
+#: toolbox/views/core/catalog.py:77
+msgid "图片Base64转换"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:185
-msgid "2. 自动处理"
-msgstr "2. 自动处理"
+#: toolbox/views/core/catalog.py:78
+msgid "图片的Base64编码解码工具，支持双向转换。"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:186
-msgid "AI 自动识别并移除背景"
-msgstr "AI 自动识别并移除背景"
+#: toolbox/views/core/catalog.py:86
+msgid "二维码"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:194
-msgid "3. 下载结果"
-msgstr "3. 下载结果"
+#: toolbox/views/core/catalog.py:86
+#, fuzzy
+#| msgid "用户名"
+msgid "生成"
+msgstr "用户名"
 
-#: toolbox/templates/toolbox/removebg.html:195
-msgid "获取透明背景的高质量图片"
-msgstr "获取透明背景的高质量图片"
+#: toolbox/views/core/catalog.py:87
+msgid "二维码工具"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:240
-msgid "请选择图片文件"
-msgstr "请选择图片文件"
+#: toolbox/views/core/catalog.py:88
+msgid "二维码生成与解码工具，支持文本/URL生成二维码和图片解码。"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:246
-msgid "文件大小不能超过 10MB"
+#: toolbox/views/core/catalog.py:96
+msgid "OCR"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:96
+msgid "文字提取"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:98
+msgid "纯前端实现的OCR图片文字提取工具，支持多种语言识别。"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:106 toolbox/views/core/catalog.py:116
+msgid "CSV"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:108
+msgid "CSV和JSON数据互转工具，支持自定义分隔符和表头。"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:118
+msgid ""
+"Excel和CSV文件互转工具，支持上传Excel文件转换为CSV，或将CSV转换为Excel。"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:126
+msgid "合并"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:126
+msgid "横向"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:126
+msgid "纵向"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:128
+msgid "Excel文件合并工具，支持横向合并和纵向合并多个Excel文件。"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:138
+msgid "倒计时和秒表工具，支持设置倒计时时间和秒表计时功能。"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:146 toolbox/views/core/catalog.py:201
+msgid "游戏"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:146
+msgid "休闲"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:146
+msgid "恐龙"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:148
+msgid "经典的Google小恐龙游戏，躲避仙人掌障碍物，挑战最高分！"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:156 toolbox/views/core/catalog.py:176
+#: toolbox/views/core/catalog.py:198
+msgid "实用工具"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:157
+msgid "计算器"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:158
+msgid "功能齐全的在线计算器，支持基本运算和科学计算。"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:167
+msgid "便签"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:168
+msgid "快速记录灵感和想法的便签工具，支持实时保存。"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:177
+msgid "单位转换"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:178
+msgid "支持多种单位之间的转换，包括长度、重量、温度等。"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:186 toolbox/views/core/catalog.py:199
+msgid "安全工具"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:187
+msgid "密码生成"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:188
+msgid "安全的密码生成器，帮助你创建强密码。"
+msgstr ""
+
+#: toolbox/views/core/catalog.py:196
+msgid "全部"
+msgstr "全部"
+
+#: toolbox/views/core/catalog.py:214
+msgid "即将上线"
+msgstr ""
+
+#: toolbox/views/core/feedback.py:24
+msgid "请输入反馈标题"
+msgstr ""
+
+#: toolbox/views/core/feedback.py:26
+msgid "请输入反馈内容"
+msgstr ""
+
+#: toolbox/views/core/feedback.py:46
+#, fuzzy
+#| msgid "文件大小不能超过 10MB"
+msgid "图片大小不能超过5MB"
 msgstr "文件大小不能超过 10MB"
 
-#: toolbox/templates/toolbox/removebg.html:283 toolbox/templates/toolbox/removebg.html:291
-msgid "处理失败，请重试"
+#: toolbox/views/core/feedback.py:49
+#, fuzzy
+#| msgid "请选择图片文件"
+msgid "请上传有效的图片文件"
+msgstr "请选择图片文件"
+
+#: toolbox/views/core/feedback.py:54
+msgid "感谢您的反馈！"
+msgstr ""
+
+#: toolbox/views/core/feedback.py:57
+msgid "提交失败"
+msgstr ""
+
+#: toolbox/views/core/pages.py:24
+msgid ""
+"介绍如何使用 Ego Toolbox 进行高效的文本格式转换、数据清理等日常任务，从而节省"
+"大量碎片化时间。"
+msgstr ""
+
+#: toolbox/views/core/pages.py:28
+msgid "CSV与Excel格式对比及适用场景原理解析"
+msgstr ""
+
+#: toolbox/views/core/pages.py:30
+msgid ""
+"深入探讨 CSV 和 Excel 文件的区别、原理解析，以及为什么在程序员日常数据传输中"
+"更倾向于使用 CSV。"
+msgstr ""
+
+#: toolbox/views/tools/dev/excel_csv_converter.py:34
+#: toolbox/views/tools/dev/excel_csv_converter.py:105
+#: toolbox/views/tools/dev/excel_merger.py:34
+#: toolbox/views/tools/dev/ocr_tool.py:29
+msgid "输入为空"
+msgstr ""
+
+#: toolbox/views/tools/dev/excel_csv_converter.py:34
+msgid "请上传Excel文件"
+msgstr ""
+
+#: toolbox/views/tools/dev/excel_csv_converter.py:68
+msgid "Excel处理失败"
+msgstr ""
+
+#: toolbox/views/tools/dev/excel_csv_converter.py:79
+#: toolbox/views/tools/dev/excel_merger.py:99
+#: toolbox/views/tools/dev/ocr_tool.py:80
+msgid "服务器配置错误"
+msgstr ""
+
+#: toolbox/views/tools/dev/excel_csv_converter.py:89
+#: toolbox/views/tools/dev/excel_merger.py:66
+#: toolbox/views/tools/dev/ocr_tool.py:90
+#: toolbox/views/tools/productivity/excel_splitter.py:141
+#: toolbox/views/tools/productivity/removebg.py:84
+#, fuzzy
+#| msgid "处理失败，请重试"
+msgid "处理失败"
 msgstr "处理失败，请重试"
 
-#: toolbox/templates/toolbox/removebg.html:159
-msgid "使用步骤"
-msgstr "使用步骤"
+#: toolbox/views/tools/dev/excel_csv_converter.py:90
+#: toolbox/views/tools/dev/ocr_tool.py:91
+#, fuzzy
+#| msgid "处理失败，请重试"
+msgid "处理失败，请稍后重试"
+msgstr "处理失败，请重试"
 
-#: toolbox/templates/toolbox/removebg.html:160
-msgid "简单三步，快速移除背景"
-msgstr "简单三步，快速移除背景"
+#: toolbox/views/tools/dev/excel_csv_converter.py:105
+msgid "请输入CSV数据"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:171
-msgid "选择或拖放需要处理的图片，支持多种格式"
-msgstr "选择或拖放需要处理的图片，支持多种格式"
+#: toolbox/views/tools/dev/excel_csv_converter.py:133
+#, fuzzy
+#| msgid "处理失败，请重试"
+msgid "CSV处理失败"
+msgstr "处理失败，请重试"
 
-#: toolbox/templates/toolbox/removebg.html:183
-msgid "AI 智能识别主体，自动移除背景"
-msgstr "AI 智能识别主体，自动移除背景"
+#: toolbox/views/tools/dev/excel_merger.py:34
+msgid "请上传至少一个Excel文件"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:195
-msgid "获取透明背景的高质量 PNG 图片"
-msgstr "获取透明背景的高质量 PNG 图片"
+#: toolbox/views/tools/dev/excel_merger.py:41
+msgid "文件数量不足"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:249
-msgid "最大 10MB"
-msgstr "最大 10MB"
+#: toolbox/views/tools/dev/excel_merger.py:41
+msgid "请至少上传两个Excel文件进行合并"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:274
-msgid "处理完成"
-msgstr "处理完成"
+#: toolbox/views/tools/dev/excel_merger.py:67
+msgid "无法读取Excel文件数据"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:275
-msgid "背景已成功移除"
-msgstr "背景已成功移除"
+#: toolbox/views/tools/dev/excel_merger.py:109
+msgid "合并失败"
+msgstr ""
 
-#: toolbox/templates/toolbox/removebg.html:310
-msgid "透明背景"
-msgstr "透明背景"
+#: toolbox/views/tools/dev/ocr_tool.py:29
+#, fuzzy
+#| msgid "1. 上传图片"
+msgid "请上传图片"
+msgstr "1. 上传图片"
 
-#: toolbox/templates/toolbox/removebg.html:336
-msgid "背景移除成功"
-msgstr "背景移除成功"
+#: toolbox/views/tools/dev/ocr_tool.py:39
+msgid "图片为空"
+msgstr ""
+
+#: toolbox/views/tools/dev/ocr_tool.py:39
+#, fuzzy
+#| msgid "请选择图片文件"
+msgid "图片文件为空"
+msgstr "请选择图片文件"
+
+#: toolbox/views/tools/dev/ocr_tool.py:69
+#, fuzzy
+#| msgid "处理失败，请重试"
+msgid "OCR处理失败"
+msgstr "处理失败，请重试"
+
+#: toolbox/views/tools/productivity/excel_splitter.py:45
+msgid "文件类型错误"
+msgstr ""
+
+#: toolbox/views/tools/productivity/excel_splitter.py:45
+msgid "请上传Excel文件(.xlsx或.xls)"
+msgstr ""
+
+#: toolbox/views/tools/productivity/excel_splitter.py:54
+msgid "文件大小错误"
+msgstr ""
+
+#: toolbox/views/tools/productivity/excel_splitter.py:54
+#, fuzzy
+#| msgid "文件大小不能超过 10MB"
+msgid "文件大小不能超过10MB"
+msgstr "文件大小不能超过 10MB"
+
+#: toolbox/views/tools/productivity/excel_splitter.py:102
+msgid "文件不存在"
+msgstr ""
+
+#: toolbox/views/tools/productivity/excel_splitter.py:102
+#, fuzzy
+#| msgid "重新上传"
+msgid "请重新上传文件"
+msgstr "重新上传"
+
+#: toolbox/views/tools/productivity/excel_splitter.py:111
+msgid "字段不存在"
+msgstr ""
+
+#: toolbox/views/tools/productivity/excel_splitter.py:111
+msgid "拆分字段不存在"
+msgstr ""
+
+#: toolbox/views/tools/productivity/removebg.py:30
+msgid "不支持的文件格式，请上传 JPG, PNG 或 WEBP 格式的图片"
+msgstr ""
+
+#~ msgid "欢迎使用"
+#~ msgstr "欢迎使用"
+
+#~ msgid ""
+#~ "在这里，我们相信建立一个强大的专业网络始于您的参与。我们很高兴为您提供现代"
+#~ "化、用户友好的服务，确保您获得最佳体验。"
+#~ msgstr ""
+#~ "在这里，我们相信建立一个强大的专业网络始于您的参与。我们很高兴为您提供现代"
+#~ "化、用户友好的服务，确保您获得最佳体验。"
+
+#~ msgid "立即加入！"
+#~ msgstr "立即加入！"
+
+#~ msgid "输入邮箱或手机号"
+#~ msgstr "输入邮箱或手机号"
+
+#~ msgid "或继续使用"
+#~ msgstr "或继续使用"
+
+#~ msgid "已有账户？"
+#~ msgstr "已有账户？"
+
+#~ msgid "支持 JPG, PNG, WEBP 格式，最大 10MB"
+#~ msgstr "支持 JPG, PNG, WEBP 格式，最大 10MB"
+
+#~ msgid "处理结果"
+#~ msgstr "处理结果"
+
+#~ msgid "选择或拖放需要处理的图片"
+#~ msgstr "选择或拖放需要处理的图片"
+
+#~ msgid "AI 自动识别并移除背景"
+#~ msgstr "AI 自动识别并移除背景"
+
+#~ msgid "3. 下载结果"
+#~ msgstr "3. 下载结果"
+
+#~ msgid "获取透明背景的高质量图片"
+#~ msgstr "获取透明背景的高质量图片"
 
 #~ msgid "Toolbox"
 #~ msgstr "工具箱"
@@ -443,9 +2697,6 @@ msgstr "背景移除成功"
 
 #~ msgid "工具数量"
 #~ msgstr "工具数量"
-
-#~ msgid "秒级"
-#~ msgstr "秒级"
 
 #~ msgid "加载体验"
 #~ msgstr "加载体验"
@@ -474,9 +2725,6 @@ msgstr "背景移除成功"
 #~ msgid "清除筛选"
 #~ msgstr "清除筛选"
 
-#~ msgid "切换主题"
-#~ msgstr "切换主题"
-
 #~ msgid "登出"
 #~ msgstr "登出"
 
@@ -491,9 +2739,6 @@ msgstr "背景移除成功"
 
 #~ msgid "使用条款"
 #~ msgstr "使用条款"
-
-#~ msgid "隐私政策"
-#~ msgstr "隐私政策"
 
 #~ msgid "Cookie 政策"
 #~ msgstr "Cookie 政策"
@@ -666,11 +2911,3 @@ msgstr "背景移除成功"
 
 #~ msgid "Explore infinite possibilities and start your creative journey"
 #~ msgstr "探索无限可能，开启您的创意之旅"
-
-#: toolbox/views/error_views.py:29
-msgid "服务器错误"
-msgstr "服务器错误"
-
-#: toolbox/views/error_views.py:32
-msgid "系统处理您的请求时遇到了问题，请稍后重试。"
-msgstr "系统处理您的请求时遇到了问题，请稍后重试。"
