@@ -12,7 +12,9 @@ from toolbox.views.json_formatter import json_formatter_view
 from toolbox.views.ocr_tool import ocr_tool_view
 from toolbox.views.qrcode_tool import qrcode_tool_view
 from toolbox.views.removebg import removebg_view
+from toolbox.views.timer import timer_view
 from toolbox.views.todo import todo_view
+from toolbox.views.pages import about_view, privacy_view, terms_view, blog_list_view, blog_detail_view
 
 app_name = "toolbox"
 
@@ -30,5 +32,11 @@ urlpatterns = [
     path("excel-csv-converter/", excel_csv_converter_view, name="excel_csv_converter"),
     path("excel-merger/", excel_merger_view, name="excel_merger"),
     path("excel-splitter/", excel_splitter_view, name="excel_splitter"),
+    path("timer/", timer_view, name="timer"),
     path("feedback/", feedback_view, name="feedback"),
+    path("about/", about_view, name="about"),
+    path("privacy/", privacy_view, name="privacy"),
+    path("terms/", terms_view, name="terms"),
+    path("blog/", blog_list_view, name="blog_list"),
+    path("blog/<str:post_id>/", blog_detail_view, name="blog_detail"),
 ]

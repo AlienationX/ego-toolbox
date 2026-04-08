@@ -5,117 +5,12 @@
 
 {% block description %}{% trans "问题反馈 - 提交工具bug反馈或功能建议" %}{% endblock %}
 
+{% block extra_import %}
+<script defer src="{% static 'toolbox/js/alpinejs@3.15.8.min.js' %}"></script>
+{% endblock %}
+
 {% block content %}
-<div class="container mx-auto px-0 sm:px-4 py-0 sm:py-8 max-w-3xl"
-     x-data="{
-         feedbackType: 'bug',
-         toolName: '',
-         title: '',
-         content: '',
-         contact: '',
-         images: [],
-         imagePreviews: [],
-         isSubmitting: false,
-         successMessage: '',
-         errorMessage: '',
-         
-         handleImageUpload(event) {
-             const files = event.target.files;
-             if (!files || files.length === 0) return;
-             
-             const remainingSlots = 5 - this.images.length;
-             const filesToAdd = Array.from(files).slice(0, remainingSlots);
-             
-             if (filesToAdd.length === 0) {
-                 this.errorMessage = '{% trans "最多只能上传5张图片" %}';
-                 return;
-             }
-             
-             filesToAdd.forEach(file => {
-                 if (!file.type.startsWith('image/')) {
-                     this.errorMessage = '{% trans "请上传有效的图片文件" %}';
-                     return;
-                 }
-                 
-                 if (file.size > 5 * 1024 * 1024) {
-                     this.errorMessage = '{% trans "图片大小不能超过5MB" %}';
-                     return;
-                 }
-                 
-                 this.images.push(file);
-                 
-                 const reader = new FileReader();
-                 reader.onload = (e) => {
-                     this.imagePreviews.push(e.target.result);
-                 };
-                 reader.readAsDataURL(file);
-             });
-             
-             event.target.value = '';
-         },
-         
-         removeImage(index) {
-             this.images.splice(index, 1);
-             this.imagePreviews.splice(index, 1);
-         },
-         
-         submitFeedback() {
-             if (!this.title.trim()) {
-                 this.errorMessage = '{% trans "请输入反馈标题" %}';
-                 return;
-             }
-             if (!this.content.trim()) {
-                 this.errorMessage = '{% trans "请输入反馈内容" %}';
-                 return;
-             }
-             
-             this.isSubmitting = true;
-             this.errorMessage = '';
-             
-             const formData = new FormData();
-             formData.append('feedback_type', this.feedbackType);
-             formData.append('tool_name', this.toolName);
-             formData.append('title', this.title);
-             formData.append('content', this.content);
-             formData.append('contact', this.contact);
-             
-             this.images.forEach((image, index) => {
-                 formData.append(`image${index + 1}`, image);
-             });
-             
-             fetch('{% url "toolbox:feedback" %}', {
-                 method: 'POST',
-                 headers: {
-                     'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                 },
-                 body: formData
-             })
-             .then(response => response.json())
-             .then(data => {
-                 this.isSubmitting = false;
-                 if (data.success) {
-                     this.successMessage = '{% trans "感谢您的反馈！我们会尽快处理。" %}';
-                     this.resetForm();
-                 } else {
-                     this.errorMessage = data.error || '{% trans "提交失败，请重试" %}';
-                 }
-             })
-             .catch(error => {
-                 this.isSubmitting = false;
-                 this.errorMessage = '{% trans "提交失败，请检查网络连接" %}';
-             });
-         },
-         
-         resetForm() {
-             this.feedbackType = 'bug';
-             this.toolName = '';
-             this.title = '';
-             this.content = '';
-             this.contact = '';
-             this.images = [];
-             this.imagePreviews = [];
-         }
-     }">
+<div class="container mx-auto px-0 sm:px-4 py-0 sm:py-8 max-w-3xl" x-data="feedbackApp()">
     
     <!-- Header -->
     <div class="mb-8 text-center">
@@ -123,26 +18,8 @@
         <p class="text-base-content/70">{% trans "如果您在使用过程中遇到问题或有任何建议，欢迎向我们反馈" %}</p>
     </div>
     
-    <!-- Success Alert -->
-    <div x-show="successMessage" x-transition class="alert alert-success mb-6" style="display: none;">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span x-text="successMessage"></span>
-        <button @click="successMessage = ''" class="btn btn-sm btn-ghost">✕</button>
-    </div>
-    
-    <!-- Error Alert -->
-    <div x-show="errorMessage" x-transition class="alert alert-error mb-6" style="display: none;">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span x-text="errorMessage"></span>
-        <button @click="errorMessage = ''" class="btn btn-sm btn-ghost">✕</button>
-    </div>
-    
     <!-- Feedback Form -->
-    <div class="card bg-base-100 shadow-xl">
+    <div class="card bg-base-100 shadow-xl mb-6">
         <div class="card-body p-8">
             <form @submit.prevent="submitFeedback">
                 {% csrf_token %}
@@ -290,9 +167,27 @@
             </form>
         </div>
     </div>
+
+    <!-- Success Alert -->
+    <div x-show="successMessage" x-transition class="alert alert-success mb-6" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span x-text="successMessage"></span>
+        <button @click="successMessage = ''" class="btn btn-sm btn-ghost">✕</button>
+    </div>
+    
+    <!-- Error Alert -->
+    <div x-show="errorMessage" x-transition class="alert alert-error mb-6" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span x-text="errorMessage"></span>
+        <button @click="errorMessage = ''" class="btn btn-sm btn-ghost">✕</button>
+    </div>
     
     <!-- FAQ Section -->
-    <div class="card bg-base-100 shadow-lg mt-8">
+    <div class="card bg-base-100 shadow-lg mt-6">
         <div class="card-body p-8">
             <h3 class="card-title text-lg mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -332,4 +227,118 @@
         </div>
     </div>
 </div>
+
+<script>
+function feedbackApp() {
+    return {
+        feedbackType: 'bug',
+        toolName: '',
+        title: '',
+        content: '',
+        contact: '',
+        images: [],
+        imagePreviews: [],
+        isSubmitting: false,
+        successMessage: '',
+        errorMessage: '',
+        
+        handleImageUpload(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+            
+            const remainingSlots = 5 - this.images.length;
+            const filesToAdd = Array.from(files).slice(0, remainingSlots);
+            
+            if (filesToAdd.length === 0) {
+                this.errorMessage = '最多只能上传5张图片';
+                return;
+            }
+            
+            filesToAdd.forEach(file => {
+                if (!file.type.startsWith('image/')) {
+                    this.errorMessage = '请上传有效的图片文件';
+                    return;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) {
+                    this.errorMessage = '图片大小不能超过5MB';
+                    return;
+                }
+                
+                this.images.push(file);
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.imagePreviews.push(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            });
+            
+            event.target.value = '';
+        },
+        
+        removeImage(index) {
+            this.images.splice(index, 1);
+            this.imagePreviews.splice(index, 1);
+        },
+        
+        submitFeedback() {
+            if (!this.title.trim()) {
+                this.errorMessage = '请输入反馈标题';
+                return;
+            }
+            if (!this.content.trim()) {
+                this.errorMessage = '请输入反馈内容';
+                return;
+            }
+            
+            this.isSubmitting = true;
+            this.errorMessage = '';
+            
+            const formData = new FormData();
+            formData.append('feedback_type', this.feedbackType);
+            formData.append('tool_name', this.toolName);
+            formData.append('title', this.title);
+            formData.append('content', this.content);
+            formData.append('contact', this.contact);
+            
+            this.images.forEach((image, index) => {
+                formData.append(`image${index + 1}`, image);
+            });
+            
+            fetch('{% url "toolbox:feedback" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                this.isSubmitting = false;
+                if (data.success) {
+                    this.successMessage = '感谢您的反馈！我们会尽快处理。';
+                    this.resetForm();
+                } else {
+                    this.errorMessage = data.error || '提交失败，请重试';
+                }
+            })
+            .catch(error => {
+                this.isSubmitting = false;
+                this.errorMessage = '提交失败，请检查网络连接';
+            });
+        },
+        
+        resetForm() {
+            this.feedbackType = 'bug';
+            this.toolName = '';
+            this.title = '';
+            this.content = '';
+            this.contact = '';
+            this.images = [];
+            this.imagePreviews = [];
+        }
+    };
+}
+</script>
 {% endblock %}

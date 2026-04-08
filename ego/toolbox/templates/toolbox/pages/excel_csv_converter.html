@@ -156,6 +156,29 @@
             </div>
         </div>
     </div>
+    
+    <!-- SEO & 科普内容 (Google AdSense 优化) -->
+    <div class="mt-8 bg-base-100 border border-base-300 rounded-3xl p-6 md:p-8 shadow-sm">
+        <h2 class="text-2xl font-bold mb-6">{% trans "关于 Excel 与 CSV 格式转换的深度说明" %}</h2>
+        <div class="space-y-6 text-base-content/80 text-sm md:text-base leading-relaxed">
+            <div>
+                <h3 class="text-lg font-bold text-base-content mb-2">{% trans "什么是 CSV 格式？" %}</h3>
+                <p>{% blocktrans %}CSV（Comma-Separated Values，逗号分隔值）是一种基于纯文本的文件格式。它使用特定的字符（通常是逗号）来分隔数据项，是数据库和电子表格之间进行数据交换的最标准格式之一。与庞大的 Excel 文件（如.xlsx）不同，CSV 不包含任何图表、公式或单元格格式，这使得它的数据体积极小，对机器处理和代码读取极其友好。{% endblocktrans %}</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-base-content mb-2">{% trans "为什么需要将 Excel 转换为 CSV？" %}</h3>
+                <p>{% blocktrans %}尽管 Excel 格式在日常人工浏览和排版中具备强大的表现力，但在进行后端开发、数据科学处理及跨系统迁移时，解析庞大的 XML 压缩节点往往会引发内存过载。将报表提取为纯文本 CSV，能够使诸如 Python 的 Pandas 库、MySQL 的数据导入等操作成倍提升解析效率。这是现代数据工作栈中最基础且必不可少的处理环节。{% endblocktrans %}</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-base-content mb-2">{% trans "Ego Toolbox：极致的安全与隐私保障" %}</h3>
+                <p>{% blocktrans %}作为效率工具，我们深知商业与个人数据的敏感性。在使用我们的格式转换功能时，由于采用了轻量级的转换架构，您的表格只会由系统内存即时读取并响应，处理结果下发后即刻从内存中彻底销毁。本站绝不收集、备份或保留任何用户上传的工作表文件。您的数据只属于您自己。{% endblocktrans %}</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-base-content mb-2">{% trans "如何解决 CSV 文本中常见的字符乱码？" %}</h3>
+                <p>{% blocktrans %}中文乱码通常源于编码不一致——例如业务系统默认导出为 UTF-8 编码，而较早版本的 Excel 则默认使用本地系统的 ANSI 编码打开。通过利用我们的『CSV转Excel』工具，底层的自动编码探测器将帮助您抹平编码阻抗，直接输出原生支持解析的正确格式文件，省去您手动添加 UTF-8 BOM 签名的繁琐流程。{% endblocktrans %}</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

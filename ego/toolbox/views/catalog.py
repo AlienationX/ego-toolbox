@@ -115,6 +115,16 @@ def get_tool_catalog():
             "url": reverse("toolbox:excel_merger"),
         },
         {
+            "id": "timer",
+            "icon": "⏱️",
+            "featured": True,
+            "category": "utility",
+            "tags": [_("开发工具"), _("计时器"), _("倒计时"), _("秒表")],
+            "title": _("计时器"),
+            "description": _("倒计时和秒表工具，支持设置倒计时时间和秒表计时功能。"),
+            "url": reverse("toolbox:timer"),
+        },
+        {
             "id": "dino_game",
             "icon": "🦖",
             "featured": True,
@@ -142,16 +152,6 @@ def get_tool_catalog():
             "tags": [_("效率工具")],
             "title": _("便签"),
             "description": _("快速记录灵感和想法的便签工具，支持实时保存。"),
-            "url": None,
-        },
-        {
-            "id": "timer",
-            "icon": "⏱️",
-            "featured": False,
-            "category": "utility",
-            "tags": [_("实用工具")],
-            "title": _("计时器"),
-            "description": _("精确的计时器和倒计时工具，适用于各种场景。"),
             "url": None,
         },
         {
