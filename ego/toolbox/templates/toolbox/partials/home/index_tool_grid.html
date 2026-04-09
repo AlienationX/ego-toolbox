@@ -11,7 +11,7 @@
         {% if tool.url %}
         <!-- 如果url存在，则使用a包裹，否则使用div包裹 -->
         <a href="{{ tool.url }}"
-            class="card bg-base-100 border border-base-300 hover:border-primary hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
+            class="group card bg-base-100 border border-base-300 hover:border-primary hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
             {% else %}
             <div class="card bg-base-100 border border-base-300 opacity-95">
                 {% endif %}
@@ -30,7 +30,7 @@
                     </div>
                     {% if tool.url %}
                     <div class="card-actions justify-end mt-2">
-                        <span class="btn btn-sm btn-primary">{% trans "打开" %}</span>
+                        <span class="btn btn-sm btn-primary opacity-0 translate-y-1 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">{% trans "打开" %}</span>
                     </div>
                     {% endif %}
                 </div>

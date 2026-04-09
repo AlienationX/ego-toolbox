@@ -5,29 +5,38 @@
 {% block description %}{% trans "Ego Toolbox 的诞生是为了提供更简单、更快速、更纯粹的在线工具体验。" %}{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-12 max-w-4xl">
-    <div class="bg-base-100 border border-base-300 rounded-3xl p-8 md:p-12 shadow-sm">
-        <h1 class="text-4xl font-black mb-8">{% trans "关于我们" %}</h1>
-        
-        <div class="space-y-8 text-base-content/80 leading-relaxed text-lg">
+<div class="bg-[#f5f5f7] min-h-screen text-[#1d1d1f]">
+    <div class="max-w-[980px] mx-auto px-4 py-24 md:py-32">
+        <div class="text-center mb-20">
+            <h1 class="text-[40px] md:text-[56px] font-semibold leading-[1.07] tracking-[-0.02em] mb-4">{% trans "关于我们" %}</h1>
+            <p class="max-w-[720px] mx-auto text-[17px] leading-[1.47] tracking-[-0.022em] text-[rgba(0,0,0,0.56)]">
+                {% trans "Ego Toolbox 的诞生是为了提供更简单、更快速、更纯粹的在线工具体验。" %}
+            </p>
+        </div>
+
+        <div class="max-w-[800px] mx-auto space-y-16 text-[17px] leading-[1.47] tracking-[-0.022em] text-[rgba(0,0,0,0.8)]">
             <section>
-                <h2 class="text-2xl font-bold text-base-content mb-4">{% trans "我们的使命" %}</h2>
-                <p>{% blocktrans %}Ego Toolbox 诞生于对“干净、纯粹、高效”工具的渴望。在数字时代，我们每天都需要进行各种数据转换和处理，但网上充斥着大量带有弹窗广告、界面繁杂甚至存在隐私泄露风险的工具。我们希望改变这一现状，为您提供一个现代、极简、即用即走的在线工具平台。{% endblocktrans %}</p>
+                <p>{% blocktrans %}Ego Toolbox 诞生于对“干净、纯粹、高效”工具的渴望。在数字时代，我们每天都需要处理大量格式转换、数据整理和轻量创作任务，但很多在线工具让本来简单的事情变得嘈杂、复杂而不透明。我们希望提供另一种体验：更安静、更可靠，也更容易纳入日常工作流。{% endblocktrans %}</p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold text-base-content mb-4">{% trans "专注体验，克制设计" %}</h2>
-                <p>{% blocktrans %}我们深受现代产品设计的启发，采用了极其克制的视觉排版和自适应的交互逻辑。无论是 Excel 与 CSV 的互转，还是基础的开发工具格式化，我们都将“少即是多”的理念融入每一个像素中，帮助您专注于真正的创作和工作流之中。{% endblocktrans %}</p>
+            <section class="space-y-4">
+                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "1. 我们想解决的问题" %}</h2>
+                <p>{% blocktrans %}很多工具确实能完成任务，但它们常常伴随着弹窗广告、杂乱界面、过度权限请求或不明确的数据处理方式。对高频使用场景来说，这些噪音会不断打断判断与执行。我们更关心的是，如何让一个十秒钟的任务真的在十秒钟内完成。{% endblocktrans %}</p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold text-base-content mb-4">{% trans "隐私与安全优先" %}</h2>
-                <p>{% blocktrans %}作为开发者工具团队，我们非常注重数据隐私。Ego Toolbox 中的大部分工具均采用纯前端或即时处理后销毁的技术方案。您所上传的任何文件、填写的任何代码和文本，都不会被保存在我们的服务器中。您的数据只属于您自己。{% endblocktrans %}</p>
+            <section class="space-y-4">
+                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "2. 我们坚持的原则" %}</h2>
+                <p>{% blocktrans %}我们相信好的工具应该“即用即走”。它不需要用户学习复杂操作，不需要夸张视觉来证明自己重要，也不应该试图夺走用户的注意力。对于大多数任务，合理的默认值应当足够好；界面的职责是减少犹豫，而不是制造选择成本。{% endblocktrans %}</p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold text-base-content mb-4">{% trans "探索与反馈" %}</h2>
-                <p>{% blocktrans %}Ego Toolbox 目前仍在快速成长期，我们将持续添加更多开发、办公和生活效率工具。如果您对工具的体验有任何想法，或者希望我们提供某种新工具，欢迎通过顶部的反馈入口联系我们。{% endblocktrans %}</p>
+            <section class="space-y-4">
+                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "3. 隐私与边界" %}</h2>
+                <p>{% blocktrans %}作为面向开发与效率场景的工具集合，我们非常重视数据边界。能够在浏览器本地完成的功能，我们优先采用本地处理；对于需要服务器资源的功能，我们尽量采用即时处理和最小化存留策略。用户数据不应成为产品增长的交换条件。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-4">
+                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "4. 持续建设" %}</h2>
+                <p>{% blocktrans %}Ego Toolbox 仍在持续演进。我们会继续扩展开发工具、数据处理工具和高频效率场景，也会不断优化页面性能、交互清晰度和整体一致性。如果你对某个工具有想法，或者希望我们优先支持某个场景，欢迎通过反馈页面告诉我们。{% endblocktrans %}</p>
             </section>
         </div>
     </div>
