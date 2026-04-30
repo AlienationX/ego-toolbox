@@ -1,95 +1,117 @@
 {% extends 'toolbox/layouts/tool.html' %}
 {% load i18n static %}
-
 {% block tool_content %}
-<div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
-    <!-- Header -->
-    <div class="mb-6">
-        <h2 class="text-3xl font-bold flex items-center">
-            <img src="{% static 'toolbox/icons/code.svg' %}" alt="json icon" class="h-10 w-10 mr-3">
-            <span>{% trans "JSON格式化" %}</span>
-        </h2>
-    </div>
-    
-    <!-- Main Form -->
-    <div class="card bg-base-100 shadow-lg mb-6">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <!-- JSON Input Section -->
-            <div class="form-control mb-6">
-                <label class="label mb-2">
-                    <span class="label-text font-semibold flex items-center gap-2">
-                        <img src="{% static 'toolbox/icons/type.svg' %}" alt="type icon" class="h-5 w-5">
-                        {% trans "JSON输入" %}
-                    </span>
-                </label>
-                
-                <div class="relative">
-                    <textarea 
-                        id="jsonInput" 
-                        class="textarea textarea-bordered w-full h-64 font-mono text-sm"
-                        placeholder='{"name": "John", "age": 30}'
-                        oninput="validateJSON()"></textarea>
-                    
-                    <!-- Clear Button -->
-                    <button 
-                        id="clearBtn"
-                        class="absolute top-2 right-2 btn btn-sm btn-ghost opacity-50 hover:opacity-100"
-                        onclick="clearInput()">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    <div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-3xl font-bold flex items-center">
+                <img src="{% static 'toolbox/icons/code.svg' %}"
+                     alt="json icon"
+                     class="h-10 w-10 mr-3">
+                <span>{% trans "JSON格式化" %}</span>
+            </h2>
+        </div>
+        <!-- Main Form -->
+        <div class="card bg-base-100 shadow-lg mb-6">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <!-- JSON Input Section -->
+                <div class="form-control mb-6">
+                    <label class="label mb-2">
+                        <span class="label-text font-semibold flex items-center gap-2">
+                            <img src="{% static 'toolbox/icons/type.svg' %}"
+                                 alt="type icon"
+                                 class="h-5 w-5">
+                            {% trans "JSON输入" %}
+                        </span>
+                    </label>
+                    <div class="relative">
+                        <textarea id="jsonInput"
+                                  class="textarea textarea-bordered w-full h-64 font-mono text-sm"
+                                  placeholder='{"name": "John", "age": 30}'
+                                  oninput="validateJSON()"></textarea>
+                        <!-- Clear Button -->
+                        <button id="clearBtn"
+                                class="absolute top-2 right-2 btn btn-sm btn-ghost opacity-50 hover:opacity-100"
+                                onclick="clearInput()">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-4 w-4"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                    <button id="formatBtn"
+                            class="btn btn-primary min-w-[160px]"
+                            onclick="formatJSON()"
+                            disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5 mr-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
+                        {% trans "格式化" %}
+                    </button>
+                    <button id="minifyBtn"
+                            class="btn btn-secondary min-w-[160px]"
+                            onclick="minifyJSON()"
+                            disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5 mr-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                        {% trans "压缩" %}
+                    </button>
+                    <button id="copyBtn"
+                            class="btn btn-outline min-w-[160px]"
+                            onclick="copyResult()"
+                            disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5 mr-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        {% trans "复制结果" %}
                     </button>
                 </div>
-            </div>
-            
-            <!-- Action Buttons -->
-            <div class="flex flex-col sm:flex-row gap-3 mb-6">
-                <button id="formatBtn" class="btn btn-primary min-w-[160px]" onclick="formatJSON()" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                    {% trans "格式化" %}
-                </button>
-                
-                <button id="minifyBtn" class="btn btn-secondary min-w-[160px]" onclick="minifyJSON()" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                    {% trans "压缩" %}
-                </button>
-                
-                <button id="copyBtn" class="btn btn-outline min-w-[160px]" onclick="copyResult()" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                    {% trans "复制结果" %}
-                </button>
-            </div>
-            
-            <!-- Alert Message -->
-            <div id="alertSection" class="hidden mb-6">
-                <div class="alert alert-error">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span id="alertText"></span>
+                <!-- Alert Message -->
+                <div id="alertSection" class="hidden mb-6">
+                    <div class="alert alert-error">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-6 w-6 shrink-0 stroke-current"
+                             fill="none"
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span id="alertText"></span>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Result Section -->
-            <div id="resultSection" class="hidden">
-                <div class="form-control">
-                    <label class="label mb-2 justify-between">
-                        <span class="label-text font-semibold flex items-center gap-2">
-                            <img src="{% static 'toolbox/icons/file-text.svg' %}" alt="result icon" class="h-5 w-5">
-                            {% trans "格式化结果" %}
-                        </span>
-                        <div class="flex gap-2 text-sm">
-                            <span class="badge badge-soft badge-primary">{% trans "键数量" %}: <span id="keysCount">0</span></span>
-                            <span class="badge badge-soft badge-secondary">{% trans "深度" %}: <span id="depthCount">0</span></span>
-                        </div>
-
-                        <!-- <div class="stats shadow bg-base-200">
+                <!-- Result Section -->
+                <div id="resultSection" class="hidden">
+                    <div class="form-control">
+                        <label class="label mb-2 justify-between">
+                            <span class="label-text font-semibold flex items-center gap-2">
+                                <img src="{% static 'toolbox/icons/file-text.svg' %}"
+                                     alt="result icon"
+                                     class="h-5 w-5">
+                                {% trans "格式化结果" %}
+                            </span>
+                            <div class="flex gap-2 text-sm">
+                                <span class="badge badge-soft badge-primary">{% trans "键数量" %}: <span id="keysCount">0</span></span>
+                                <span class="badge badge-soft badge-secondary">{% trans "深度" %}: <span id="depthCount">0</span></span>
+                            </div>
+                            <!-- <div class="stats shadow bg-base-200">
                             <div class="stat place-items-center">
                                 <div class="stat-title">{% trans "键数量" %}</div>
                                 <div class="stat-value text-2xl"><span id="keysCount">0</span></div>
@@ -99,215 +121,222 @@
                                 <div class="stat-value text-2xl"><span id="depthCount">0</span></div>
                             </div>
                         </div> -->
-                    </label>
-                    <pre class="bg-base-200 rounded-lg p-4 overflow-x-auto"><code id="resultText" class="text-sm font-mono"></code></pre>
+                        </label>
+                        <pre class="bg-base-200 rounded-lg p-4 overflow-x-auto"><code id="resultText" class="text-sm font-mono"></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Instructions -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <img src="{% static 'toolbox/icons/info.svg' %}"
+                         alt="info icon"
+                         class="h-6 w-6">
+                    <span>{% trans "使用说明" %}</span>
+                </h3>
+                <div class="space-y-3 text-sm text-base-content/70">
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">1.</span>
+                        <span>{% trans "在输入框中输入JSON字符串" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">2.</span>
+                        <span>{% trans "系统会自动验证JSON语法" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">3.</span>
+                        <span>{% trans '点击"格式化"按钮美化JSON，点击"压缩"按钮去除空格和换行' %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">4.</span>
+                        <span>{% trans '点击"复制结果"按钮复制格式化后的JSON' %}</span>
+                    </p>
+                    <p class="text-warning mt-4 flex items-start gap-2">
+                        <span>⚠️</span>
+                        <span>{% trans "注意：支持折叠和展开JSON对象和数组" %}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- SEO & 科普内容 (Google AdSense 优化) -->
+        <div class="mt-8 bg-base-100 border border-base-300 rounded-3xl p-6 md:p-8 shadow-sm">
+            <h2 class="text-2xl font-bold mb-6">{% trans "关于 JSON 格式化的技术科普" %}</h2>
+            <div class="space-y-6 text-base-content/80 text-sm md:text-base leading-relaxed">
+                <div>
+                    <h3 class="text-lg font-bold text-base-content mb-2">{% trans "什么是 JSON？" %}</h3>
+                    <p>
+                        {% blocktrans %}JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。它基于 ECMAScript 的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。由于其天生具有结构清晰、层级分明且极大程度降低了信息冗余（相比于 XML）的特点，JSON 已经成为了现代 Web API 和微服务前后端通信的绝对标准格式。{% endblocktrans %}
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-base-content mb-2">{% trans "我们为什么需要 JSON 格式化工具？" %}</h3>
+                    <p>
+                        {% blocktrans %}在实际的代码开发与抓包调试中，服务端返回的 JSON 数据通常被“压缩（Minified）”成了没有空格和换行的单行长字符串，以此来节约网络传输带宽。但这对于人类开发者来说是极其难以阅读和排错的。利用我们的 JSON 格式化解析器，不仅能够瞬间将其转换为结构化的缩进树，还能帮助您定位缺少括号、引号错位等常见的语法 Syntax Error。{% endblocktrans %}
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-base-content mb-2">{% trans "纯本地处理，拒绝数据上传" %}</h3>
+                    <p>
+                        {% blocktrans %}很多在线 JSON 工具会将您提交的文本发送到后台服务器进行解析，这存在极大的安全漏洞——因为 JSON 经常包含诸如 Access Token、数据库连接串、或者是包含用户隐私的业务报文。Ego Toolbox 的 JSON 解析器 100% 运行在您的浏览器本地（利用原生的 JavaScript 引擎处理）。当您关闭页面时，所有数据灰飞烟灭，绝无拦截与记录。{% endblocktrans %}
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-base-content mb-2">{% trans "JSON 压缩 (Minify) 的使用场景" %}</h3>
+                    <p>
+                        {% blocktrans %}除了格式化（Beautify）使其适于阅读外，本工具提供的“压缩”功能同样重要。当您需要将静态的 JSON 配置项硬编码写入数据库字段（如 MySQL 的 LongText 或 JSON 列），或者将参数填入 POSTman / Curl 终端时，去除所有的换行和空格能够有效避免不可见控制字符引发的解析错误。{% endblocktrans %}
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Instructions -->
-    <div class="card bg-base-100 shadow-lg">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <h3 class="card-title text-lg mb-4 flex items-center gap-2">
-                <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
-                <span>{% trans "使用说明" %}</span>
-            </h3>
-            <div class="space-y-3 text-sm text-base-content/70">
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">1.</span>
-                    <span>{% trans "在输入框中输入JSON字符串" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">2.</span>
-                    <span>{% trans "系统会自动验证JSON语法" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">3.</span>
-                    <span>{% trans '点击"格式化"按钮美化JSON，点击"压缩"按钮去除空格和换行' %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">4.</span>
-                    <span>{% trans '点击"复制结果"按钮复制格式化后的JSON' %}</span>
-                </p>
-                <p class="text-warning mt-4 flex items-start gap-2">
-                    <span>⚠️</span>
-                    <span>{% trans "注意：支持折叠和展开JSON对象和数组" %}</span>
-                </p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- SEO & 科普内容 (Google AdSense 优化) -->
-    <div class="mt-8 bg-base-100 border border-base-300 rounded-3xl p-6 md:p-8 shadow-sm">
-        <h2 class="text-2xl font-bold mb-6">{% trans "关于 JSON 格式化的技术科普" %}</h2>
-        <div class="space-y-6 text-base-content/80 text-sm md:text-base leading-relaxed">
-            <div>
-                <h3 class="text-lg font-bold text-base-content mb-2">{% trans "什么是 JSON？" %}</h3>
-                <p>{% blocktrans %}JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。它基于 ECMAScript 的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。由于其天生具有结构清晰、层级分明且极大程度降低了信息冗余（相比于 XML）的特点，JSON 已经成为了现代 Web API 和微服务前后端通信的绝对标准格式。{% endblocktrans %}</p>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-base-content mb-2">{% trans "我们为什么需要 JSON 格式化工具？" %}</h3>
-                <p>{% blocktrans %}在实际的代码开发与抓包调试中，服务端返回的 JSON 数据通常被“压缩（Minified）”成了没有空格和换行的单行长字符串，以此来节约网络传输带宽。但这对于人类开发者来说是极其难以阅读和排错的。利用我们的 JSON 格式化解析器，不仅能够瞬间将其转换为结构化的缩进树，还能帮助您定位缺少括号、引号错位等常见的语法 Syntax Error。{% endblocktrans %}</p>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-base-content mb-2">{% trans "纯本地处理，拒绝数据上传" %}</h3>
-                <p>{% blocktrans %}很多在线 JSON 工具会将您提交的文本发送到后台服务器进行解析，这存在极大的安全漏洞——因为 JSON 经常包含诸如 Access Token、数据库连接串、或者是包含用户隐私的业务报文。Ego Toolbox 的 JSON 解析器 100% 运行在您的浏览器本地（利用原生的 JavaScript 引擎处理）。当您关闭页面时，所有数据灰飞烟灭，绝无拦截与记录。{% endblocktrans %}</p>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-base-content mb-2">{% trans "JSON 压缩 (Minify) 的使用场景" %}</h3>
-                <p>{% blocktrans %}除了格式化（Beautify）使其适于阅读外，本工具提供的“压缩”功能同样重要。当您需要将静态的 JSON 配置项硬编码写入数据库字段（如 MySQL 的 LongText 或 JSON 列），或者将参数填入 POSTman / Curl 终端时，去除所有的换行和空格能够有效避免不可见控制字符引发的解析错误。{% endblocktrans %}</p>
-            </div>
-        </div>
-    </div>
-</div>
+    <script>
+        let currentJSON = null;
 
-<script>
-let currentJSON = null;
-
-// 显示DaisyUI Toast通知
-function showToast(message, type = 'success') {
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type} toast-center toast-middle z-50`;
-    toast.innerHTML = `
+        // 显示DaisyUI Toast通知
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type} toast-center toast-middle z-50`;
+            toast.innerHTML = `
         <div class="alert alert-${type}">
             <span>${message}</span>
         </div>
     `;
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-}
+            document.body.appendChild(toast);
 
-// 验证JSON
-function validateJSON() {
-    const input = document.getElementById('jsonInput').value.trim();
-    const formatBtn = document.getElementById('formatBtn');
-    const minifyBtn = document.getElementById('minifyBtn');
-    const alertSection = document.getElementById('alertSection');
-    
-    if (!input) {
-        formatBtn.disabled = true;
-        minifyBtn.disabled = true;
-        alertSection.classList.add('hidden');
-        currentJSON = null;
-        return;
-    }
-    
-    try {
-        currentJSON = JSON.parse(input);
-        formatBtn.disabled = false;
-        minifyBtn.disabled = false;
-        alertSection.classList.add('hidden');
-    } catch (e) {
-        formatBtn.disabled = true;
-        minifyBtn.disabled = true;
-        showAlert(`JSON格式错误: ${e.message}`);
-        currentJSON = null;
-    }
-}
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
 
-// 显示错误消息
-function showAlert(message) {
-    const alertSection = document.getElementById('alertSection');
-    const alertText = document.getElementById('alertText');
-    alertText.textContent = message;
-    alertSection.classList.remove('hidden');
-}
+        // 验证JSON
+        function validateJSON() {
+            const input = document.getElementById('jsonInput').value.trim();
+            const formatBtn = document.getElementById('formatBtn');
+            const minifyBtn = document.getElementById('minifyBtn');
+            const alertSection = document.getElementById('alertSection');
 
-// 格式化JSON
-function formatJSON() {
-    if (!currentJSON) return;
-    
-    try {
-        const formatted = JSON.stringify(currentJSON, null, 2);
-        document.getElementById('resultText').textContent = formatted;
-        document.getElementById('resultSection').classList.remove('hidden');
-        document.getElementById('copyBtn').disabled = false;
-        
-        // 更新统计信息
-        document.getElementById('keysCount').textContent = countKeys(currentJSON);
-        document.getElementById('depthCount').textContent = calculateDepth(currentJSON);
-    } catch (e) {
-        showAlert(`格式化失败: ${e.message}`);
-    }
-}
+            if (!input) {
+                formatBtn.disabled = true;
+                minifyBtn.disabled = true;
+                alertSection.classList.add('hidden');
+                currentJSON = null;
+                return;
+            }
 
-// 压缩JSON
-function minifyJSON() {
-    if (!currentJSON) return;
-    
-    try {
-        const minified = JSON.stringify(currentJSON);
-        document.getElementById('resultText').textContent = minified;
-        document.getElementById('resultSection').classList.remove('hidden');
-        document.getElementById('copyBtn').disabled = false;
-        
-        // 更新统计信息
-        document.getElementById('keysCount').textContent = countKeys(currentJSON);
-        document.getElementById('depthCount').textContent = calculateDepth(currentJSON);
-    } catch (e) {
-        showAlert(`压缩失败: ${e.message}`);
-    }
-}
+            try {
+                currentJSON = JSON.parse(input);
+                formatBtn.disabled = false;
+                minifyBtn.disabled = false;
+                alertSection.classList.add('hidden');
+            } catch (e) {
+                formatBtn.disabled = true;
+                minifyBtn.disabled = true;
+                showAlert(`JSON格式错误: ${e.message}`);
+                currentJSON = null;
+            }
+        }
 
-// 复制结果
-function copyResult() {
-    const resultText = document.getElementById('resultText').textContent;
-    if (resultText) {
-        navigator.clipboard.writeText(resultText).then(() => {
-            showToast('{% trans "已复制到剪贴板" %}', 'success');
-        }).catch(err => {
-            console.error('复制失败:', err);
-            showToast('{% trans "复制失败，请手动复制" %}', 'error');
-        });
-    }
-}
+        // 显示错误消息
+        function showAlert(message) {
+            const alertSection = document.getElementById('alertSection');
+            const alertText = document.getElementById('alertText');
+            alertText.textContent = message;
+            alertSection.classList.remove('hidden');
+        }
 
-// 清空输入
-function clearInput() {
-    document.getElementById('jsonInput').value = '';
-    document.getElementById('resultSection').classList.add('hidden');
-    document.getElementById('alertSection').classList.add('hidden');
-    document.getElementById('formatBtn').disabled = true;
-    document.getElementById('minifyBtn').disabled = true;
-    document.getElementById('copyBtn').disabled = true;
-    currentJSON = null;
-}
+        // 格式化JSON
+        function formatJSON() {
+            if (!currentJSON) return;
 
-// 递归计算JSON对象中的键数量
-function countKeys(obj) {
-    if (typeof obj !== 'object' || obj === null) {
-        return 0;
-    }
-    
-    if (Array.isArray(obj)) {
-        return obj.reduce((sum, item) => sum + countKeys(item), 0);
-    }
-    
-    let count = Object.keys(obj).length;
-    for (const key in obj) {
-        count += countKeys(obj[key]);
-    }
-    return count;
-}
+            try {
+                const formatted = JSON.stringify(currentJSON, null, 2);
+                document.getElementById('resultText').textContent = formatted;
+                document.getElementById('resultSection').classList.remove('hidden');
+                document.getElementById('copyBtn').disabled = false;
 
-// 递归计算JSON对象的深度
-function calculateDepth(obj) {
-    if (typeof obj !== 'object' || obj === null) {
-        return 1;
-    }
-    
-    if (Array.isArray(obj)) {
-        if (obj.length === 0) return 1;
-        return 1 + Math.max(...obj.map(item => calculateDepth(item)));
-    }
-    
-    const keys = Object.keys(obj);
-    if (keys.length === 0) return 1;
-    return 1 + Math.max(...keys.map(key => calculateDepth(obj[key])));
-}
-</script>
+                // 更新统计信息
+                document.getElementById('keysCount').textContent = countKeys(currentJSON);
+                document.getElementById('depthCount').textContent = calculateDepth(currentJSON);
+            } catch (e) {
+                showAlert(`格式化失败: ${e.message}`);
+            }
+        }
+
+        // 压缩JSON
+        function minifyJSON() {
+            if (!currentJSON) return;
+
+            try {
+                const minified = JSON.stringify(currentJSON);
+                document.getElementById('resultText').textContent = minified;
+                document.getElementById('resultSection').classList.remove('hidden');
+                document.getElementById('copyBtn').disabled = false;
+
+                // 更新统计信息
+                document.getElementById('keysCount').textContent = countKeys(currentJSON);
+                document.getElementById('depthCount').textContent = calculateDepth(currentJSON);
+            } catch (e) {
+                showAlert(`压缩失败: ${e.message}`);
+            }
+        }
+
+        // 复制结果
+        function copyResult() {
+            const resultText = document.getElementById('resultText').textContent;
+            if (resultText) {
+                navigator.clipboard.writeText(resultText).then(() => {
+                    showToast('{% trans "已复制到剪贴板" %}', 'success');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    showToast('{% trans "复制失败，请手动复制" %}', 'error');
+                });
+            }
+        }
+
+        // 清空输入
+        function clearInput() {
+            document.getElementById('jsonInput').value = '';
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('alertSection').classList.add('hidden');
+            document.getElementById('formatBtn').disabled = true;
+            document.getElementById('minifyBtn').disabled = true;
+            document.getElementById('copyBtn').disabled = true;
+            currentJSON = null;
+        }
+
+        // 递归计算JSON对象中的键数量
+        function countKeys(obj) {
+            if (typeof obj !== 'object' || obj === null) {
+                return 0;
+            }
+
+            if (Array.isArray(obj)) {
+                return obj.reduce((sum, item) => sum + countKeys(item), 0);
+            }
+
+            let count = Object.keys(obj).length;
+            for (const key in obj) {
+                count += countKeys(obj[key]);
+            }
+            return count;
+        }
+
+        // 递归计算JSON对象的深度
+        function calculateDepth(obj) {
+            if (typeof obj !== 'object' || obj === null) {
+                return 1;
+            }
+
+            if (Array.isArray(obj)) {
+                if (obj.length === 0) return 1;
+                return 1 + Math.max(...obj.map(item => calculateDepth(item)));
+            }
+
+            const keys = Object.keys(obj);
+            if (keys.length === 0) return 1;
+            return 1 + Math.max(...keys.map(key => calculateDepth(obj[key])));
+        }
+    </script>
 {% endblock %}

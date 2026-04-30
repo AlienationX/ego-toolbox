@@ -1,338 +1,376 @@
 {% extends 'toolbox/layouts/tool.html' %}
 {% load i18n static %}
-
 {% block tool_content %}
-<div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
-    
-    <!-- Tab Navigation -->
-    <div role="tablist" class="tabs tabs-box mb-6">
-        <!-- Generate QR Code Tab -->
-        <input type="radio" name="qrcode_tabs" role="tab" class="tab" aria-label="{% trans '生成二维码' %}" checked />
-        <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <div class="space-y-6">
-                <!-- Input Section -->
-                <div class="form-control">
-                    <label class="label mb-2">
-                        <span class="label-text font-semibold">{% trans "输入文本或URL" %}</span>
-                    </label>
-                    <textarea 
-                        id="qrInput" 
-                        class="textarea textarea-bordered w-full h-32" 
-                        placeholder="{% trans '请输入要生成二维码的文本或URL...' %}"></textarea>
-                </div>
-                
-                <!-- Options -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
+        <!-- Related Blog Banner -->
+        <div class="mb-6 alert alert-info shadow-sm bg-blue-50 text-blue-800 border-blue-200">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 class="stroke-current shrink-0 w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                </path>
+            </svg>
+            <span>{% trans "想要了解二维码背后的技术规范与防范钓鱼攻击安全指南？" %} <a href="{% url 'toolbox:blog_detail' 'qrcode' %}"
+    class="font-bold underline">{% trans "点击阅读最新技术博客" %}</a></span>
+        </div>
+        <!-- Tab Navigation -->
+        <div role="tablist" class="tabs tabs-box mb-6">
+            <!-- Generate QR Code Tab -->
+            <input type="radio"
+                   name="qrcode_tabs"
+                   role="tab"
+                   class="tab"
+                   aria-label="{% trans '生成二维码' %}"
+                   checked />
+            <div role="tabpanel"
+                 class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                <div class="space-y-6">
+                    <!-- Input Section -->
                     <div class="form-control">
                         <label class="label mb-2">
-                            <span class="label-text text-xs font-semibold">{% trans "二维码大小" %}</span>
+                            <span class="label-text font-semibold">{% trans "输入文本或URL" %}</span>
                         </label>
-                        <select id="qrSize" class="select select-bordered w-full">
-                            <option value="128" selected>128x128</option>
-                            <option value="256">256x256</option>
-                            <option value="512">512x512</option>
-                        </select>
+                        <textarea id="qrInput"
+                                  class="textarea textarea-bordered w-full h-32"
+                                  placeholder="{% trans '请输入要生成二维码的文本或URL...' %}"></textarea>
                     </div>
-                    
-                    <div class="form-control">
-                        <label class="label mb-2">
-                            <span class="label-text text-xs font-semibold">{% trans "前景色" %}</span>
-                        </label>
-                        <input type="color" id="qrColor" class="input input-bordered w-full h-10" value="#000000" />
-                    </div>
-                    
-                    <div class="form-control">
-                        <label class="label mb-2">
-                            <span class="label-text text-xs font-semibold">{% trans "背景色" %}</span>
-                        </label>
-                        <input type="color" id="qrBgColor" class="input input-bordered w-full h-10" value="#ffffff" />
-                    </div>
-                </div>
-                
-                <!-- Action Buttons -->
-                <div class="flex gap-3">
-                    <button class="btn btn-primary min-w-[160px]" onclick="generateQRCode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
-                        </svg>
-                        {% trans "生成二维码" %}
-                    </button>
-                    <button class="btn btn-outline min-w-[160px] text-base-content/60" onclick="clearQRCode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        {% trans "清空" %}
-                    </button>
-                </div>
-                
-                <!-- Alert Message -->
-                <div id="generateAlert" class="hidden">
-                    <div class="alert alert-warning">
-                        <span id="generateAlertText"></span>
-                    </div>
-                </div>
-                
-                <!-- QR Code Preview -->
-                <div id="qrPreview" class="hidden">
-                    <div class="flex flex-col items-center space-y-4">
-                        <div class="bg-white p-4 rounded-lg shadow-lg">
-                            <canvas id="qrCanvas"></canvas>
+                    <!-- Options -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text text-xs font-semibold">{% trans "二维码大小" %}</span>
+                            </label>
+                            <select id="qrSize" class="select select-bordered w-full">
+                                <option value="128" selected>128x128</option>
+                                <option value="256">256x256</option>
+                                <option value="512">512x512</option>
+                            </select>
                         </div>
-                        <button class="btn btn-success" onclick="downloadQRCode()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text text-xs font-semibold">{% trans "前景色" %}</span>
+                            </label>
+                            <input type="color"
+                                   id="qrColor"
+                                   class="input input-bordered w-full h-10"
+                                   value="#000000" />
+                        </div>
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text text-xs font-semibold">{% trans "背景色" %}</span>
+                            </label>
+                            <input type="color"
+                                   id="qrBgColor"
+                                   class="input input-bordered w-full h-10"
+                                   value="#ffffff" />
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3">
+                        <button class="btn btn-primary min-w-[160px]" onclick="generateQRCode()">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5 mr-2"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                             </svg>
-                            {% trans "下载二维码" %}
+                            {% trans "生成二维码" %}
+                        </button>
+                        <button class="btn btn-outline min-w-[160px] text-base-content/60"
+                                onclick="clearQRCode()">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5 mr-2"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            {% trans "清空" %}
                         </button>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Decode QR Code Tab -->
-        <input type="radio" name="qrcode_tabs" role="tab" class="tab" aria-label="{% trans '解码二维码' %}" />
-        <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <div class="space-y-6">
-                <!-- Upload Section -->
-                <div class="form-control">
-                    <label class="label mb-2">
-                        <span class="label-text font-semibold">{% trans "上传二维码图片" %}</span>
-                    </label>
-                    <input 
-                        type="file" 
-                        id="qrImageInput" 
-                        class="file-input file-input-bordered w-full" 
-                        accept="image/*"
-                        onchange="decodeQRCode()">
-                </div>
-                
-                <!-- Image Preview -->
-                <div id="qrImagePreview" class="hidden">
-                    <div class="flex flex-col items-center space-y-4">
-                        <img id="qrPreviewImg" class="max-w-full max-h-64 rounded-lg border border-base-300 shadow-lg" />
+                    <!-- Alert Message -->
+                    <div id="generateAlert" class="hidden">
+                        <div class="alert alert-warning">
+                            <span id="generateAlertText"></span>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Decode Result -->
-                <div id="decodeResult" class="hidden">
-                    <div class="form-control">
-                        <label class="label mb-2 flex justify-between">
-                            <span class="label-text font-semibold">{% trans "解码结果" %}</span>
-                            <button 
-                                class="btn btn-sm btn-ghost gap-2"
-                                onclick="copyDecodeResult()">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    <!-- QR Code Preview -->
+                    <div id="qrPreview" class="hidden">
+                        <div class="flex flex-col items-center space-y-4">
+                            <div class="bg-white p-4 rounded-lg shadow-lg">
+                                <canvas id="qrCanvas"></canvas>
+                            </div>
+                            <button class="btn btn-success" onclick="downloadQRCode()">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="h-5 w-5 mr-2"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
-                                <span class="text-xs">{% trans "复制" %}</span>
+                                {% trans "下载二维码" %}
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Decode QR Code Tab -->
+            <input type="radio"
+                   name="qrcode_tabs"
+                   role="tab"
+                   class="tab"
+                   aria-label="{% trans '解码二维码' %}" />
+            <div role="tabpanel"
+                 class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                <div class="space-y-6">
+                    <!-- Upload Section -->
+                    <div class="form-control">
+                        <label class="label mb-2">
+                            <span class="label-text font-semibold">{% trans "上传二维码图片" %}</span>
                         </label>
-                        <textarea 
-                            id="decodeOutput" 
-                            class="textarea textarea-bordered w-full h-32" 
-                            readonly></textarea>
+                        <input type="file"
+                               id="qrImageInput"
+                               class="file-input file-input-bordered w-full"
+                               accept="image/*"
+                               onchange="decodeQRCode()">
                     </div>
-                </div>
-                
-                <!-- Action Buttons -->
-                <div class="flex gap-3">
-                    <button class="btn btn-primary min-w-[160px]" onclick="decodeQRCode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                        </svg>
-                        {% trans "解码" %}
-                    </button>
-                    <button class="btn btn-outline min-w-[160px] text-base-content/60" onclick="clearDecode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        {% trans "清空" %}
-                    </button>
-                </div>
-                
-                <!-- Alert Message -->
-                <div id="decodeAlert" class="hidden">
-                    <div class="alert alert-warning">
-                        <span id="decodeAlertText"></span>
+                    <!-- Image Preview -->
+                    <div id="qrImagePreview" class="hidden">
+                        <div class="flex flex-col items-center space-y-4">
+                            <img id="qrPreviewImg"
+                                 class="max-w-full max-h-64 rounded-lg border border-base-300 shadow-lg" />
+                        </div>
+                    </div>
+                    <!-- Decode Result -->
+                    <div id="decodeResult" class="hidden">
+                        <div class="form-control">
+                            <label class="label mb-2 flex justify-between">
+                                <span class="label-text font-semibold">{% trans "解码结果" %}</span>
+                                <button class="btn btn-sm btn-ghost gap-2" onclick="copyDecodeResult()">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-4 w-4"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                    </svg>
+                                    <span class="text-xs">{% trans "复制" %}</span>
+                                </button>
+                            </label>
+                            <textarea id="decodeOutput"
+                                      class="textarea textarea-bordered w-full h-32"
+                                      readonly></textarea>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3">
+                        <button class="btn btn-primary min-w-[160px]" onclick="decodeQRCode()">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                            </svg>
+                            {% trans "解码" %}
+                        </button>
+                        <button class="btn btn-outline min-w-[160px] text-base-content/60"
+                                onclick="clearDecode()">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            {% trans "清空" %}
+                        </button>
+                    </div>
+                    <!-- Alert Message -->
+                    <div id="decodeAlert" class="hidden">
+                        <div class="alert alert-warning">
+                            <span id="decodeAlertText"></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Instructions -->
-    <div class="card bg-base-100 shadow-lg">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <h3 class="card-title text-lg mb-4 flex items-center gap-2 text-base-content/70">
-                <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
-                <span>{% trans "使用说明" %}</span>
-            </h3>
-            <div class="space-y-3 text-sm text-base-content/70">
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">1.</span>
-                    <span>{% trans "生成二维码：输入文本或URL，选择颜色和大小，点击生成" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">2.</span>
-                    <span>{% trans "解码二维码：上传二维码图片，自动解码内容" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">3.</span>
-                    <span>{% trans "支持自定义二维码的颜色和尺寸" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">4.</span>
-                    <span>{% trans "生成的二维码可以下载保存" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">5.</span>
-                    <span>{% trans "解码结果可以一键复制" %}</span>
-                </p>
-                <p class="text-warning mt-4 flex items-start gap-2">
-                    <span>⚠️</span>
-                    <span>{% trans "注意：请确保上传的二维码图片清晰可见" %}</span>
-                </p>
+        <!-- Instructions -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2 text-base-content/70">
+                    <img src="{% static 'toolbox/icons/info.svg' %}"
+                         alt="info icon"
+                         class="h-6 w-6">
+                    <span>{% trans "使用说明" %}</span>
+                </h3>
+                <div class="space-y-3 text-sm text-base-content/70">
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">1.</span>
+                        <span>{% trans "生成二维码：输入文本或URL，选择颜色和大小，点击生成" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">2.</span>
+                        <span>{% trans "解码二维码：上传二维码图片，自动解码内容" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">3.</span>
+                        <span>{% trans "支持自定义二维码的颜色和尺寸" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">4.</span>
+                        <span>{% trans "生成的二维码可以下载保存" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">5.</span>
+                        <span>{% trans "解码结果可以一键复制" %}</span>
+                    </p>
+                    <p class="text-warning mt-4 flex items-start gap-2">
+                        <span>⚠️</span>
+                        <span>{% trans "注意：请确保上传的二维码图片清晰可见" %}</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- 引入QRCode库 defer https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js -->
+    <script src="{% static 'toolbox/js/qrcode.min.js' %}"></script>
+    <!-- 引入jsQR库 defer https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js -->
+    <script src="{% static 'toolbox/js/jsQR.min.js' %}"></script>
+    <script>
+        // 显示Alert消息
+        function showAlert(elementId, text, type = 'info') {
+            const alertElement = document.getElementById(elementId);
+            const textElement = document.getElementById(elementId + 'Text');
 
-<!-- 引入QRCode库 defer https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js -->
-<script src="{% static 'toolbox/js/qrcode.min.js' %}"></script>
-<!-- 引入jsQR库 defer https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js -->
-<script src="{% static 'toolbox/js/jsQR.min.js' %}"></script>
-<script>
-// 显示Alert消息
-function showAlert(elementId, text, type = 'info') {
-    const alertElement = document.getElementById(elementId);
-    const textElement = document.getElementById(elementId + 'Text');
-    
-    if (text) {
-        textElement.textContent = text;
-        alertElement.classList.remove('hidden');
-    } else {
-        alertElement.classList.add('hidden');
-    }
-}
-
-// 生成二维码
-function generateQRCode() {
-    const text = document.getElementById('qrInput').value.trim();
-    
-    if (!text) {
-        showAlert('generateAlert', '{% trans "请输入文本或URL" %}', 'warning');
-        return;
-    }
-    
-    try {
-        const size = parseInt(document.getElementById('qrSize').value);
-        const color = document.getElementById('qrColor').value;
-        const bgColor = document.getElementById('qrBgColor').value;
-        
-        const canvas = document.getElementById('qrCanvas');
-        
-        QRCode.toCanvas(canvas, text, {
-            width: size,
-            margin: 2,
-            color: {
-                dark: color,
-                light: bgColor
-            }
-        }).then(() => {
-            document.getElementById('qrPreview').classList.remove('hidden');
-            showAlert('generateAlert', '{% trans "二维码生成成功" %}', 'success');
-        }).catch(error => {
-            console.error('生成二维码失败:', error);
-            showAlert('generateAlert', '{% trans "生成二维码失败" %}', 'error');
-        });
-    } catch (e) {
-        console.error('生成二维码失败:', e);
-        showAlert('generateAlert', '{% trans "生成二维码失败" %}', 'error');
-    }
-}
-
-// 下载二维码
-function downloadQRCode() {
-    const canvas = document.getElementById('qrCanvas');
-    const link = document.createElement('a');
-    link.download = 'qrcode.png';
-    link.href = canvas.toDataURL('image/png');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    showAlert('generateAlert', '{% trans "二维码已下载" %}', 'success');
-}
-
-// 清空二维码
-function clearQRCode() {
-    document.getElementById('qrInput').value = '';
-    document.getElementById('qrPreview').classList.add('hidden');
-    document.getElementById('generateAlert').classList.add('hidden');
-}
-
-// 解码二维码
-function decodeQRCode() {
-    const fileInput = document.getElementById('qrImageInput');
-    const file = fileInput.files[0];
-    
-    if (!file) {
-        showAlert('decodeAlert', '{% trans "请上传二维码图片" %}', 'warning');
-        return;
-    }
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-            
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const code = jsQR(imageData.data, imageData.width, imageData.height);
-            
-            if (code) {
-                document.getElementById('decodeOutput').value = code.data;
-                document.getElementById('decodeResult').classList.remove('hidden');
-                document.getElementById('qrPreviewImg').src = e.target.result;
-                document.getElementById('qrImagePreview').classList.remove('hidden');
-                showAlert('decodeAlert', '{% trans "二维码解码成功" %}', 'success');
+            if (text) {
+                textElement.textContent = text;
+                alertElement.classList.remove('hidden');
             } else {
-                showAlert('decodeAlert', '{% trans "无法识别二维码，请上传清晰的二维码图片" %}', 'error');
+                alertElement.classList.add('hidden');
             }
-        };
-        img.onerror = function() {
-            showAlert('decodeAlert', '{% trans "图片加载失败" %}', 'error');
-        };
-        img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-}
+        }
 
-// 复制解码结果
-function copyDecodeResult() {
-    const output = document.getElementById('decodeOutput');
-    if (output && output.value) {
-        navigator.clipboard.writeText(output.value).then(() => {
-            showAlert('decodeAlert', '{% trans "已复制到剪贴板" %}', 'success');
-        }).catch(err => {
-            console.error('复制失败:', err);
-            showAlert('decodeAlert', '{% trans "复制失败，请手动复制" %}', 'error');
-        });
-    } else {
-        showAlert('decodeAlert', '{% trans "没有可复制的内容" %}', 'warning');
-    }
-}
+        // 生成二维码
+        function generateQRCode() {
+            const text = document.getElementById('qrInput').value.trim();
 
-// 清空解码
-function clearDecode() {
-    document.getElementById('qrImageInput').value = '';
-    document.getElementById('decodeOutput').value = '';
-    document.getElementById('decodeResult').classList.add('hidden');
-    document.getElementById('qrImagePreview').classList.add('hidden');
-    document.getElementById('decodeAlert').classList.add('hidden');
-}
-</script>
+            if (!text) {
+                showAlert('generateAlert', '{% trans "请输入文本或URL" %}', 'warning');
+                return;
+            }
+
+            try {
+                const size = parseInt(document.getElementById('qrSize').value);
+                const color = document.getElementById('qrColor').value;
+                const bgColor = document.getElementById('qrBgColor').value;
+
+                const canvas = document.getElementById('qrCanvas');
+
+                QRCode.toCanvas(canvas, text, {
+                    width: size,
+                    margin: 2,
+                    color: {
+                        dark: color,
+                        light: bgColor
+                    }
+                }).then(() => {
+                    document.getElementById('qrPreview').classList.remove('hidden');
+                    showAlert('generateAlert', '{% trans "二维码生成成功" %}', 'success');
+                }).catch(error => {
+                    console.error('生成二维码失败:', error);
+                    showAlert('generateAlert', '{% trans "生成二维码失败" %}', 'error');
+                });
+            } catch (e) {
+                console.error('生成二维码失败:', e);
+                showAlert('generateAlert', '{% trans "生成二维码失败" %}', 'error');
+            }
+        }
+
+        // 下载二维码
+        function downloadQRCode() {
+            const canvas = document.getElementById('qrCanvas');
+            const link = document.createElement('a');
+            link.download = 'qrcode.png';
+            link.href = canvas.toDataURL('image/png');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showAlert('generateAlert', '{% trans "二维码已下载" %}', 'success');
+        }
+
+        // 清空二维码
+        function clearQRCode() {
+            document.getElementById('qrInput').value = '';
+            document.getElementById('qrPreview').classList.add('hidden');
+            document.getElementById('generateAlert').classList.add('hidden');
+        }
+
+        // 解码二维码
+        function decodeQRCode() {
+            const fileInput = document.getElementById('qrImageInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                showAlert('decodeAlert', '{% trans "请上传二维码图片" %}', 'warning');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                    if (code) {
+                        document.getElementById('decodeOutput').value = code.data;
+                        document.getElementById('decodeResult').classList.remove('hidden');
+                        document.getElementById('qrPreviewImg').src = e.target.result;
+                        document.getElementById('qrImagePreview').classList.remove('hidden');
+                        showAlert('decodeAlert', '{% trans "二维码解码成功" %}', 'success');
+                    } else {
+                        showAlert('decodeAlert', '{% trans "无法识别二维码，请上传清晰的二维码图片" %}', 'error');
+                    }
+                };
+                img.onerror = function() {
+                    showAlert('decodeAlert', '{% trans "图片加载失败" %}', 'error');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 复制解码结果
+        function copyDecodeResult() {
+            const output = document.getElementById('decodeOutput');
+            if (output && output.value) {
+                navigator.clipboard.writeText(output.value).then(() => {
+                    showAlert('decodeAlert', '{% trans "已复制到剪贴板" %}', 'success');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    showAlert('decodeAlert', '{% trans "复制失败，请手动复制" %}', 'error');
+                });
+            } else {
+                showAlert('decodeAlert', '{% trans "没有可复制的内容" %}', 'warning');
+            }
+        }
+
+        // 清空解码
+        function clearDecode() {
+            document.getElementById('qrImageInput').value = '';
+            document.getElementById('decodeOutput').value = '';
+            document.getElementById('decodeResult').classList.add('hidden');
+            document.getElementById('qrImagePreview').classList.add('hidden');
+            document.getElementById('decodeAlert').classList.add('hidden');
+        }
+    </script>
 {% endblock %}

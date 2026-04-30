@@ -1,46 +1,95 @@
 {% extends 'toolbox/layouts/base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "隐私政策" %} - Ego Toolbox{% endblock %}
-{% block description %}{% trans "在 Ego Toolbox，我们高度重视您的隐私和数据安全，这是我们对于数据收集和使用的承诺。" %}{% endblock %}
+{% block title %}
+    {% trans "隐私政策 - Ego Toolbox" %}
+{% endblock %}
+
+{% block description %}
+    {% trans "了解 Ego Toolbox 如何通过本地计算和即时销毁机制保护您的数据隐私。我们坚持不收集、不存储、不滥用用户数据的原则。" %}
+{% endblock %}
 
 {% block content %}
-<div class="bg-[#f5f5f7] min-h-screen text-[#1d1d1f]">
-    <div class="max-w-[980px] mx-auto px-4 py-24 md:py-32">
-        <div class="text-center mb-20">
-            <h1 class="text-[40px] md:text-[56px] font-semibold leading-[1.07] tracking-[-0.02em] mb-4">{% trans "隐私政策" %}</h1>
-            <p class="text-[17px] font-normal tracking-[-0.022em] text-[rgba(0,0,0,0.56)]">{% trans "生效日期：2024年01月01日" %}</p>
-        </div>
+<div class="bg-base-200 min-h-screen text-base-content">
+    <div class="max-w-4xl mx-auto px-4 py-20">
+        <!-- Document Card -->
+        <div class="bg-base-100 rounded-[2.5rem] shadow-xl overflow-hidden border border-base-300">
+            <!-- Document Header -->
+            <header class="bg-gradient-to-r from-primary/5 to-secondary/5 px-8 md:px-16 py-16 border-b border-base-200">
+                <div class="flex items-center gap-3 text-primary font-bold text-sm mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    {% trans "安全合规文档" %}
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">{% trans "隐私政策" %}</h1>
+                <p class="opacity-50 text-sm">{% trans "最后更新日期：2024年05月10日" %}</p>
+            </header>
 
-        <div class="max-w-[800px] mx-auto space-y-16 text-[17px] leading-[1.47] tracking-[-0.022em] text-[rgba(0,0,0,0.8)]">
-            <section>
-                <p>{% blocktrans %}Ego Toolbox 高度重视您的隐私与数据边界。本页面用于说明我们可能收集哪些信息、这些信息会被如何使用，以及我们在文件处理、反馈提交和站点体验设置方面所遵循的基本原则。{% endblocktrans %}</p>
-            </section>
+            <!-- Document Content -->
+            <div class="px-8 md:px-16 py-12 space-y-12 leading-relaxed opacity-90">
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-primary">
+                        <span class="w-2 h-8 bg-primary rounded-full"></span>
+                        {% trans "核心承诺：我们不收集您的数据" %}
+                    </h2>
+                    <p>{% blocktrans %}在 Ego Toolbox，我们认为最好的保护就是“不持有”。不同于大多数在线工具站，我们的技术架构是建立在“隐私由设计决定（Privacy by Design）”的原则之上的。我们致力于在不牺牲任何功能体验的前提下，最大限度地减少对用户数据的接触。{% endblocktrans %}</p>
+                </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "1. 我们收集的信息" %}</h2>
-                <p>{% blocktrans %}当您访问本站时，我们可能会收集必要的技术信息，例如访问日志、浏览器类型、设备信息和错误上下文，以便保障系统稳定运行。当您主动提交问题反馈时，我们还会接收您填写的标题、正文、联系方式以及可选的截图附件。{% endblocktrans %}</p>
-            </section>
+                <section class="space-y-6">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-primary">
+                        <span class="w-2 h-8 bg-primary rounded-full"></span>
+                        {% trans "数据处理机制" %}
+                    </h2>
+                    <div class="grid gap-6">
+                        <div class="card bg-base-200 p-6 rounded-2xl border border-base-300">
+                            <h3 class="font-bold mb-2 flex items-center gap-2">
+                                <span class="badge badge-primary">{% trans "场景 A" %}</span>
+                                {% trans "纯本地处理（Client-Side Only）" %}
+                            </h3>
+                            <p class="text-sm opacity-70">{% blocktrans %}对于文本工具（JSON 格式化、Base64 转换、二维码解码等），所有的处理过程均在您的浏览器本地完成。这意味着您的数据**永远不会**离开您的计算机。我们甚至无法在服务器端看到您输入的内容。{% endblocktrans %}</p>
+                        </div>
+                        <div class="card bg-base-200 p-6 rounded-2xl border border-base-300">
+                            <h3 class="font-bold mb-2 flex items-center gap-2">
+                                <span class="badge badge-secondary">{% trans "场景 B" %}</span>
+                                {% trans "云端即时销毁（Ephemeral Processing）" %}
+                            </h3>
+                            <p class="text-sm opacity-70">{% blocktrans %}对于必须在服务器上处理的复杂任务（如 AI 智能去背景），我们采用了加密传输和即时销毁技术。文件一旦处理完毕并返回结果给您，对应的临时文件将被系统即刻彻底覆写销毁（Hard Purge），绝不保留任何副本，也不用于任何机器学习训练。{% endblocktrans %}</p>
+                        </div>
+                    </div>
+                </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "2. 我们如何使用这些信息" %}</h2>
-                <p>{% blocktrans %}我们使用这些信息来完成三类工作：维护服务可用性与安全性、响应您主动提交的反馈内容，以及改进工具与页面本身的可用性。我们不会为了广告画像或转售目的收集与分析您的输入内容。{% endblocktrans %}</p>
-            </section>
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-primary">
+                        <span class="w-2 h-8 bg-primary rounded-full"></span>
+                        {% trans "Cookie 与 访问日志" %}
+                    </h2>
+                    <p>{% blocktrans %}为了保障网站的正常运行、提供登录功能以及统计基础的访问流量，我们可能会使用少量的必要 Cookie 和匿名化的服务器访问日志。这些信息通常包括您的 IP 地址（我们会进行脱敏处理）、浏览器类型和访问页面。我们绝不使用广告追踪或第三方画像分析脚本（如 Facebook Pixel）。{% endblocktrans %}</p>
+                </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "3. 文件与文本处理原则" %}</h2>
-                <p>{% blocktrans %}对于能够在浏览器内完成的功能，我们优先采用本地处理。对于需要服务器参与的场景，我们尽量采用即时处理和最小化存留策略。您上传的文件和输入的文本仅用于完成当前请求，不会被用于无关用途，也不会被故意长期保存为业务数据。{% endblocktrans %}</p>
-            </section>
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-primary">
+                        <span class="w-2 h-8 bg-primary rounded-full"></span>
+                        {% trans "第三方服务" %}
+                    </h2>
+                    <p>{% blocktrans %}我们可能会在页面中嵌入少量的第三方统计脚本（如 Google Analytics）以优化用户体验，但我们已配置其自动匿名化 IP 信息。此外，对于广告合作伙伴（如 Google AdSense），他们可能会根据您的兴趣展示广告，但我们已选择停用所有个性化数据共享选项，以最大限度保护您的隐私。{% endblocktrans %}</p>
+                </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "4. 本地存储与偏好设置" %}</h2>
-                <p>{% blocktrans %}站点可能会使用浏览器本地存储保存主题模式、语言设置等体验偏好，以便您下次访问时获得一致的界面体验。这类信息主要用于界面表现，不用于识别您的真实身份。{% endblocktrans %}</p>
-            </section>
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-primary">
+                        <span class="w-2 h-8 bg-primary rounded-full"></span>
+                        {% trans "隐私政策的变更" %}
+                    </h2>
+                    <p>{% blocktrans %}我们可能会根据法律要求或技术升级更新此隐私政策。任何重大变更都将在本页面显著位置进行公告。{% endblocktrans %}</p>
+                </section>
+            </div>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "5. 修改与更新" %}</h2>
-                <p>{% blocktrans %}我们可能会根据产品变更、法律要求或运营需要更新本隐私政策。新版声明一旦发布到本页面即刻生效。继续使用我们的服务，即表明您理解并接受最新版本的隐私政策。{% endblocktrans %}</p>
-            </section>
+            <!-- Document Footer -->
+            <footer class="bg-base-200 px-8 py-10 text-center space-y-4">
+                <p class="text-sm opacity-50">{% trans "如果您对本隐私政策有任何疑问，请通过反馈页面与我们联系。" %}</p>
+                <div class="flex justify-center gap-4">
+                    <a href="{% url 'toolbox:index' %}" class="btn btn-primary btn-sm rounded-xl">{% trans "返回首页" %}</a>
+                    <a href="{% url 'toolbox:terms' %}" class="btn btn-ghost btn-sm rounded-xl">{% trans "查看服务条款" %}</a>
+                </div>
+            </footer>
         </div>
     </div>
 </div>

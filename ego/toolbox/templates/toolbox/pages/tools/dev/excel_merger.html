@@ -1,194 +1,203 @@
 {% extends 'toolbox/layouts/tool.html' %}
 {% load i18n static %}
-
 {% block tool_content %}
-<div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
-    <!-- Header -->
-    <div class="mb-6">
-        <h2 class="text-3xl font-bold flex items-center">
-            <img src="{% static 'toolbox/icons/excel-merger.svg' %}" alt="merger icon" class="h-10 w-10 mr-3">
-            <span>{% trans "Excel文件合并" %}</span>
-        </h2>
-    </div>
-    
-    <!-- Merge Options -->
-    <div class="card bg-base-100 shadow-lg mb-6">
-        <div class="card-body p-4 sm:p-6">
-            <h3 class="card-title text-lg mb-4 flex items-center gap-2">
-                <img src="{% static 'toolbox/icons/edit-2.svg' %}" alt="settings icon" class="h-6 w-6">
-                <span>{% trans "合并选项" %}</span>
-            </h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Merge Mode Selection -->
-                <div class="form-control">
-                    <label class="label mb-2">
-                        <span class="label-text font-semibold flex items-center gap-2">
-                            <img src="{% static 'toolbox/icons/grid.svg' %}" alt="merge mode icon" class="h-5 w-5">
-                            {% trans "合并模式" %}
-                        </span>
-                    </label>
-                    <div class="join">
-                        <input 
-                            type="radio" 
-                            name="merge_mode" 
-                            value="horizontal" 
-                            class="join-item btn btn-sm" 
-                            aria-label="{% trans '横向合并' %}"
-                            checked />
-                        <input 
-                            type="radio" 
-                            name="merge_mode" 
-                            value="vertical" 
-                            class="join-item btn btn-sm" 
-                            aria-label="{% trans '纵向合并' %}" />
-                    </div>
-                </div>
-                
-                <!-- Sheet Name -->
-                <div class="form-control">
-                    <label class="label mb-2">
-                        <span class="label-text font-semibold flex items-center gap-2">
-                            <img src="{% static 'toolbox/icons/grid.svg' %}" alt="sheet icon" class="h-5 w-5">
-                            {% trans "工作表名称" %}
-                        </span>
-                    </label>
-                    <input 
-                        type="text" 
-                        name="sheet_name"
-                        class="input input-bordered w-full" 
-                        placeholder="{% trans '默认第一个工作表' %}">
-                </div>
-            </div>
+    <div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-3xl font-bold flex items-center">
+                <img src="{% static 'toolbox/icons/excel-merger.svg' %}"
+                     alt="merger icon"
+                     class="h-10 w-10 mr-3">
+                <span>{% trans "Excel文件合并" %}</span>
+            </h2>
         </div>
-    </div>
-    
-    <!-- File Upload Section -->
-    <div class="card bg-base-100 shadow-lg mb-6">
-        <div class="card-body p-4 sm:p-6">
-            <h3 class="card-title text-lg mb-4 flex items-center gap-2">
-                <img src="{% static 'toolbox/icons/upload-cloud.svg' %}" alt="upload icon" class="h-6 w-6">
-                <span>{% trans "上传Excel文件" %}</span>
-            </h3>
-            
-            <form 
-                hx-post="{% url 'toolbox:excel_merger' %}"
-                hx-target="#resultContainer"
-                hx-encoding="multipart/form-data">
-                <div class="space-y-4">
-                    <!-- File Input -->
+        <!-- Merge Options -->
+        <div class="card bg-base-100 shadow-lg mb-6">
+            <div class="card-body p-4 sm:p-6">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <img src="{% static 'toolbox/icons/edit-2.svg' %}"
+                         alt="settings icon"
+                         class="h-6 w-6">
+                    <span>{% trans "合并选项" %}</span>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Merge Mode Selection -->
                     <div class="form-control">
                         <label class="label mb-2">
-                            <span class="label-text text-sm">{% trans "选择Excel文件（至少两个）" %}</span>
+                            <span class="label-text font-semibold flex items-center gap-2">
+                                <img src="{% static 'toolbox/icons/grid.svg' %}"
+                                     alt="merge mode icon"
+                                     class="h-5 w-5">
+                                {% trans "合并模式" %}
+                            </span>
                         </label>
-                        <input 
-                            type="file" 
-                            name="excel_files"
-                            class="file-input file-input-bordered w-full" 
-                            accept=".xlsx,.xls"
-                            multiple
-                            onchange="handleFileUpload()">
-                    </div>
-                    
-                    <!-- File List -->
-                    <div id="fileList" class="hidden">
-                        <div class="label">
-                            <span class="label-text font-semibold">{% trans "已选择的文件" %}</span>
+                        <div class="join">
+                            <input type="radio"
+                                   name="merge_mode"
+                                   value="horizontal"
+                                   class="join-item btn btn-sm"
+                                   aria-label="{% trans '横向合并' %}"
+                                   checked />
+                            <input type="radio"
+                                   name="merge_mode"
+                                   value="vertical"
+                                   class="join-item btn btn-sm"
+                                   aria-label="{% trans '纵向合并' %}" />
                         </div>
-                        <ul id="selectedFiles" class="list list-disc list-inside text-sm space-y-1"></ul>
                     </div>
-                    
-                    <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <button type="submit" name="action" value="merge" class="btn btn-primary flex-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                            </svg>
-                            {% trans "合并文件" %}
-                        </button>
-                        <button type="button" class="btn btn-outline flex-1" onclick="clearFiles()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
-                            {% trans "清空" %}
-                        </button>
+                    <!-- Sheet Name -->
+                    <div class="form-control">
+                        <label class="label mb-2">
+                            <span class="label-text font-semibold flex items-center gap-2">
+                                <img src="{% static 'toolbox/icons/grid.svg' %}"
+                                     alt="sheet icon"
+                                     class="h-5 w-5">
+                                {% trans "工作表名称" %}
+                            </span>
+                        </label>
+                        <input type="text"
+                               name="sheet_name"
+                               class="input input-bordered w-full"
+                               placeholder="{% trans '默认第一个工作表' %}">
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-    
-    <!-- Result Container -->
-    <div id="resultContainer">
-        <!-- Result will be loaded here by HTMX -->
-    </div>
-    
-    <!-- Instructions -->
-    <div class="card bg-base-100 shadow-lg">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <h3 class="card-title text-lg mb-4 flex items-center gap-2">
-                <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
-                <span>{% trans "使用说明" %}</span>
-            </h3>
-            <div class="space-y-3 text-sm text-base-content/70">
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">1.</span>
-                    <span>{% trans "横向合并：将多个Excel文件的内容并排合并，适合不同列的数据" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">2.</span>
-                    <span>{% trans "纵向合并：将多个Excel文件的内容垂直堆叠，适合相同结构的数据" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">3.</span>
-                    <span>{% trans "支持.xlsx和.xls格式的Excel文件" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">4.</span>
-                    <span>{% trans "可以指定工作表名称进行合并" %}</span>
-                </p>
-                <p class="text-warning mt-4 flex items-start gap-2">
-                    <span>⚠️</span>
-                    <span>{% trans "注意：请确保上传的Excel文件具有兼容的结构" %}</span>
-                </p>
+        <!-- File Upload Section -->
+        <div class="card bg-base-100 shadow-lg mb-6">
+            <div class="card-body p-4 sm:p-6">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <img src="{% static 'toolbox/icons/upload-cloud.svg' %}"
+                         alt="upload icon"
+                         class="h-6 w-6">
+                    <span>{% trans "上传Excel文件" %}</span>
+                </h3>
+                <form hx-post="{% url 'toolbox:excel_merger' %}"
+                      hx-target="#resultContainer"
+                      hx-encoding="multipart/form-data">
+                    <div class="space-y-4">
+                        <!-- File Input -->
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text text-sm">{% trans "选择Excel文件（至少两个）" %}</span>
+                            </label>
+                            <input type="file"
+                                   name="excel_files"
+                                   class="file-input file-input-bordered w-full"
+                                   accept=".xlsx,.xls"
+                                   multiple
+                                   onchange="handleFileUpload()">
+                        </div>
+                        <!-- File List -->
+                        <div id="fileList" class="hidden">
+                            <div class="label">
+                                <span class="label-text font-semibold">{% trans "已选择的文件" %}</span>
+                            </div>
+                            <ul id="selectedFiles"
+                                class="list list-disc list-inside text-sm space-y-1">
+                            </ul>
+                        </div>
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button type="submit"
+                                    name="action"
+                                    value="merge"
+                                    class="btn btn-primary flex-1">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="h-5 w-5 mr-2"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                </svg>
+                                {% trans "合并文件" %}
+                            </button>
+                            <button type="button" class="btn btn-outline flex-1" onclick="clearFiles()">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="h-5 w-5 mr-2"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                {% trans "清空" %}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Result Container -->
+        <div id="resultContainer">
+            <!-- Result will be loaded here by HTMX -->
+        </div>
+        <!-- Instructions -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <img src="{% static 'toolbox/icons/info.svg' %}"
+                         alt="info icon"
+                         class="h-6 w-6">
+                    <span>{% trans "使用说明" %}</span>
+                </h3>
+                <div class="space-y-3 text-sm text-base-content/70">
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">1.</span>
+                        <span>{% trans "横向合并：将多个Excel文件的内容并排合并，适合不同列的数据" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">2.</span>
+                        <span>{% trans "纵向合并：将多个Excel文件的内容垂直堆叠，适合相同结构的数据" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">3.</span>
+                        <span>{% trans "支持.xlsx和.xls格式的Excel文件" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">4.</span>
+                        <span>{% trans "可以指定工作表名称进行合并" %}</span>
+                    </p>
+                    <p class="text-warning mt-4 flex items-start gap-2">
+                        <span>⚠️</span>
+                        <span>{% trans "注意：请确保上传的Excel文件具有兼容的结构" %}</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <script>
+        function handleFileUpload() {
+            const fileInput = document.querySelector('input[type="file"]');
+            const files = fileInput.files;
+            const fileList = document.getElementById('fileList');
+            const selectedFiles = document.getElementById('selectedFiles');
 
-<script>
-function handleFileUpload() {
-    const fileInput = document.querySelector('input[type="file"]');
-    const files = fileInput.files;
-    const fileList = document.getElementById('fileList');
-    const selectedFiles = document.getElementById('selectedFiles');
-    
-    if (files.length > 0) {
-        fileList.classList.remove('hidden');
-        selectedFiles.innerHTML = '';
-        
-        for (let i = 0; i < files.length; i++) {
-            const li = document.createElement('li');
-            li.className = 'flex items-center gap-2';
-            li.innerHTML = `
+            if (files.length > 0) {
+                fileList.classList.remove('hidden');
+                selectedFiles.innerHTML = '';
+
+                for (let i = 0; i < files.length; i++) {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center gap-2';
+                    li.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <span>${files[i].name}</span>
             `;
-            selectedFiles.appendChild(li);
+                    selectedFiles.appendChild(li);
+                }
+            } else {
+                fileList.classList.add('hidden');
+            }
         }
-    } else {
-        fileList.classList.add('hidden');
-    }
-}
 
-function clearFiles() {
-    const fileInput = document.querySelector('input[type="file"]');
-    fileInput.value = '';
-    document.getElementById('fileList').classList.add('hidden');
-    document.getElementById('selectedFiles').innerHTML = '';
-    document.getElementById('resultContainer').innerHTML = '';
-}
-</script>
+        function clearFiles() {
+            const fileInput = document.querySelector('input[type="file"]');
+            fileInput.value = '';
+            document.getElementById('fileList').classList.add('hidden');
+            document.getElementById('selectedFiles').innerHTML = '';
+            document.getElementById('resultContainer').innerHTML = '';
+        }
+    </script>
 {% endblock %}

@@ -27,3 +27,6 @@ media/
 # ui
 ui/
 stitch_design/
+
+# node
+node_modules/

@@ -1,0 +1,112 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "无处不在的矩阵：二维码背后的技术规范与安全指南 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "揭开 QR Code 的神秘面纱。深入探讨其定位图案机制、里德-所罗门纠错算法，以及我们如何利用本地解析工具防范钓鱼二维码攻击。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-accent selection:text-accent-content">
+    <!-- Article Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-accent transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <!-- Header Section -->
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-accent badge-outline">{% trans "数字加密与协议" %}</span>
+                <span>•</span>
+                <time datetime="2024-06-02">2024-06-02</time>
+                <span>•</span>
+                <span>15 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "剖析二维码 (QR Code)：容错、机制与信息安全" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "在这个“扫一扫”驱动的世界里，看似随机的黑白方块背后，隐藏着精密而优雅的数学编码与工业级抗损毁设计。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}在你的手机屏幕上、咖啡厅的点餐台上、甚至大型物流集装箱的表面，二维码（Quick Response Code，即快速响应矩阵码）已经成为了物理世界通向数字世界最主要、也是最便捷的桥梁。对于大多数人来说，它的运作就像魔法——镜头一扫，网页即刻开启。但如果我们撕下它的表面，会发现其内部是一座充满了数学逻辑、冗余算法与定位协议的微缩城市。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">1</span>
+                    {% trans "拆解这块黑白马赛克：定位与版本" %}
+                </h2>
+                <p>{% blocktrans %}任何见过二维码的人，都会注意到它在三个角落里（通常是左上、右上和左下）存在三个非常醒目的“回”字形方块。这些被称为“位置探测图形（Finder Patterns）”。无论你正着扫、倒着扫甚至歪斜着手机，扫描器的算法都能首先捕捉到这三个固定比例的嵌套正方形，从而瞬间计算出二维码在空间中的旋转角度、透视形变以及大小尺度。这正是其被称为“快速响应”的关键所在。{% endblocktrans %}</p>
+                <div class="card bg-base-200 p-6 rounded-2xl border border-base-300">
+                    <p>{% blocktrans %}二维码不仅容量大，而且“弹性”极强。根据 ISO 标准规范，二维码被划分为从 Version 1 (21×21 模块) 到 Version 40 (177×177 模块) 的四十个版本。当你在 Ego Toolbox 的『二维码生成器』中输入一段短链接时，算法会自动选择较低版本以生成疏朗清爽的点阵；而当你尝试把一长段复杂的电子名片 (vCard) 数据塞进去时，你会发现生成的二维码点阵变得极其密集，这意味着算法自动将其升级到了高版本以容纳更多的数据模块。{% endblocktrans %}</p>
+                </div>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">2</span>
+                    {% trans "断臂的维纳斯：里德-所罗门纠错算法" %}
+                </h2>
+                <p>{% blocktrans %}二维码最令人惊叹的工业设计，在于其不可思议的“抗毁伤性”。你可能在街上见过一些被风吹日晒、掉色磨损、甚至被人用记号笔涂抹了一块的共享单车二维码，但你的手机依然能“滴”的一声顺利解开它。这一切都要归功于其内置的里德-所罗门（Reed-Solomon）纠错编码算法。{% endblocktrans %}</p>
+                <p>{% blocktrans %}在生成二维码时，编码器并不仅仅是翻译你的文本内容，还会计算并附带大量的“冗余奇偶校验数据”。二维码协议规定了四种级别的纠错能力（L、M、Q、H）。在最高级别的 H 级设置下，即使整个二维码有高达 30% 的黑白像素被完全遮挡或破坏，剩下的有效像素依然能通过多项式数学运算完美逆推重建出 100% 的原始数据！正因为这种强大的容错能力，现代品牌商才能够放心地在二维码正中央覆盖自家的 Logo 头像，而不必担心扫描失效。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">3</span>
+                    {% trans "“扫码”时代的阴暗面：网络钓鱼与恶意劫持" %}
+                </h2>
+                <div class="alert alert-error rounded-2xl bg-error/10 text-error border-error/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{% trans "风险提示：每一次扫码都是一场盲目的信任跳跃。" %}</span>
+                </div>
+                <p>{% blocktrans %}然而，技术的便利总是伴随着安全的风险。因为人类的肉眼无法识别二维码中的数据（除了极少数能人），这意味着每一次扫码都是一场盲目的信任跳跃。近年来，一种名为 “Quishing”（QR Phishing，二维码钓鱼）攻击手段呈现爆发式增长。黑客将恶意的付款链接或伪造的银行登录页面制作成二维码，通过物理贴纸覆盖在正规商家的二维码上，或者发送看似官方的邮件诱导受害者扫码。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">4</span>
+                    {% trans "防范指南：为什么你需要纯本地的解码工具？" %}
+                </h2>
+                <p>{% blocktrans %}对于未知来源、包含风险可能的二维码图片，最安全的做法是不要直接用手机的系统相机或通讯软件去扫它，而是进行“纯净解码环境中的静电检查”。{% endblocktrans %}</p>
+                <p>{% blocktrans %}这也是我们在 Ego Toolbox 中提供『二维码解码』功能的核心初衷。你只需要将图片上传至我们的工具箱，我们会利用浏览器本地的高性能 JavaScript 引擎（如 jsQR）剥离出所有的数学信息，并仅仅将它作为“纯文本”呈现在文本框内。您可以先审视这究竟是不是一个以 `https://` 开头的安全网址，判断其域名是否可疑。整个逆向拆解过程没有任何代码会被自动执行，也没有任何图像会被发送至云端服务器，这为您的隐私和数字财产构建了一道最后也是最坚固的安全屏障。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <!-- Footer Actions -->
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            
+            <div class="flex gap-4">
+                <button class="btn btn-circle btn-ghost" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                </button>
+                <a href="{% url 'toolbox:qrcode_tool' %}" class="btn btn-accent rounded-2xl px-8 shadow-lg shadow-accent/20">
+                    {% trans "使用纯净环境的二维码工具" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </a>
+            </div>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

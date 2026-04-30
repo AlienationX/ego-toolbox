@@ -1,168 +1,187 @@
 {% extends 'toolbox/layouts/base.html' %}
 {% load i18n static %}
-
 {% block extra_css %}
-<style>
-    .home-page {
-        background: #f5f5f7;
-        color: #1d1d1f;
-        padding: 20px 16px 48px;
-    }
-
-    .home-shell {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .hero-grid {
-        background-image:
-            linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
-        background-size: 28px 28px;
-    }
-
-    .float-orb {
-        animation: floatUpDown 6s ease-in-out infinite;
-    }
-
-    .float-orb.delay {
-        animation-delay: 1.8s;
-    }
-
-    @keyframes floatUpDown {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    .stat-icon {
-        width: 20px;
-        height: 20px;
-        opacity: 0.75;
-    }
-
-    .feature-icon-wrap {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        background: color-mix(in srgb, var(--color-base-content) 6%, transparent);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    .feature-icon {
-        width: 18px;
-        height: 18px;
-        opacity: 0.85;
-    }
-
-    @media (max-width: 768px) {
+    <style>
         .home-page {
-            padding: 16px 12px 40px;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            padding: 20px 16px 48px;
         }
-    }
-</style>
+
+        .home-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-grid {
+            background-image:
+                linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .float-orb {
+            animation: floatUpDown 6s ease-in-out infinite;
+        }
+
+        .float-orb.delay {
+            animation-delay: 1.8s;
+        }
+
+        @keyframes floatUpDown {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .stat-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.75;
+        }
+
+        .feature-icon-wrap {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: color-mix(in srgb, var(--color-base-content) 6%, transparent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon {
+            width: 18px;
+            height: 18px;
+            opacity: 0.85;
+        }
+
+        @media (max-width: 768px) {
+            .home-page {
+                padding: 16px 12px 40px;
+            }
+        }
+    </style>
 {% endblock %}
-
 {% block content %}
-<div class="home-page">
-    <div class="home-shell">
-        <section class="mb-4 md:mb-8">
-            <div class="rounded-3xl border border-base-300 bg-base-100 overflow-hidden relative">
-                <div class="hero-grid absolute inset-0 opacity-40"></div>
-                <div class="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-primary/20 blur-2xl float-orb"></div>
-                <div class="absolute -bottom-8 right-6 w-32 h-32 rounded-full bg-secondary/20 blur-2xl float-orb delay"></div>
-
-                <div class="relative grid grid-cols-1 lg:grid-cols-5">
-                    <div class="lg:col-span-3 p-8 md:p-12">
-                        <div class="badge badge-outline mb-4">Ego Toolbox</div>
-                        <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-5">{% trans "用更简洁、更智能的方式，搭建你的工具工作流。" %}</h1>
-                        <p class="text-base-content/70 max-w-2xl text-base md:text-lg mb-7">{% trans "参考现代 AI 产品视觉语言，采用更克制的排版、更舒展的留白和更快速的交互，适配你的高频创作与效率场景。" %}</p>
-                        <div class="flex flex-wrap gap-3">
-                            <a href="{% url 'toolbox:todo' %}" class="btn btn-primary rounded-full">{% trans "从 Todo 开始" %}</a>
-                            <a href="#tool-grid" class="btn btn-ghost rounded-full">{% trans "浏览全部工具" %}</a>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-2 p-6 border-l border-base-300 bg-base-100/80 flex flex-col gap-4">
-                        <div class="flex-[2]">
-                            <img src="{% static 'toolbox/images/login-inset.svg' %}" alt="toolbox visual" class="w-full h-full object-cover rounded-2xl bg-base-200" />
-                        </div>
-                        <div class="grid grid-cols-3 gap-3 flex-[1]">
-                            <div class="card bg-base-100 border border-base-300">
-                                <div class="card-body p-3">
-                                    <div class="flex items-center gap-2 whitespace-nowrap">
-                                        <img src="{% static 'toolbox/icons/grid.svg' %}" alt="tools icon" class="stat-icon">
-                                        <div class="text-xs text-base-content/60">{% trans "工具" %}</div>
-                                    </div>
-                                    <div class="text-xl font-bold text-primary mt-1">{{ total_tools }}</div>
-                                </div>
+    <div class="home-page">
+        <div class="home-shell">
+            <section class="mb-4 md:mb-8">
+                <div class="rounded-3xl border border-base-300 bg-base-100 overflow-hidden relative">
+                    <div class="hero-grid absolute inset-0 opacity-40"></div>
+                    <div class="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-primary/20 blur-2xl float-orb"></div>
+                    <div class="absolute -bottom-8 right-6 w-32 h-32 rounded-full bg-secondary/20 blur-2xl float-orb delay"></div>
+                    <div class="relative grid grid-cols-1 lg:grid-cols-5">
+                        <div class="lg:col-span-3 p-8 md:p-12">
+                            <div class="badge badge-outline mb-4">Ego Toolbox</div>
+                            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-5">
+                                {% trans "用更简洁、更智能的方式，搭建你的工具工作流。" %}
+                            </h1>
+                            <p class="text-base-content/70 max-w-2xl text-base md:text-lg mb-7">
+                                {% trans "参考现代 AI 产品视觉语言，采用更克制的排版、更舒展的留白和更快速的交互，适配你的高频创作与效率场景。" %}
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="{% url 'toolbox:todo' %}" class="btn btn-primary rounded-full">{% trans "从 Todo 开始" %}</a>
+                                <a href="#tool-grid" class="btn btn-ghost rounded-full">{% trans "浏览全部工具" %}</a>
                             </div>
-                            <div class="card bg-base-100 border border-base-300">
-                                <div class="card-body p-3">
-                                    <div class="flex items-center gap-2 whitespace-nowrap">
-                                        <img src="{% static 'toolbox/icons/activity.svg' %}" alt="usage icon" class="stat-icon">
-                                        <div class="text-xs text-base-content/60">{% trans "使用" %}</div>
-                                    </div>
-                                    <div class="text-xl font-bold mt-1">{{ total_usage|floatformat:0 }}</div>
-                                </div>
+                        </div>
+                        <div class="lg:col-span-2 p-6 border-l border-base-300 bg-base-100/80 flex flex-col gap-4">
+                            <div class="flex-[2]">
+                                <img src="{% static 'toolbox/images/login-inset.svg' %}"
+                                     alt="toolbox visual"
+                                     class="w-full h-full object-cover rounded-2xl bg-base-200" />
                             </div>
-                            <div class="card bg-base-100 border border-base-300">
-                                <div class="card-body p-3">
-                                    <div class="flex items-center gap-2 whitespace-nowrap">
-                                        <img src="{% static 'toolbox/icons/layers.svg' %}" alt="category icon" class="stat-icon">
-                                        <div class="text-xs text-base-content/60">{% trans "分类" %}</div>
+                            <div class="grid grid-cols-3 gap-3 flex-[1]">
+                                <div class="card bg-base-100 border border-base-300">
+                                    <div class="card-body p-3">
+                                        <div class="flex items-center gap-2 whitespace-nowrap">
+                                            <img src="{% static 'toolbox/icons/grid.svg' %}"
+                                                 alt="tools icon"
+                                                 class="stat-icon">
+                                            <div class="text-xs text-base-content/60">{% trans "工具" %}</div>
+                                        </div>
+                                        <div class="text-xl font-bold text-primary mt-1">{{ total_tools }}</div>
                                     </div>
-                                    <div class="text-xl font-bold mt-1">{{ categories|length }}</div>
+                                </div>
+                                <div class="card bg-base-100 border border-base-300">
+                                    <div class="card-body p-3">
+                                        <div class="flex items-center gap-2 whitespace-nowrap">
+                                            <img src="{% static 'toolbox/icons/activity.svg' %}"
+                                                 alt="usage icon"
+                                                 class="stat-icon">
+                                            <div class="text-xs text-base-content/60">{% trans "使用" %}</div>
+                                        </div>
+                                        <div class="text-xl font-bold mt-1">{{ total_usage|floatformat:0 }}</div>
+                                    </div>
+                                </div>
+                                <div class="card bg-base-100 border border-base-300">
+                                    <div class="card-body p-3">
+                                        <div class="flex items-center gap-2 whitespace-nowrap">
+                                            <img src="{% static 'toolbox/icons/layers.svg' %}"
+                                                 alt="category icon"
+                                                 class="stat-icon">
+                                            <div class="text-xs text-base-content/60">{% trans "分类" %}</div>
+                                        </div>
+                                        <div class="text-xl font-bold mt-1">{{ categories|length }}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="mb-4 md:mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
-                    <div class="card-body">
-                        <div class="flex items-center gap-2 whitespace-nowrap">
-                            <span class="feature-icon-wrap">
-                                <img src="{% static 'toolbox/icons/target.svg' %}" alt="focus icon" class="feature-icon">
-                            </span>
-                            <h3 class="card-title text-lg m-0">{% trans "专注体验" %}</h3>
+            </section>
+            <section class="mb-4 md:mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
+                        <div class="card-body">
+                            <div class="flex items-center gap-2 whitespace-nowrap">
+                                <span class="feature-icon-wrap">
+                                    <img src="{% static 'toolbox/icons/target.svg' %}"
+                                         alt="focus icon"
+                                         class="feature-icon">
+                                </span>
+                                <h3 class="card-title text-lg m-0">{% trans "专注体验" %}</h3>
+                            </div>
+                            <p class="text-sm text-base-content/70">{% trans "减少视觉噪音，强化信息层级，让你更快找到需要的工具。" %}</p>
                         </div>
-                        <p class="text-sm text-base-content/70">{% trans "减少视觉噪音，强化信息层级，让你更快找到需要的工具。" %}</p>
-                    </div>
-                </article>
-                <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
-                    <div class="card-body">
-                        <div class="flex items-center gap-2 whitespace-nowrap">
-                            <span class="feature-icon-wrap">
-                                <img src="{% static 'toolbox/icons/sliders.svg' %}" alt="adaptive icon" class="feature-icon">
-                            </span>
-                            <h3 class="card-title text-lg m-0">{% trans "自适应界面" %}</h3>
+                    </article>
+                    <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
+                        <div class="card-body">
+                            <div class="flex items-center gap-2 whitespace-nowrap">
+                                <span class="feature-icon-wrap">
+                                    <img src="{% static 'toolbox/icons/sliders.svg' %}"
+                                         alt="adaptive icon"
+                                         class="feature-icon">
+                                </span>
+                                <h3 class="card-title text-lg m-0">{% trans "自适应界面" %}</h3>
+                            </div>
+                            <p class="text-sm text-base-content/70">{% trans "一键切换主题和中英文，在不同页面保持一致的浏览流。" %}</p>
                         </div>
-                        <p class="text-sm text-base-content/70">{% trans "一键切换主题和中英文，在不同页面保持一致的浏览流。" %}</p>
-                    </div>
-                </article>
-                <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
-                    <div class="card-body">
-                        <div class="flex items-center gap-2 whitespace-nowrap">
-                            <span class="feature-icon-wrap">
-                                <img src="{% static 'toolbox/icons/package.svg' %}" alt="modules icon" class="feature-icon">
-                            </span>
-                            <h3 class="card-title text-lg m-0">{% trans "模块可扩展" %}</h3>
+                    </article>
+                    <article class="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow">
+                        <div class="card-body">
+                            <div class="flex items-center gap-2 whitespace-nowrap">
+                                <span class="feature-icon-wrap">
+                                    <img src="{% static 'toolbox/icons/package.svg' %}"
+                                         alt="modules icon"
+                                         class="feature-icon">
+                                </span>
+                                <h3 class="card-title text-lg m-0">{% trans "模块可扩展" %}</h3>
+                            </div>
+                            <p class="text-sm text-base-content/70">{% trans "分类与导航结构已为后续工具扩展和更复杂工作流预留空间。" %}</p>
                         </div>
-                        <p class="text-sm text-base-content/70">{% trans "分类与导航结构已为后续工具扩展和更复杂工作流预留空间。" %}</p>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        {% include 'toolbox/partials/home/index_filter.html' %}
-        {% include 'toolbox/partials/home/index_tool_grid.html' %}
+                    </article>
+                </div>
+            </section>
+            {% include 'toolbox/partials/home/index_filter.html' %}
+            {% include 'toolbox/partials/home/index_tool_grid.html' %}
+        </div>
     </div>
-</div>
 {% endblock %}

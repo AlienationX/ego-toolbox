@@ -1,179 +1,192 @@
 {% extends 'toolbox/layouts/tool.html' %}
 {% load i18n static %}
-
 {% block tool_content %}
-<div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
-    <!-- Header -->
-    <div class="mb-6">
-        <h2 class="text-3xl font-bold flex items-center">
-            <img src="{% static 'toolbox/icons/ocr.svg' %}" alt="ocr icon" class="h-10 w-10 mr-3">
-            <span>{% trans "OCR图片文字提取" %}</span>
-        </h2>
-    </div>
-    
-    <div class="card bg-base-100 shadow-lg">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <form hx-post="{% url 'toolbox:ocr_tool' %}" 
-                  hx-encoding="multipart/form-data"
-                  hx-target="#resultContainer"
-                  hx-swap="innerHTML">
-                {% csrf_token %}
-                <div class="space-y-6">
-                    <!-- Upload Section -->
-                    <div class="form-control">
-                        <label class="label mb-2">
-                            <span class="label-text font-semibold flex items-center gap-2">
-                                <img src="{% static 'toolbox/icons/upload.svg' %}" alt="upload icon" class="h-5 w-5">
-                                {% trans "上传图片" %}
-                            </span>
-                        </label>
-                        <input 
-                            type="file" 
-                            name="image"
-                            id="imageInput" 
-                            class="file-input file-input-bordered w-full" 
-                            accept="image/*"
-                            onchange="handleImageUpload()">
-                    </div>
-                    
-                    <!-- Image Preview -->
-                    <div id="imagePreview" class="hidden">
-                        <div class="flex flex-col items-center space-y-4">
-                            <img id="previewImg" class="max-w-full max-h-96 rounded-lg border border-base-300 shadow-lg" />
+    <div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-3xl font-bold flex items-center">
+                <img src="{% static 'toolbox/icons/ocr.svg' %}"
+                     alt="ocr icon"
+                     class="h-10 w-10 mr-3">
+                <span>{% trans "OCR图片文字提取" %}</span>
+            </h2>
+        </div>
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <form hx-post="{% url 'toolbox:ocr_tool' %}"
+                      hx-encoding="multipart/form-data"
+                      hx-target="#resultContainer"
+                      hx-swap="innerHTML">
+                    {% csrf_token %}
+                    <div class="space-y-6">
+                        <!-- Upload Section -->
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text font-semibold flex items-center gap-2">
+                                    <img src="{% static 'toolbox/icons/upload.svg' %}"
+                                         alt="upload icon"
+                                         class="h-5 w-5">
+                                    {% trans "上传图片" %}
+                                </span>
+                            </label>
+                            <input type="file"
+                                   name="image"
+                                   id="imageInput"
+                                   class="file-input file-input-bordered w-full"
+                                   accept="image/*"
+                                   onchange="handleImageUpload()">
+                        </div>
+                        <!-- Image Preview -->
+                        <div id="imagePreview" class="hidden">
+                            <div class="flex flex-col items-center space-y-4">
+                                <img id="previewImg"
+                                     class="max-w-full max-h-96 rounded-lg border border-base-300 shadow-lg" />
+                            </div>
+                        </div>
+                        <!-- Language Selection -->
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text font-semibold flex items-center gap-2">
+                                    <img src="{% static 'toolbox/icons/globe.svg' %}"
+                                         alt="language icon"
+                                         class="h-5 w-5">
+                                    {% trans "识别语言" %}
+                                </span>
+                            </label>
+                            <select name="language" id="languageSelect" class="select select-bordered">
+                                <option value="eng">English</option>
+                                <option value="chi_sim" selected>简体中文</option>
+                                <option value="chi_tra">繁体中文</option>
+                                <option value="jpn">日本語</option>
+                                <option value="kor">한국어</option>
+                                <option value="fra">Français</option>
+                                <option value="deu">Deutsch</option>
+                                <option value="spa">Español</option>
+                            </select>
+                        </div>
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button type="submit"
+                                    name="action"
+                                    value="extract"
+                                    class="btn btn-primary flex-1">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="h-5 w-5 mr-2"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                {% trans "提取文字" %}
+                            </button>
+                            <button type="button" class="btn btn-outline flex-1" onclick="clearAll()">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="h-5 w-5 mr-2"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                {% trans "清空" %}
+                            </button>
                         </div>
                     </div>
-                    
-                    <!-- Language Selection -->
-                    <div class="form-control">
-                        <label class="label mb-2">
-                            <span class="label-text font-semibold flex items-center gap-2">
-                                <img src="{% static 'toolbox/icons/globe.svg' %}" alt="language icon" class="h-5 w-5">
-                                {% trans "识别语言" %}
-                            </span>
-                        </label>
-                        <select name="language" id="languageSelect" class="select select-bordered">
-                            <option value="eng">English</option>
-                            <option value="chi_sim" selected>简体中文</option>
-                            <option value="chi_tra">繁体中文</option>
-                            <option value="jpn">日本語</option>
-                            <option value="kor">한국어</option>
-                            <option value="fra">Français</option>
-                            <option value="deu">Deutsch</option>
-                            <option value="spa">Español</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <button type="submit" name="action" value="extract" class="btn btn-primary flex-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                            {% trans "提取文字" %}
-                        </button>
-                        <button type="button" class="btn btn-outline flex-1" onclick="clearAll()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
-                            {% trans "清空" %}
-                        </button>
-                    </div>
+                </form>
+                <!-- Result Container -->
+                <div id="resultContainer" class="mt-6">
+                    <!-- OCR结果将通过HTMX加载到这里 -->
                 </div>
-            </form>
-            
-            <!-- Result Container -->
-            <div id="resultContainer" class="mt-6">
-                <!-- OCR结果将通过HTMX加载到这里 -->
+            </div>
+        </div>
+        <!-- Instructions -->
+        <div class="card bg-base-100 shadow-lg mt-6">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <img src="{% static 'toolbox/icons/info.svg' %}"
+                         alt="info icon"
+                         class="h-6 w-6">
+                    <span>{% trans "使用说明" %}</span>
+                </h3>
+                <div class="space-y-3 text-sm text-base-content/70">
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">1.</span>
+                        <span>{% trans '上传包含文字的图片（支持JPG、PNG、GIF等格式）' %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">2.</span>
+                        <span>{% trans '选择要识别的语言（支持多种语言）' %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">3.</span>
+                        <span>{% trans '点击"提取文字"按钮开始识别' %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">4.</span>
+                        <span>{% trans '识别结果可以复制或下载为文本文件' %}</span>
+                    </p>
+                    <p class="text-warning mt-4 flex items-start gap-2">
+                        <span>⚠️</span>
+                        <span>{% trans '注意：识别准确度取决于图片质量和文字清晰度。建议使用清晰、对比度高的图片以获得更好的识别效果。' %}</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-    
-    <!-- Instructions -->
-    <div class="card bg-base-100 shadow-lg mt-6">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <h3 class="card-title text-lg mb-4 flex items-center gap-2">
-                <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
-                <span>{% trans "使用说明" %}</span>
-            </h3>
-            <div class="space-y-3 text-sm text-base-content/70">
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">1.</span>
-                    <span>{% trans '上传包含文字的图片（支持JPG、PNG、GIF等格式）' %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">2.</span>
-                    <span>{% trans '选择要识别的语言（支持多种语言）' %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">3.</span>
-                    <span>{% trans '点击"提取文字"按钮开始识别' %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">4.</span>
-                    <span>{% trans '识别结果可以复制或下载为文本文件' %}</span>
-                </p>
-                <p class="text-warning mt-4 flex items-start gap-2">
-                    <span>⚠️</span>
-                    <span>{% trans '注意：识别准确度取决于图片质量和文字清晰度。建议使用清晰、对比度高的图片以获得更好的识别效果。' %}</span>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+    <script>
+        // 处理图片上传
+        function handleImageUpload() {
+            const fileInput = document.getElementById('imageInput');
+            const file = fileInput.files[0];
 
-<script>
-// 处理图片上传
-function handleImageUpload() {
-    const fileInput = document.getElementById('imageInput');
-    const file = fileInput.files[0];
-    
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const previewImg = document.getElementById('previewImg');
-            previewImg.src = e.target.result;
-            document.getElementById('imagePreview').classList.remove('hidden');
-        };
-        reader.readAsDataURL(file);
-    }
-}
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewImg = document.getElementById('previewImg');
+                    previewImg.src = e.target.result;
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
-// 复制结果
-function copyResult() {
-    const resultText = document.getElementById('resultText');
-    if (resultText && resultText.value) {
-        navigator.clipboard.writeText(resultText.value).then(() => {
-            alert('{% trans "已复制到剪贴板" %}');
-        }).catch(err => {
-            console.error('复制失败:', err);
-            alert('{% trans "复制失败，请手动复制" %}');
-        });
-    } else {
-        alert('{% trans "没有可复制的内容" %}');
-    }
-}
+        // 复制结果
+        function copyResult() {
+            const resultText = document.getElementById('resultText');
+            if (resultText && resultText.value) {
+                navigator.clipboard.writeText(resultText.value).then(() => {
+                    alert('{% trans "已复制到剪贴板" %}');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    alert('{% trans "复制失败，请手动复制" %}');
+                });
+            } else {
+                alert('{% trans "没有可复制的内容" %}');
+            }
+        }
 
-// 下载结果
-function downloadResult() {
-    const resultText = document.getElementById('resultText');
-    if (resultText && resultText.value) {
-        const blob = new Blob([resultText.value], { type: 'text/plain;charset=utf-8' });
-        const link = document.createElement('a');
-        link.download = 'ocr_result.txt';
-        link.href = URL.createObjectURL(blob);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } else {
-        alert('{% trans "没有可下载的内容" %}');
-    }
-}
+        // 下载结果
+        function downloadResult() {
+            const resultText = document.getElementById('resultText');
+            if (resultText && resultText.value) {
+                const blob = new Blob([resultText.value], {
+                    type: 'text/plain;charset=utf-8'
+                });
+                const link = document.createElement('a');
+                link.download = 'ocr_result.txt';
+                link.href = URL.createObjectURL(blob);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('{% trans "没有可下载的内容" %}');
+            }
+        }
 
-// 清空所有
-function clearAll() {
-    document.getElementById('imageInput').value = '';
-    document.getElementById('imagePreview').classList.add('hidden');
-    document.getElementById('resultContainer').innerHTML = '';
-}
-</script>
+        // 清空所有
+        function clearAll() {
+            document.getElementById('imageInput').value = '';
+            document.getElementById('imagePreview').classList.add('hidden');
+            document.getElementById('resultContainer').innerHTML = '';
+        }
+    </script>
 {% endblock %}

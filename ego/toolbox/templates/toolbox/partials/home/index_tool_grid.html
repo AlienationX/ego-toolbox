@@ -11,13 +11,14 @@
         {% if tool.url %}
         <!-- 如果url存在，则使用a包裹，否则使用div包裹 -->
         <a href="{{ tool.url }}"
-            class="group card bg-base-100 border border-base-300 hover:border-primary hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
+            class="group card bg-base-100 border border-base-300 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
             {% else %}
             <div class="card bg-base-100 border border-base-300 opacity-95">
                 {% endif %}
                 <div class="card-body">
                     <div class="flex items-start gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-base-200 grid place-items-center text-2xl">{{ tool.icon }}</div>
+                        <div class="w-12 h-12 rounded-xl bg-base-200 grid place-items-center text-2xl">{{ tool.icon }}
+                        </div>
                         <div class="flex-1">
                             <h3 class="card-title text-lg">{{ tool.title }}</h3>
                             <p class="text-sm text-base-content/70">{{ tool.description }}</p>
@@ -30,7 +31,10 @@
                     </div>
                     {% if tool.url %}
                     <div class="card-actions justify-end mt-2">
-                        <span class="btn btn-sm btn-primary opacity-0 translate-y-1 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">{% trans "打开" %}</span>
+                        <span
+                            class="btn btn-sm btn-primary opacity-0 translate-y-1 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
+                            {% trans "打开" %}
+                        </span>
                     </div>
                     {% endif %}
                 </div>
@@ -44,5 +48,5 @@
         <span>{% trans "未找到匹配的工具。" %}</span>
     </div>
     {% endfor %}
-    </div>
+</div>
 </div>

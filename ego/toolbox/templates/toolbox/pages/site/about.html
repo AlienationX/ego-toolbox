@@ -1,44 +1,115 @@
 {% extends 'toolbox/layouts/base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "关于我们" %} - Ego Toolbox{% endblock %}
-{% block description %}{% trans "Ego Toolbox 的诞生是为了提供更简单、更快速、更纯粹的在线工具体验。" %}{% endblock %}
+{% block title %}
+    {% trans "关于我们 - Ego Toolbox 团队与技术愿景" %}
+{% endblock %}
+
+{% block description %}
+    {% trans "了解 Ego Toolbox 的技术愿景、开发团队背景以及我们为什么致力于打造纯粹、安全、高效的在线生产力工具库。" %}
+{% endblock %}
 
 {% block content %}
-<div class="bg-[#f5f5f7] min-h-screen text-[#1d1d1f]">
-    <div class="max-w-[980px] mx-auto px-4 py-24 md:py-32">
-        <div class="text-center mb-20">
-            <h1 class="text-[40px] md:text-[56px] font-semibold leading-[1.07] tracking-[-0.02em] mb-4">{% trans "关于我们" %}</h1>
-            <p class="max-w-[720px] mx-auto text-[17px] leading-[1.47] tracking-[-0.022em] text-[rgba(0,0,0,0.56)]">
-                {% trans "Ego Toolbox 的诞生是为了提供更简单、更快速、更纯粹的在线工具体验。" %}
+<div class="bg-base-100 min-h-screen text-base-content">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-primary/10 to-base-100 py-20 md:py-32">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold mb-8">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+                {% trans "关于 Ego Toolbox" %}
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "为数字创作者提供" %}<br/>
+                <span class="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{% trans "纯粹、安全、无摩擦" %}</span>{% trans "的工具" %}
+            </h1>
+            <p class="text-xl opacity-70 max-w-2xl mx-auto leading-relaxed">
+                {% trans "我们是一个由开发者组成的独立团队，致力于在嘈杂的互联网中为您保留一块高效、干净的数据处理净土。" %}
             </p>
         </div>
+    </section>
 
-        <div class="max-w-[800px] mx-auto space-y-16 text-[17px] leading-[1.47] tracking-[-0.022em] text-[rgba(0,0,0,0.8)]">
-            <section>
-                <p>{% blocktrans %}Ego Toolbox 诞生于对“干净、纯粹、高效”工具的渴望。在数字时代，我们每天都需要处理大量格式转换、数据整理和轻量创作任务，但很多在线工具让本来简单的事情变得嘈杂、复杂而不透明。我们希望提供另一种体验：更安静、更可靠，也更容易纳入日常工作流。{% endblocktrans %}</p>
-            </section>
+    <!-- Main Content Grid -->
+    <div class="max-w-4xl mx-auto px-4 pb-24 space-y-24">
+        
+        <!-- Story Section -->
+        <section class="grid md:grid-cols-5 gap-12 items-start">
+            <div class="md:col-span-2 space-y-4">
+                <h2 class="text-3xl font-bold tracking-tight">{% trans "我们的起源与初心" %}</h2>
+                <div class="w-12 h-1.5 bg-primary rounded-full"></div>
+            </div>
+            <div class="md:col-span-3 space-y-6 text-lg opacity-80 leading-relaxed">
+                <p>{% blocktrans %}Ego Toolbox 的诞生源于一次日常开发中的挫败感。作为由多名全栈工程师和数据分析师组成的独立开发团队，我们在日常工作中频繁需要处理一些琐碎但关键的任务：格式化一段混乱的 JSON 响应、提取一张图片的 Base64 编码、或是将运营部门发来的异常 CSV 文件进行清洗。{% endblocktrans %}</p>
+                <p>{% blocktrans %}然而，我们在网络上寻找这些“免费工具”时，往往被迫忍受满屏的弹窗广告、伪装成下载按钮的恶意链接。这不仅打断了我们的心流（Flow），更带来了巨大的安全隐患。因此，我们决定自己动手打造一个理想中的在线工具库。Ego Toolbox 的第一原则是“干净与纯粹”。{% endblocktrans %}</p>
+            </div>
+        </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "1. 我们想解决的问题" %}</h2>
-                <p>{% blocktrans %}很多工具确实能完成任务，但它们常常伴随着弹窗广告、杂乱界面、过度权限请求或不明确的数据处理方式。对高频使用场景来说，这些噪音会不断打断判断与执行。我们更关心的是，如何让一个十秒钟的任务真的在十秒钟内完成。{% endblocktrans %}</p>
-            </section>
+        <!-- Philosophy Section with Cards -->
+        <section class="space-y-12">
+            <div class="text-center space-y-4">
+                <h2 class="text-3xl font-bold tracking-tight">{% trans "我们的核心价值观" %}</h2>
+                <p class="opacity-60">{% trans "每一行代码都围绕着对用户的尊重而编写" %}</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card bg-base-200 p-8 rounded-3xl hover:bg-primary/5 transition-colors group">
+                    <div class="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">🛡️</div>
+                    <h3 class="text-xl font-bold mb-4">{% trans "隐私至上" %}</h3>
+                    <p class="opacity-70 text-sm leading-relaxed">{% trans "我们坚持 Privacy by Design。对于绝大多数工具，我们完全使用浏览器原生 API 在您的本地设备上完成计算。我们不想要，也不存储您的数据。" %}</p>
+                </div>
+                
+                <div class="card bg-base-200 p-8 rounded-3xl hover:bg-secondary/5 transition-colors group">
+                    <div class="w-12 h-12 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">⚡</div>
+                    <h3 class="text-xl font-bold mb-4">{% trans "极简高效" %}</h3>
+                    <p class="opacity-70 text-sm leading-relaxed">{% trans "剔除一切分散注意力的视觉噪音，坚持无广告、无弹窗的极致极简设计。让您在打开网页的第一秒就直接开始处理任务。" %}</p>
+                </div>
+                
+                <div class="card bg-base-200 p-8 rounded-3xl hover:bg-accent/5 transition-colors group">
+                    <div class="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">🌍</div>
+                    <h3 class="text-xl font-bold mb-4">{% trans "回馈社区" %}</h3>
+                    <p class="opacity-70 text-sm leading-relaxed">{% trans "我们深受开源社区的恩惠。未来我们计划将平台中经过实战检验的核心转换算法开源，回馈给更广大的技术生态圈。" %}</p>
+                </div>
+            </div>
+        </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "2. 我们坚持的原则" %}</h2>
-                <p>{% blocktrans %}我们相信好的工具应该“即用即走”。它不需要用户学习复杂操作，不需要夸张视觉来证明自己重要，也不应该试图夺走用户的注意力。对于大多数任务，合理的默认值应当足够好；界面的职责是减少犹豫，而不是制造选择成本。{% endblocktrans %}</p>
-            </section>
+        <!-- Service Groups -->
+        <section class="bg-base-200 rounded-[3rem] p-8 md:p-16 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+            <div class="relative z-10 space-y-12">
+                <h2 class="text-3xl font-bold tracking-tight text-center">{% trans "服务群体" %}</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-base-100 flex items-center justify-center shadow-sm">💻</div>
+                            <h4 class="font-bold text-xl">{% trans "软件开发者" %}</h4>
+                        </div>
+                        <p class="opacity-70 leading-relaxed">{% trans "提供高效的编码解码、时间戳转换、正则表达式测试等研发辅助工具，让您可以专注于核心业务逻辑。" %}</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-base-100 flex items-center justify-center shadow-sm">📈</div>
+                            <h4 class="font-bold text-xl">{% trans "数据分析师与运营" %}</h4>
+                        </div>
+                        <p class="opacity-70 leading-relaxed">{% trans "提供 Excel、CSV、JSON 之间的格式清洗与互转引擎，消除编码壁垒，让数据在不同系统间自由流转。" %}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "3. 隐私与边界" %}</h2>
-                <p>{% blocktrans %}作为面向开发与效率场景的工具集合，我们非常重视数据边界。能够在浏览器本地完成的功能，我们优先采用本地处理；对于需要服务器资源的功能，我们尽量采用即时处理和最小化存留策略。用户数据不应成为产品增长的交换条件。{% endblocktrans %}</p>
-            </section>
-
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "4. 持续建设" %}</h2>
-                <p>{% blocktrans %}Ego Toolbox 仍在持续演进。我们会继续扩展开发工具、数据处理工具和高频效率场景，也会不断优化页面性能、交互清晰度和整体一致性。如果你对某个工具有想法，或者希望我们优先支持某个场景，欢迎通过反馈页面告诉我们。{% endblocktrans %}</p>
-            </section>
-        </div>
+        <!-- Contact Section -->
+        <section class="text-center space-y-8">
+            <h2 class="text-3xl font-bold tracking-tight">{% trans "联系我们" %}</h2>
+            <p class="max-w-xl mx-auto opacity-70">
+                {% trans "Ego Toolbox 仍在以两周一个版本的节奏持续迭代。如果您有任何反馈、Bug 提交或新工具需求，我们非常期待听到您的声音。" %}
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="{% url 'toolbox:feedback' %}" class="btn btn-primary btn-lg rounded-2xl px-12 shadow-xl shadow-primary/20">
+                    {% trans "提交建议与反馈" %}
+                </a>
+            </div>
+        </section>
     </div>
 </div>
 {% endblock %}

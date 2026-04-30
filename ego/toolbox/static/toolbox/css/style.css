@@ -31,3 +31,22 @@
 .icon-mask {
     filter: invert(100%) brightness(200%);
 }
+/* 优化的排版样式 */
+html {
+    scroll-behavior: smooth;
+}
+
+.selection\:bg-primary ::selection { background-color: var(--p); color: var(--pc); }
+.selection\:bg-secondary ::selection { background-color: var(--s); color: var(--sc); }
+.selection\:bg-accent ::selection { background-color: var(--a); color: var(--ac); }
+.selection\:bg-info ::selection { background-color: var(--in); color: var(--inc); }
+.selection\:bg-success ::selection { background-color: var(--su); color: var(--suc); }
+
+/* 文章排版微调 */
+.blog-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-content h2, .blog-content h3 {
+    scroll-margin-top: 5rem;
+}

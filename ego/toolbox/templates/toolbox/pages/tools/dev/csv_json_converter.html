@@ -1,429 +1,466 @@
 {% extends 'toolbox/layouts/tool.html' %}
 {% load i18n static %}
-
 {% block tool_content %}
-<div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
-    <!-- Header -->
-    <div class="mb-6">
-        <h2 class="text-3xl font-bold flex items-center">
-            <img src="{% static 'toolbox/icons/csv-json.svg' %}" alt="converter icon" class="h-10 w-10 mr-3">
-            <span>{% trans "CSV/JSON转换" %}</span>
-        </h2>
-    </div>
-    
-    <!-- Tab Navigation -->
-    <div role="tablist" class="tabs tabs-box mb-6">
-        <!-- CSV to JSON Tab -->
-        <input type="radio" name="converter_tabs" role="tab" class="tab" aria-label="{% trans 'CSV转JSON' %}" checked />
-        <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <div class="space-y-6">
-                <!-- CSV Input Section -->
-                <div class="form-control">
-                    <label class="label mb-2">
-                        <span class="label-text font-semibold flex items-center gap-2">
-                            <img src="{% static 'toolbox/icons/type.svg' %}" alt="csv icon" class="h-5 w-5">
-                            {% trans "CSV输入" %}
-                        </span>
-                    </label>
-                    <textarea 
-                        id="csvInput" 
-                        class="textarea textarea-bordered w-full h-64 font-mono text-sm"
-                        placeholder="name,age,city&#10;John,30,New York&#10;Jane,25,London"
-                        oninput="validateCSV()"></textarea>
-                </div>
-                
-                <!-- CSV Options -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl">
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-3xl font-bold flex items-center">
+                <img src="{% static 'toolbox/icons/csv-json.svg' %}"
+                     alt="converter icon"
+                     class="h-10 w-10 mr-3">
+                <span>{% trans "CSV/JSON转换" %}</span>
+            </h2>
+        </div>
+        <!-- Tab Navigation -->
+        <div role="tablist" class="tabs tabs-box mb-6">
+            <!-- CSV to JSON Tab -->
+            <input type="radio"
+                   name="converter_tabs"
+                   role="tab"
+                   class="tab"
+                   aria-label="{% trans 'CSV转JSON' %}"
+                   checked />
+            <div role="tabpanel"
+                 class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                <div class="space-y-6">
+                    <!-- CSV Input Section -->
                     <div class="form-control">
                         <label class="label mb-2">
-                            <span class="label-text text-sm font-semibold">{% trans "分隔符" %}</span>
-                        </label>
-                        <select id="csvDelimiter" class="select select-bordered w-full">
-                            <option value=",">逗号 (,)</option>
-                            <option value=";">分号 (;)</option>
-                            <option value="\t">制表符 (Tab)</option>
-                            <option value="|">竖线 (|)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-control">
-                        <label class="label mb-2">
-                            <span class="label-text text-sm font-semibold">{% trans "首行作为键" %}</span>
-                        </label>
-                        <select id="csvHeader" class="select select-bordered w-full">
-                            <option value="true">{% trans "是" %}</option>
-                            <option value="false">{% trans "否" %}</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button id="csvToJsonBtn" class="btn btn-primary flex-1" onclick="convertCSVToJSON()" disabled>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                        {% trans "转换为JSON" %}
-                    </button>
-                    <button class="btn btn-outline flex-1" onclick="clearCSV()">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        {% trans "清空" %}
-                    </button>
-                </div>
-                
-                <!-- Alert Message -->
-                <div id="csvAlertSection" class="hidden">
-                    <div class="alert alert-error">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span id="csvAlertText"></span>
-                    </div>
-                </div>
-                
-                <!-- Result Section -->
-                <div id="csvResultSection" class="hidden">
-                    <div class="form-control">
-                        <label class="label mb-2 justify-between">
                             <span class="label-text font-semibold flex items-center gap-2">
-                                <img src="{% static 'toolbox/icons/code.svg' %}" alt="json icon" class="h-5 w-5">
-                                {% trans "JSON结果" %}
+                                <img src="{% static 'toolbox/icons/type.svg' %}"
+                                     alt="csv icon"
+                                     class="h-5 w-5">
+                                {% trans "CSV输入" %}
                             </span>
-                            <button 
-                                class="btn btn-sm btn-ghost gap-2"
-                                onclick="copyCSVResult()">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </svg>
-                                <span class="text-xs">{% trans "复制" %}</span>
-                            </button>
                         </label>
-                        <pre class="bg-base-200 rounded-lg p-4 overflow-x-auto"><code id="csvResultText" class="text-sm font-mono"></code></pre>
+                        <textarea id="csvInput"
+                                  class="textarea textarea-bordered w-full h-64 font-mono text-sm"
+                                  placeholder="name,age,city&#10;John,30,New York&#10;Jane,25,London"
+                                  oninput="validateCSV()"></textarea>
+                    </div>
+                    <!-- CSV Options -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text text-sm font-semibold">{% trans "分隔符" %}</span>
+                            </label>
+                            <select id="csvDelimiter" class="select select-bordered w-full">
+                                <option value=",">逗号 (,)</option>
+                                <option value=";">分号 (;)</option>
+                                <option value="\t">制表符 (Tab)</option>
+                                <option value="|">竖线 (|)</option>
+                            </select>
+                        </div>
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text text-sm font-semibold">{% trans "首行作为键" %}</span>
+                            </label>
+                            <select id="csvHeader" class="select select-bordered w-full">
+                                <option value="true">{% trans "是" %}</option>
+                                <option value="false">{% trans "否" %}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button id="csvToJsonBtn"
+                                class="btn btn-primary flex-1"
+                                onclick="convertCSVToJSON()"
+                                disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5 mr-2"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                            {% trans "转换为JSON" %}
+                        </button>
+                        <button class="btn btn-outline flex-1" onclick="clearCSV()">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5 mr-2"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            {% trans "清空" %}
+                        </button>
+                    </div>
+                    <!-- Alert Message -->
+                    <div id="csvAlertSection" class="hidden">
+                        <div class="alert alert-error">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-6 w-6 shrink-0 stroke-current"
+                                 fill="none"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span id="csvAlertText"></span>
+                        </div>
+                    </div>
+                    <!-- Result Section -->
+                    <div id="csvResultSection" class="hidden">
+                        <div class="form-control">
+                            <label class="label mb-2 justify-between">
+                                <span class="label-text font-semibold flex items-center gap-2">
+                                    <img src="{% static 'toolbox/icons/code.svg' %}"
+                                         alt="json icon"
+                                         class="h-5 w-5">
+                                    {% trans "JSON结果" %}
+                                </span>
+                                <button class="btn btn-sm btn-ghost gap-2" onclick="copyCSVResult()">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-4 w-4"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                    </svg>
+                                    <span class="text-xs">{% trans "复制" %}</span>
+                                </button>
+                            </label>
+                            <pre class="bg-base-200 rounded-lg p-4 overflow-x-auto"><code id="csvResultText" class="text-sm font-mono"></code></pre>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- JSON to CSV Tab -->
-        <input type="radio" name="converter_tabs" role="tab" class="tab" aria-label="{% trans 'JSON转CSV' %}" />
-        <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <div class="space-y-6">
-                <!-- JSON Input Section -->
-                <div class="form-control">
-                    <label class="label mb-2">
-                        <span class="label-text font-semibold flex items-center gap-2">
-                            <img src="{% static 'toolbox/icons/code.svg' %}" alt="json icon" class="h-5 w-5">
-                            {% trans "JSON输入" %}
-                        </span>
-                    </label>
-                    <textarea 
-                        id="jsonInput" 
-                        class="textarea textarea-bordered w-full h-64 font-mono text-sm"
-                        placeholder='[{"name": "John", "age": 30}, {"name": "Jane", "age": 25}]'
-                        oninput="validateJSON()"></textarea>
-                </div>
-                
-                <!-- JSON Options -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- JSON to CSV Tab -->
+            <input type="radio"
+                   name="converter_tabs"
+                   role="tab"
+                   class="tab"
+                   aria-label="{% trans 'JSON转CSV' %}" />
+            <div role="tabpanel"
+                 class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                <div class="space-y-6">
+                    <!-- JSON Input Section -->
                     <div class="form-control">
                         <label class="label mb-2">
-                            <span class="label-text text-sm font-semibold">{% trans "分隔符" %}</span>
-                        </label>
-                        <select id="jsonDelimiter" class="select select-bordered w-full">
-                            <option value=",">逗号 (,)</option>
-                            <option value=";">分号 (;)</option>
-                            <option value="\t">制表符 (Tab)</option>
-                            <option value="|">竖线 (|)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-control">
-                        <label class="label mb-2">
-                            <span class="label-text text-sm font-semibold">{% trans "包含表头" %}</span>
-                        </label>
-                        <select id="jsonHeader" class="select select-bordered w-full">
-                            <option value="true">{% trans "是" %}</option>
-                            <option value="false">{% trans "否" %}</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button id="jsonToCsvBtn" class="btn btn-primary flex-1" onclick="convertJSONToCSV()" disabled>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                        {% trans "转换为CSV" %}
-                    </button>
-                    <button class="btn btn-outline flex-1" onclick="clearJSON()">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        {% trans "清空" %}
-                    </button>
-                </div>
-                
-                <!-- Alert Message -->
-                <div id="jsonAlertSection" class="hidden">
-                    <div class="alert alert-error">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span id="jsonAlertText"></span>
-                    </div>
-                </div>
-                
-                <!-- Result Section -->
-                <div id="jsonResultSection" class="hidden">
-                    <div class="form-control">
-                        <label class="label mb-2 justify-between">
                             <span class="label-text font-semibold flex items-center gap-2">
-                                <img src="{% static 'toolbox/icons/file-text.svg' %}" alt="csv icon" class="h-5 w-5">
-                                {% trans "CSV结果" %}
+                                <img src="{% static 'toolbox/icons/code.svg' %}"
+                                     alt="json icon"
+                                     class="h-5 w-5">
+                                {% trans "JSON输入" %}
                             </span>
-                            <button 
-                                class="btn btn-sm btn-ghost gap-2"
-                                onclick="copyJSONResult()">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </svg>
-                                <span class="text-xs">{% trans "复制" %}</span>
-                            </button>
                         </label>
-                        <textarea 
-                            id="jsonResultText" 
-                            class="textarea textarea-bordered w-full h-64 font-mono text-sm"
-                            readonly></textarea>
+                        <textarea id="jsonInput"
+                                  class="textarea textarea-bordered w-full h-64 font-mono text-sm"
+                                  placeholder='[{"name": "John", "age": 30}, {"name": "Jane", "age": 25}]'
+                                  oninput="validateJSON()"></textarea>
+                    </div>
+                    <!-- JSON Options -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text text-sm font-semibold">{% trans "分隔符" %}</span>
+                            </label>
+                            <select id="jsonDelimiter" class="select select-bordered w-full">
+                                <option value=",">逗号 (,)</option>
+                                <option value=";">分号 (;)</option>
+                                <option value="\t">制表符 (Tab)</option>
+                                <option value="|">竖线 (|)</option>
+                            </select>
+                        </div>
+                        <div class="form-control">
+                            <label class="label mb-2">
+                                <span class="label-text text-sm font-semibold">{% trans "包含表头" %}</span>
+                            </label>
+                            <select id="jsonHeader" class="select select-bordered w-full">
+                                <option value="true">{% trans "是" %}</option>
+                                <option value="false">{% trans "否" %}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button id="jsonToCsvBtn"
+                                class="btn btn-primary flex-1"
+                                onclick="convertJSONToCSV()"
+                                disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5 mr-2"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                            {% trans "转换为CSV" %}
+                        </button>
+                        <button class="btn btn-outline flex-1" onclick="clearJSON()">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5 mr-2"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            {% trans "清空" %}
+                        </button>
+                    </div>
+                    <!-- Alert Message -->
+                    <div id="jsonAlertSection" class="hidden">
+                        <div class="alert alert-error">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-6 w-6 shrink-0 stroke-current"
+                                 fill="none"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span id="jsonAlertText"></span>
+                        </div>
+                    </div>
+                    <!-- Result Section -->
+                    <div id="jsonResultSection" class="hidden">
+                        <div class="form-control">
+                            <label class="label mb-2 justify-between">
+                                <span class="label-text font-semibold flex items-center gap-2">
+                                    <img src="{% static 'toolbox/icons/file-text.svg' %}"
+                                         alt="csv icon"
+                                         class="h-5 w-5">
+                                    {% trans "CSV结果" %}
+                                </span>
+                                <button class="btn btn-sm btn-ghost gap-2" onclick="copyJSONResult()">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-4 w-4"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                    </svg>
+                                    <span class="text-xs">{% trans "复制" %}</span>
+                                </button>
+                            </label>
+                            <textarea id="jsonResultText"
+                                      class="textarea textarea-bordered w-full h-64 font-mono text-sm"
+                                      readonly></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Instructions -->
-    <div class="card bg-base-100 shadow-lg">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <h3 class="card-title text-lg mb-4 flex items-center gap-2">
-                <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
-                <span>{% trans "使用说明" %}</span>
-            </h3>
-            <div class="space-y-3 text-sm text-base-content/70">
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">1.</span>
-                    <span>{% trans "CSV转JSON：输入CSV数据，选择分隔符和表头选项，点击转换" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">2.</span>
-                    <span>{% trans "JSON转CSV：输入JSON数组，选择分隔符和表头选项，点击转换" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">3.</span>
-                    <span>{% trans "支持自定义分隔符：逗号、分号、制表符、竖线" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">4.</span>
-                    <span>{% trans "转换结果可以复制使用" %}</span>
-                </p>
-                <p class="text-warning mt-4 flex items-start gap-2">
-                    <span>⚠️</span>
-                    <span>{% trans "注意：CSV数据应该格式正确，JSON应该是数组格式" %}</span>
-                </p>
+        <!-- Instructions -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <img src="{% static 'toolbox/icons/info.svg' %}"
+                         alt="info icon"
+                         class="h-6 w-6">
+                    <span>{% trans "使用说明" %}</span>
+                </h3>
+                <div class="space-y-3 text-sm text-base-content/70">
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">1.</span>
+                        <span>{% trans "CSV转JSON：输入CSV数据，选择分隔符和表头选项，点击转换" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">2.</span>
+                        <span>{% trans "JSON转CSV：输入JSON数组，选择分隔符和表头选项，点击转换" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">3.</span>
+                        <span>{% trans "支持自定义分隔符：逗号、分号、制表符、竖线" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">4.</span>
+                        <span>{% trans "转换结果可以复制使用" %}</span>
+                    </p>
+                    <p class="text-warning mt-4 flex items-start gap-2">
+                        <span>⚠️</span>
+                        <span>{% trans "注意：CSV数据应该格式正确，JSON应该是数组格式" %}</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <script>
+        let currentJSON = null;
 
-<script>
-let currentJSON = null;
-
-// 显示DaisyUI Toast通知
-function showToast(message, type = 'success') {
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type} toast-center toast-middle z-50`;
-    toast.innerHTML = `
+        // 显示DaisyUI Toast通知
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type} toast-center toast-middle z-50`;
+            toast.innerHTML = `
         <div class="alert alert-${type}">
             <span>${message}</span>
         </div>
     `;
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-}
+            document.body.appendChild(toast);
 
-// 验证CSV
-function validateCSV() {
-    const input = document.getElementById('csvInput').value.trim();
-    const csvToJsonBtn = document.getElementById('csvToJsonBtn');
-    const alertSection = document.getElementById('csvAlertSection');
-    
-    if (!input) {
-        csvToJsonBtn.disabled = true;
-        alertSection.classList.add('hidden');
-        return;
-    }
-    
-    csvToJsonBtn.disabled = false;
-    alertSection.classList.add('hidden');
-}
-
-// 验证JSON
-function validateJSON() {
-    const input = document.getElementById('jsonInput').value.trim();
-    const jsonToCsvBtn = document.getElementById('jsonToCsvBtn');
-    const alertSection = document.getElementById('jsonAlertSection');
-    
-    if (!input) {
-        jsonToCsvBtn.disabled = true;
-        alertSection.classList.add('hidden');
-        currentJSON = null;
-        return;
-    }
-    
-    try {
-        currentJSON = JSON.parse(input);
-        if (!Array.isArray(currentJSON)) {
-            throw new Error('JSON必须是数组格式');
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
         }
-        jsonToCsvBtn.disabled = false;
-        alertSection.classList.add('hidden');
-    } catch (e) {
-        jsonToCsvBtn.disabled = true;
-        showAlert('json', `JSON格式错误: ${e.message}`);
-        currentJSON = null;
-    }
-}
 
-// 显示错误消息
-function showAlert(type, message) {
-    const alertSection = document.getElementById(`${type}AlertSection`);
-    const alertText = document.getElementById(`${type}AlertText`);
-    alertText.textContent = message;
-    alertSection.classList.remove('hidden');
-}
+        // 验证CSV
+        function validateCSV() {
+            const input = document.getElementById('csvInput').value.trim();
+            const csvToJsonBtn = document.getElementById('csvToJsonBtn');
+            const alertSection = document.getElementById('csvAlertSection');
 
-// CSV转JSON
-function convertCSVToJSON() {
-    const input = document.getElementById('csvInput').value.trim();
-    const delimiter = document.getElementById('csvDelimiter').value;
-    const hasHeader = document.getElementById('csvHeader').value === 'true';
-    
-    if (!input) return;
-    
-    try {
-        const lines = input.split('\n').filter(line => line.trim());
-        if (lines.length === 0) {
-            throw new Error('CSV数据为空');
-        }
-        
-        const result = [];
-        const headers = hasHeader ? lines[0].split(delimiter) : null;
-        const dataLines = hasHeader ? lines.slice(1) : lines;
-        
-        dataLines.forEach(line => {
-            if (!line.trim()) return;
-            
-            const values = line.split(delimiter);
-            if (hasHeader && headers) {
-                const obj = {};
-                headers.forEach((header, index) => {
-                    obj[header.trim()] = values[index] ? values[index].trim() : '';
-                });
-                result.push(obj);
-            } else {
-                result.push(values.map(v => v.trim()));
+            if (!input) {
+                csvToJsonBtn.disabled = true;
+                alertSection.classList.add('hidden');
+                return;
             }
-        });
-        
-        const jsonOutput = JSON.stringify(result, null, 2);
-        document.getElementById('csvResultText').textContent = jsonOutput;
-        document.getElementById('csvResultSection').classList.remove('hidden');
-        showToast('{% trans "CSV转JSON成功" %}', 'success');
-    } catch (e) {
-        showAlert('csv', `转换失败: ${e.message}`);
-    }
-}
 
-// JSON转CSV
-function convertJSONToCSV() {
-    if (!currentJSON) return;
-    
-    try {
-        const delimiter = document.getElementById('jsonDelimiter').value;
-        const hasHeader = document.getElementById('jsonHeader').value === 'true';
-        
-        let csvOutput = '';
-        
-        if (currentJSON.length === 0) {
-            throw new Error('JSON数组为空');
+            csvToJsonBtn.disabled = false;
+            alertSection.classList.add('hidden');
         }
-        
-        const headers = hasHeader ? Object.keys(currentJSON[0]) : null;
-        
-        if (hasHeader && headers) {
-            csvOutput += headers.join(delimiter) + '\n';
+
+        // 验证JSON
+        function validateJSON() {
+            const input = document.getElementById('jsonInput').value.trim();
+            const jsonToCsvBtn = document.getElementById('jsonToCsvBtn');
+            const alertSection = document.getElementById('jsonAlertSection');
+
+            if (!input) {
+                jsonToCsvBtn.disabled = true;
+                alertSection.classList.add('hidden');
+                currentJSON = null;
+                return;
+            }
+
+            try {
+                currentJSON = JSON.parse(input);
+                if (!Array.isArray(currentJSON)) {
+                    throw new Error('JSON必须是数组格式');
+                }
+                jsonToCsvBtn.disabled = false;
+                alertSection.classList.add('hidden');
+            } catch (e) {
+                jsonToCsvBtn.disabled = true;
+                showAlert('json', `JSON格式错误: ${e.message}`);
+                currentJSON = null;
+            }
         }
-        
-        currentJSON.forEach(row => {
-            const values = headers 
-                ? headers.map(header => row[header] || '')
-                : Object.values(row);
-            csvOutput += values.join(delimiter) + '\n';
-        });
-        
-        document.getElementById('jsonResultText').value = csvOutput.trim();
-        document.getElementById('jsonResultSection').classList.remove('hidden');
-        showToast('{% trans "JSON转CSV成功" %}', 'success');
-    } catch (e) {
-        showAlert('json', `转换失败: ${e.message}`);
-    }
-}
 
-// 复制CSV结果
-function copyCSVResult() {
-    const resultText = document.getElementById('csvResultText').textContent;
-    if (resultText) {
-        navigator.clipboard.writeText(resultText).then(() => {
-            showToast('{% trans "已复制到剪贴板" %}', 'success');
-        }).catch(err => {
-            console.error('复制失败:', err);
-            showToast('{% trans "复制失败，请手动复制" %}', 'error');
-        });
-    }
-}
+        // 显示错误消息
+        function showAlert(type, message) {
+            const alertSection = document.getElementById(`${type}AlertSection`);
+            const alertText = document.getElementById(`${type}AlertText`);
+            alertText.textContent = message;
+            alertSection.classList.remove('hidden');
+        }
 
-// 复制JSON结果
-function copyJSONResult() {
-    const resultText = document.getElementById('jsonResultText').value;
-    if (resultText) {
-        navigator.clipboard.writeText(resultText).then(() => {
-            showToast('{% trans "已复制到剪贴板" %}', 'success');
-        }).catch(err => {
-            console.error('复制失败:', err);
-            showToast('{% trans "复制失败，请手动复制" %}', 'error');
-        });
-    }
-}
+        // CSV转JSON
+        function convertCSVToJSON() {
+            const input = document.getElementById('csvInput').value.trim();
+            const delimiter = document.getElementById('csvDelimiter').value;
+            const hasHeader = document.getElementById('csvHeader').value === 'true';
 
-// 清空CSV
-function clearCSV() {
-    document.getElementById('csvInput').value = '';
-    document.getElementById('csvResultSection').classList.add('hidden');
-    document.getElementById('csvAlertSection').classList.add('hidden');
-    document.getElementById('csvToJsonBtn').disabled = true;
-}
+            if (!input) return;
 
-// 清空JSON
-function clearJSON() {
-    document.getElementById('jsonInput').value = '';
-    document.getElementById('jsonResultSection').classList.add('hidden');
-    document.getElementById('jsonAlertSection').classList.add('hidden');
-    document.getElementById('jsonToCsvBtn').disabled = true;
-    currentJSON = null;
-}
-</script>
+            try {
+                const lines = input.split('\n').filter(line => line.trim());
+                if (lines.length === 0) {
+                    throw new Error('CSV数据为空');
+                }
+
+                const result = [];
+                const headers = hasHeader ? lines[0].split(delimiter) : null;
+                const dataLines = hasHeader ? lines.slice(1) : lines;
+
+                dataLines.forEach(line => {
+                    if (!line.trim()) return;
+
+                    const values = line.split(delimiter);
+                    if (hasHeader && headers) {
+                        const obj = {};
+                        headers.forEach((header, index) => {
+                            obj[header.trim()] = values[index] ? values[index].trim() : '';
+                        });
+                        result.push(obj);
+                    } else {
+                        result.push(values.map(v => v.trim()));
+                    }
+                });
+
+                const jsonOutput = JSON.stringify(result, null, 2);
+                document.getElementById('csvResultText').textContent = jsonOutput;
+                document.getElementById('csvResultSection').classList.remove('hidden');
+                showToast('{% trans "CSV转JSON成功" %}', 'success');
+            } catch (e) {
+                showAlert('csv', `转换失败: ${e.message}`);
+            }
+        }
+
+        // JSON转CSV
+        function convertJSONToCSV() {
+            if (!currentJSON) return;
+
+            try {
+                const delimiter = document.getElementById('jsonDelimiter').value;
+                const hasHeader = document.getElementById('jsonHeader').value === 'true';
+
+                let csvOutput = '';
+
+                if (currentJSON.length === 0) {
+                    throw new Error('JSON数组为空');
+                }
+
+                const headers = hasHeader ? Object.keys(currentJSON[0]) : null;
+
+                if (hasHeader && headers) {
+                    csvOutput += headers.join(delimiter) + '\n';
+                }
+
+                currentJSON.forEach(row => {
+                    const values = headers ?
+                        headers.map(header => row[header] || '') :
+                        Object.values(row);
+                    csvOutput += values.join(delimiter) + '\n';
+                });
+
+                document.getElementById('jsonResultText').value = csvOutput.trim();
+                document.getElementById('jsonResultSection').classList.remove('hidden');
+                showToast('{% trans "JSON转CSV成功" %}', 'success');
+            } catch (e) {
+                showAlert('json', `转换失败: ${e.message}`);
+            }
+        }
+
+        // 复制CSV结果
+        function copyCSVResult() {
+            const resultText = document.getElementById('csvResultText').textContent;
+            if (resultText) {
+                navigator.clipboard.writeText(resultText).then(() => {
+                    showToast('{% trans "已复制到剪贴板" %}', 'success');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    showToast('{% trans "复制失败，请手动复制" %}', 'error');
+                });
+            }
+        }
+
+        // 复制JSON结果
+        function copyJSONResult() {
+            const resultText = document.getElementById('jsonResultText').value;
+            if (resultText) {
+                navigator.clipboard.writeText(resultText).then(() => {
+                    showToast('{% trans "已复制到剪贴板" %}', 'success');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    showToast('{% trans "复制失败，请手动复制" %}', 'error');
+                });
+            }
+        }
+
+        // 清空CSV
+        function clearCSV() {
+            document.getElementById('csvInput').value = '';
+            document.getElementById('csvResultSection').classList.add('hidden');
+            document.getElementById('csvAlertSection').classList.add('hidden');
+            document.getElementById('csvToJsonBtn').disabled = true;
+        }
+
+        // 清空JSON
+        function clearJSON() {
+            document.getElementById('jsonInput').value = '';
+            document.getElementById('jsonResultSection').classList.add('hidden');
+            document.getElementById('jsonAlertSection').classList.add('hidden');
+            document.getElementById('jsonToCsvBtn').disabled = true;
+            currentJSON = null;
+        }
+    </script>
 {% endblock %}

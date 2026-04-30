@@ -1,30 +1,35 @@
 <div class="form-control">
     <label class="label mb-2 justify-between">
         <span class="label-text font-semibold flex items-center gap-2">
-            <img src="{% static 'toolbox/icons/file-text.svg' %}" alt="text icon" class="h-5 w-5">
+            <img src="{% static 'toolbox/icons/file-text.svg' %}"
+                 alt="text icon"
+                 class="h-5 w-5">
             {% trans "识别结果" %}
         </span>
         <div class="flex gap-2">
-            <button 
-                class="btn btn-sm btn-ghost gap-2"
-                onclick="copyResult()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button class="btn btn-sm btn-ghost gap-2" onclick="copyResult()">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="h-4 w-4"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 <span class="text-xs">{% trans "复制" %}</span>
             </button>
-            <button 
-                class="btn btn-sm btn-ghost gap-2"
-                onclick="downloadResult()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button class="btn btn-sm btn-ghost gap-2" onclick="downloadResult()">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="h-4 w-4"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
                 <span class="text-xs">{% trans "下载" %}</span>
             </button>
         </div>
     </label>
-    <textarea 
-        id="resultText" 
-        class="textarea textarea-bordered w-full h-64" 
-        placeholder="{% trans '识别的文字将显示在这里...' %}">{{ text }}</textarea>
+    <textarea id="resultText"
+              class="textarea textarea-bordered w-full h-64"
+              placeholder="{% trans '识别的文字将显示在这里...' %}">{{ text }}</textarea>
 </div>

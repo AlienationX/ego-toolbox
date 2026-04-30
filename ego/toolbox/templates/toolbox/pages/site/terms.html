@@ -1,49 +1,91 @@
 {% extends 'toolbox/layouts/base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "服务条款" %} - Ego Toolbox{% endblock %}
+{% block title %}
+    {% trans "服务条款 - Ego Toolbox" %}
+{% endblock %}
+
+{% block description %}
+    {% trans "阅读 Ego Toolbox 的使用守则、免责声明及知识产权说明。我们致力于提供高可用、安全的在线工具服务。" %}
+{% endblock %}
 
 {% block content %}
-<div class="bg-[#f5f5f7] min-h-screen text-[#1d1d1f]">
-    <div class="max-w-[980px] mx-auto px-4 py-24 md:py-32">
-        <div class="text-center mb-20">
-            <h1 class="text-[40px] md:text-[56px] font-semibold leading-[1.07] tracking-[-0.02em] mb-4">{% trans "服务条款" %}</h1>
-        </div>
-        
-        <div class="max-w-[800px] mx-auto space-y-16 text-[17px] leading-[1.47] tracking-[-0.022em] text-[rgba(0,0,0,0.8)]">
-            <section>
-                <p>{% blocktrans %}欢迎访问 <strong>Ego Toolbox</strong>。通过访问本网站或使用本站提供的任何在线工具，即表示您同意接受以下服务条款。如果您不同意这些条款的任何内容，请不要使用我们的网站与服务。{% endblocktrans %}</p>
-            </section>
+<div class="bg-base-200 min-h-screen text-base-content">
+    <div class="max-w-4xl mx-auto px-4 py-20">
+        <!-- Document Card -->
+        <div class="bg-base-100 rounded-[2.5rem] shadow-xl overflow-hidden border border-base-300">
+            <!-- Document Header -->
+            <header class="bg-gradient-to-r from-accent/5 to-primary/5 px-8 md:px-16 py-16 border-b border-base-200">
+                <div class="flex items-center gap-3 text-accent font-bold text-sm mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    {% trans "法律合规文档" %}
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">{% trans "服务条款" %}</h1>
+                <p class="opacity-50 text-sm">{% trans "最后更新日期：2024年05月10日" %}</p>
+            </header>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "1. 服务的使用规范" %}</h2>
-                <p>{% blocktrans %}我们授权您出于个人或商业目的免费使用我们公开提供的数字工具。但在使用过程中，您同意：{% endblocktrans %}</p>
-                <ul class="list-disc pl-6 space-y-2">
-                    <li>{% blocktrans %}不会利用我们的接口发起大规模自动化攻击、爬虫或任何试图造成服务器过载的脚本。{% endblocktrans %}</li>
-                    <li>{% blocktrans %}不得使用我们的工具去处理任何侵犯知识产权、包含非法内容、或者违反适用法律的数据。{% endblocktrans %}</li>
-                    <li>{% blocktrans %}不得试图反向工程或入侵本网站的底层服务框架。{% endblocktrans %}</li>
-                </ul>
-            </section>
+            <!-- Document Content -->
+            <div class="px-8 md:px-16 py-12 space-y-12 leading-relaxed opacity-90">
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-accent">
+                        <span class="w-2 h-8 bg-accent rounded-full"></span>
+                        {% trans "1. 条款确认" %}
+                    </h2>
+                    <p>{% blocktrans %}欢迎使用 Ego Toolbox。一旦您访问或使用本网站提供的任何在线工具、API 或内容，即表示您已阅读、理解并同意受本服务条款的约束。如果您不同意这些条款，请立即停止使用本网站。{% endblocktrans %}</p>
+                </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "2. 免责声明" %}</h2>
-                <p>{% blocktrans %}Ego Toolbox 按照“现状”和“可用”的基础提供所有工具及服务。我们不保证我们的工具100%无错误、不中断，亦不保证处理结果绝对正确无误。对于用户因使用本站服务或处理特定的工作流产生的任何直接、间接或附带损失（包括数据丢失），本站概不负责。使用我们的工具带来的风险由您自行承担。{% endblocktrans %}</p>
-            </section>
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-accent">
+                        <span class="w-2 h-8 bg-accent rounded-full"></span>
+                        {% trans "2. 服务描述" %}
+                    </h2>
+                    <p>{% blocktrans %}Ego Toolbox 是一个综合性的在线工具平台。我们致力于通过技术手段简化您的数字工作流。虽然我们努力确保服务的 24/7 高可用性和数据处理的准确性，但所有服务均按“现状（As Is）”提供。我们保留随时修改、暂停或终止部分或全部服务的权利，且无需另行通知。{% endblocktrans %}</p>
+                </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "3. 隐私与数据安全" %}</h2>
-                <p>{% blocktrans %}您在使用基于服务器资源的工具（如文件格式转换）时，需知晓服务运行的特性。虽然我们保证一旦完成请求处理就会从系统内存中销毁您的文件，且决不有意收集与泄露此信息，但由于公网传输的本质特点，我们无法保证通讯链接途中的绝对保密。更多详尽规定请查阅我们的《隐私政策》。{% endblocktrans %}</p>
-            </section>
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-accent">
+                        <span class="w-2 h-8 bg-accent rounded-full"></span>
+                        {% trans "3. 合理使用准则" %}
+                    </h2>
+                    <div class="bg-base-200 p-6 rounded-2xl border border-base-300">
+                        <p class="font-bold mb-4">{% trans "在使用我们的服务时，您承诺不进行以下行为：" %}</p>
+                        <ul class="list-disc pl-6 space-y-2 text-sm opacity-80">
+                            <li>{% trans "通过脚本、爬虫等自动化手段恶意扫描、抓取或压测我们的服务器资源。" %}</li>
+                            <li>{% trans "上传包含病毒、恶意代码或违法违规内容的图像及数据。" %}</li>
+                            <li>{% trans "尝试破解、逆向工程我们的专有处理算法（AI 模块等）。" %}</li>
+                            <li>{% trans "将本服务用于任何违反所在地法律法规的用途。" %}</li>
+                        </ul>
+                    </div>
+                </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "4. 权利与归属" %}</h2>
-                <p>{% blocktrans %}本网站的所有内容、界面设计、交互逻辑、相关代码（包括公开展示和后台运行）的著作权均归 Ego Toolbox 所有。禁止未经授权的直接克隆和商业转售。{% endblocktrans %}</p>
-            </section>
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-accent">
+                        <span class="w-2 h-8 bg-accent rounded-full"></span>
+                        {% trans "4. 知识产权" %}
+                    </h2>
+                    <p>{% blocktrans %}除非另有说明，Ego Toolbox 网站的品牌标志、UI 设计、前端代码及专有算法均属于我们团队的知识产权。您可以出于个人或商业目的自由使用我们的工具处理后的**结果数据**，但未经许可，不得将本站工具本身进行商业转售或深度集成到其他盈利性平台中。{% endblocktrans %}</p>
+                </section>
 
-            <section class="space-y-4">
-                <h2 class="text-[28px] font-semibold leading-[1.14] tracking-[0.007em] text-[#1d1d1f]">{% trans "5. 条款变更权利" %}</h2>
-                <p>{% blocktrans %}Ego Toolbox 保留在不事先通知的情况下，于任意时间更新或修改本服务条款的权利。您的持续使用将被视为对最新版服务条款的接受。{% endblocktrans %}</p>
-            </section>
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-accent">
+                        <span class="w-2 h-8 bg-accent rounded-full"></span>
+                        {% trans "5. 免责声明" %}
+                    </h2>
+                    <div class="alert alert-warning bg-warning/10 text-warning-content border-warning/20 rounded-2xl text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                        <span>{% blocktrans %}对于因使用本站工具而导致的任何直接、间接、偶然、特殊或后果性的损坏（包括但不限于利润损失、数据丢失或业务中断），Ego Toolbox 及其团队成员均不承担任何法律责任。请在使用前务必核对处理结果的准确性。{% endblocktrans %}</span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Document Footer -->
+            <footer class="bg-base-200 px-8 py-10 text-center space-y-4">
+                <p class="text-sm opacity-50">{% trans "感谢您选择 Ego Toolbox。我们将一如既往地为您提供纯粹的效率服务。" %}</p>
+                <div class="flex justify-center gap-4">
+                    <a href="{% url 'toolbox:index' %}" class="btn btn-accent btn-sm rounded-xl">{% trans "返回首页" %}</a>
+                    <a href="{% url 'toolbox:privacy' %}" class="btn btn-ghost btn-sm rounded-xl">{% trans "隐私政策" %}</a>
+                </div>
+            </footer>
         </div>
     </div>
 </div>

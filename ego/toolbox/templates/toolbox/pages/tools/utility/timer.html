@@ -1,337 +1,365 @@
 {% extends 'toolbox/layouts/tool.html' %}
 {% load i18n static %}
-
 {% block extra_import %}
-<script defer src="{% static 'toolbox/js/alpinejs@3.15.8.min.js' %}"></script>
+    <script defer src="{% static 'toolbox/js/alpinejs@3.15.8.min.js' %}"></script>
 {% endblock %}
-
 {% block tool_content %}
-<div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl" x-data="timerApp()">
-    <!-- Header -->
-    <div class="mb-6">
-        <h2 class="text-3xl font-bold flex items-center">
-            <img src="{% static 'toolbox/icons/timer.svg' %}" alt="timer icon" class="h-10 w-10 mr-3">
-            <span>{% trans "计时器" %}</span>
-        </h2>
-    </div>
-    
-    <!-- Timer Mode Selection -->
-    <div class="card bg-base-100 shadow-lg mb-6">
-        <div class="card-body p-4 sm:p-6">
-            <div class="tabs tabs-box">
-                <input type="radio" name="timer_mode" role="tab" class="tab" aria-label="{% trans '倒计时' %}" x-model="mode" value="countdown" checked />
-                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                    <div class="space-y-6">
-                        <!-- Time Input -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="form-control">
-                                <label class="label mb-2">
-                                    <span class="label-text font-semibold">{% trans "小时" %}</span>
-                                </label>
-                                <input 
-                                    type="number" 
-                                    x-model="countdownHours"
-                                    min="0"
-                                    max="23"
-                                    class="input input-bordered w-full text-center text-2xl"
-                                    :disabled="isRunning">
+    <div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-6xl"
+         x-data="timerApp()">
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-3xl font-bold flex items-center">
+                <img src="{% static 'toolbox/icons/timer.svg' %}"
+                     alt="timer icon"
+                     class="h-10 w-10 mr-3">
+                <span>{% trans "计时器" %}</span>
+            </h2>
+        </div>
+        <!-- Timer Mode Selection -->
+        <div class="card bg-base-100 shadow-lg mb-6">
+            <div class="card-body p-4 sm:p-6">
+                <div class="tabs tabs-box">
+                    <input type="radio"
+                           name="timer_mode"
+                           role="tab"
+                           class="tab"
+                           aria-label="{% trans '倒计时' %}"
+                           x-model="mode"
+                           value="countdown"
+                           checked />
+                    <div role="tabpanel"
+                         class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                        <div class="space-y-6">
+                            <!-- Time Input -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="form-control">
+                                    <label class="label mb-2">
+                                        <span class="label-text font-semibold">{% trans "小时" %}</span>
+                                    </label>
+                                    <input type="number"
+                                           x-model="countdownHours"
+                                           min="0"
+                                           max="23"
+                                           class="input input-bordered w-full text-center text-2xl"
+                                           :disabled="isRunning">
+                                </div>
+                                <div class="form-control">
+                                    <label class="label mb-2">
+                                        <span class="label-text font-semibold">{% trans "分钟" %}</span>
+                                    </label>
+                                    <input type="number"
+                                           x-model="countdownMinutes"
+                                           min="0"
+                                           max="59"
+                                           class="input input-bordered w-full text-center text-2xl"
+                                           :disabled="isRunning">
+                                </div>
+                                <div class="form-control">
+                                    <label class="label mb-2">
+                                        <span class="label-text font-semibold">{% trans "秒" %}</span>
+                                    </label>
+                                    <input type="number"
+                                           x-model="countdownSeconds"
+                                           min="0"
+                                           max="59"
+                                           class="input input-bordered w-full text-center text-2xl"
+                                           :disabled="isRunning">
+                                </div>
                             </div>
-                            <div class="form-control">
-                                <label class="label mb-2">
-                                    <span class="label-text font-semibold">{% trans "分钟" %}</span>
-                                </label>
-                                <input 
-                                    type="number" 
-                                    x-model="countdownMinutes"
-                                    min="0"
-                                    max="59"
-                                    class="input input-bordered w-full text-center text-2xl"
-                                    :disabled="isRunning">
+                            <!-- Display -->
+                            <div class="text-center">
+                                <div class="text-6xl font-mono font-bold"
+                                     x-text="formatTime(countdownTime, false)"></div>
                             </div>
-                            <div class="form-control">
-                                <label class="label mb-2">
-                                    <span class="label-text font-semibold">{% trans "秒" %}</span>
-                                </label>
-                                <input 
-                                    type="number" 
-                                    x-model="countdownSeconds"
-                                    min="0"
-                                    max="59"
-                                    class="input input-bordered w-full text-center text-2xl"
-                                    :disabled="isRunning">
+                            <!-- Progress Bar -->
+                            <div class="w-full">
+                                <progress class="progress progress-primary w-full"
+                                          :value="countdownProgress"
+                                          max="100"></progress>
                             </div>
-                        </div>
-                        
-                        <!-- Display -->
-                        <div class="text-center">
-                            <div class="text-6xl font-mono font-bold" x-text="formatTime(countdownTime, false)"></div>
-                        </div>
-                        
-                        <!-- Progress Bar -->
-                        <div class="w-full">
-                            <progress 
-                                class="progress progress-primary w-full" 
-                                :value="countdownProgress" 
-                                max="100"></progress>
-                        </div>
-                        
-                        <!-- Control Buttons -->
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <button 
-                                @click="startCountdown()"
-                                class="btn btn-primary flex-1"
-                                :disabled="isRunning">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 001.555-.832V9.87a1 1 0 00-1.555-.832z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span x-text="isRunning ? '运行中' : '开始'"></span>
-                            </button>
-                            <button 
-                                @click="pauseCountdown()"
-                                class="btn btn-warning flex-1"
-                                :disabled="!isRunning">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>{% trans "暂停" %}</span>
-                            </button>
-                            <button 
-                                @click="resetCountdown()"
-                                class="btn btn-outline flex-1"
-                                :disabled="isRunning">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                </svg>
-                                <span>{% trans "重置" %}</span>
-                            </button>
+                            <!-- Control Buttons -->
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <button @click="startCountdown()"
+                                        class="btn btn-primary flex-1"
+                                        :disabled="isRunning">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-5 w-5 mr-2"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 001.555-.832V9.87a1 1 0 00-1.555-.832z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span x-text="isRunning ? '运行中' : '开始'"></span>
+                                </button>
+                                <button @click="pauseCountdown()"
+                                        class="btn btn-warning flex-1"
+                                        :disabled="!isRunning">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-5 w-5 mr-2"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>{% trans "暂停" %}</span>
+                                </button>
+                                <button @click="resetCountdown()"
+                                        class="btn btn-outline flex-1"
+                                        :disabled="isRunning">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-5 w-5 mr-2"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                    <span>{% trans "重置" %}</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <input type="radio" name="timer_mode" role="tab" class="tab" aria-label="{% trans '秒表' %}" x-model="mode" value="stopwatch" />
-                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                    <div class="space-y-6">
-                        <!-- Display -->
-                        <div class="text-center">
-                            <div class="text-6xl font-mono font-bold" x-text="formatTime(stopwatchTime, true)"></div>
-                        </div>
-                        
-                        <!-- Laps -->
-                        <div class="max-h-48 overflow-y-auto">
-                            <div class="label">
-                                <span class="label-text font-semibold">{% trans "计次" %}</span>
+                    <input type="radio"
+                           name="timer_mode"
+                           role="tab"
+                           class="tab"
+                           aria-label="{% trans '秒表' %}"
+                           x-model="mode"
+                           value="stopwatch" />
+                    <div role="tabpanel"
+                         class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                        <div class="space-y-6">
+                            <!-- Display -->
+                            <div class="text-center">
+                                <div class="text-6xl font-mono font-bold"
+                                     x-text="formatTime(stopwatchTime, true)"></div>
                             </div>
-                            <ul class="list list-inside space-y-1">
-                                <template x-for="(lap, index) in laps" :key="index">
-                                    <li class="flex justify-between items-center p-2 bg-base-200 rounded">
-                                        <span class="font-semibold" x-text="`Lap ${index + 1}`"></span>
-                                        <span class="font-mono" x-text="formatTime(lap, true)"></span>
-                                    </li>
-                                </template>
-                            </ul>
-                        </div>
-                        
-                        <!-- Control Buttons -->
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <button 
-                                @click="startStopwatch()"
-                                class="btn btn-primary flex-1"
-                                :disabled="isStopwatchRunning">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 001.555-.832V9.87a1 1 0 00-1.555-.832z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span x-text="isStopwatchRunning ? '运行中' : '开始'"></span>
-                            </button>
-                            <button 
-                                @click="pauseStopwatch()"
-                                class="btn btn-warning flex-1"
-                                :disabled="!isStopwatchRunning">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>{% trans "暂停" %}</span>
-                            </button>
-                            <button 
-                                @click="lapStopwatch()"
-                                class="btn btn-secondary flex-1"
-                                :disabled="!isStopwatchRunning">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>{% trans "计次" %}</span>
-                            </button>
-                            <button 
-                                @click="resetStopwatch()"
-                                class="btn btn-outline flex-1"
-                                :disabled="isStopwatchRunning">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                </svg>
-                                <span>{% trans "重置" %}</span>
-                            </button>
+                            <!-- Laps -->
+                            <div class="max-h-48 overflow-y-auto">
+                                <div class="label">
+                                    <span class="label-text font-semibold">{% trans "计次" %}</span>
+                                </div>
+                                <ul class="list list-inside space-y-1">
+                                    <template x-for="(lap, index) in laps" :key="index">
+                                        <li class="flex justify-between items-center p-2 bg-base-200 rounded">
+                                            <span class="font-semibold" x-text="`Lap ${index + 1}`"></span>
+                                            <span class="font-mono" x-text="formatTime(lap, true)"></span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                            <!-- Control Buttons -->
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <button @click="startStopwatch()"
+                                        class="btn btn-primary flex-1"
+                                        :disabled="isStopwatchRunning">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-5 w-5 mr-2"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 001.555-.832V9.87a1 1 0 00-1.555-.832z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span x-text="isStopwatchRunning ? '运行中' : '开始'"></span>
+                                </button>
+                                <button @click="pauseStopwatch()"
+                                        class="btn btn-warning flex-1"
+                                        :disabled="!isStopwatchRunning">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-5 w-5 mr-2"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>{% trans "暂停" %}</span>
+                                </button>
+                                <button @click="lapStopwatch()"
+                                        class="btn btn-secondary flex-1"
+                                        :disabled="!isStopwatchRunning">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-5 w-5 mr-2"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>{% trans "计次" %}</span>
+                                </button>
+                                <button @click="resetStopwatch()"
+                                        class="btn btn-outline flex-1"
+                                        :disabled="isStopwatchRunning">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-5 w-5 mr-2"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                    <span>{% trans "重置" %}</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Instructions -->
-    <div class="card bg-base-100 shadow-lg">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <h3 class="card-title text-lg mb-4 flex items-center gap-2">
-                <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
-                <span>{% trans "使用说明" %}</span>
-            </h3>
-            <div class="space-y-3 text-sm text-base-content/70">
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">1.</span>
-                    <span>{% trans "倒计时：设置小时、分钟、秒，点击开始进行倒计时" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">2.</span>
-                    <span>{% trans "秒表：点击开始计时，可以暂停和计次" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">3.</span>
-                    <span>{% trans "倒计时结束时会显示提示" %}</span>
-                </p>
-                <p class="flex items-start gap-2">
-                    <span class="font-bold text-base-content/50">4.</span>
-                    <span>{% trans "计次功能可以记录多个时间点" %}</span>
-                </p>
+        <!-- Instructions -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <img src="{% static 'toolbox/icons/info.svg' %}"
+                         alt="info icon"
+                         class="h-6 w-6">
+                    <span>{% trans "使用说明" %}</span>
+                </h3>
+                <div class="space-y-3 text-sm text-base-content/70">
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">1.</span>
+                        <span>{% trans "倒计时：设置小时、分钟、秒，点击开始进行倒计时" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">2.</span>
+                        <span>{% trans "秒表：点击开始计时，可以暂停和计次" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">3.</span>
+                        <span>{% trans "倒计时结束时会显示提示" %}</span>
+                    </p>
+                    <p class="flex items-start gap-2">
+                        <span class="font-bold text-base-content/50">4.</span>
+                        <span>{% trans "计次功能可以记录多个时间点" %}</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <script>
+        function timerApp() {
+            return {
+                mode: 'countdown',
 
-<script>
-function timerApp() {
-    return {
-        mode: 'countdown',
-        
-        // Countdown
-        countdownHours: 0,
-        countdownMinutes: 5,
-        countdownSeconds: 0,
-        countdownTime: 300000,
-        initialCountdownTime: 300000,
-        isRunning: false,
-        countdownInterval: null,
-        
-        // Stopwatch
-        stopwatchTime: 0,
-        isStopwatchRunning: false,
-        stopwatchInterval: null,
-        laps: [],
-        
-        get countdownProgress() {
-            if (this.initialCountdownTime === 0) return 0;
-            const progress = ((this.initialCountdownTime - this.countdownTime) / this.initialCountdownTime) * 100;
-            return Math.max(0, Math.min(100, progress));
-        },
-        
-        formatTime(ms, showMs = false) {
-            const totalSeconds = Math.floor(ms / 1000);
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-            const milliseconds = Math.floor((ms % 1000) / 10);
-            
-            if (hours > 0) {
-                if (showMs) {
-                    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(2, '0')}`;
-                }
-                return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }
-            if (showMs) {
-                return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(2, '0')}`;
-            }
-            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        },
-        
-        // Countdown methods
-        startCountdown() {
-            if (this.isRunning) return;
-            
-            if (this.countdownTime === this.initialCountdownTime) {
-                const totalMs = (this.countdownHours * 3600 + this.countdownMinutes * 60 + this.countdownSeconds) * 1000;
-                this.countdownTime = totalMs;
-                this.initialCountdownTime = totalMs;
-            }
-            
-            this.isRunning = true;
-            this.countdownInterval = setInterval(() => {
-                this.countdownTime -= 100;
-                if (this.countdownTime <= 0) {
-                    this.countdownTime = 0;
+                // Countdown
+                countdownHours: 0,
+                countdownMinutes: 5,
+                countdownSeconds: 0,
+                countdownTime: 300000,
+                initialCountdownTime: 300000,
+                isRunning: false,
+                countdownInterval: null,
+
+                // Stopwatch
+                stopwatchTime: 0,
+                isStopwatchRunning: false,
+                stopwatchInterval: null,
+                laps: [],
+
+                get countdownProgress() {
+                    if (this.initialCountdownTime === 0) return 0;
+                    const progress = ((this.initialCountdownTime - this.countdownTime) / this.initialCountdownTime) * 100;
+                    return Math.max(0, Math.min(100, progress));
+                },
+
+                formatTime(ms, showMs = false) {
+                    const totalSeconds = Math.floor(ms / 1000);
+                    const hours = Math.floor(totalSeconds / 3600);
+                    const minutes = Math.floor((totalSeconds % 3600) / 60);
+                    const seconds = totalSeconds % 60;
+                    const milliseconds = Math.floor((ms % 1000) / 10);
+
+                    if (hours > 0) {
+                        if (showMs) {
+                            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(2, '0')}`;
+                        }
+                        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                    }
+                    if (showMs) {
+                        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(2, '0')}`;
+                    }
+                    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                },
+
+                // Countdown methods
+                startCountdown() {
+                    if (this.isRunning) return;
+
+                    if (this.countdownTime === this.initialCountdownTime) {
+                        const totalMs = (this.countdownHours * 3600 + this.countdownMinutes * 60 + this.countdownSeconds) * 1000;
+                        this.countdownTime = totalMs;
+                        this.initialCountdownTime = totalMs;
+                    }
+
+                    this.isRunning = true;
+                    this.countdownInterval = setInterval(() => {
+                        this.countdownTime -= 100;
+                        if (this.countdownTime <= 0) {
+                            this.countdownTime = 0;
+                            this.pauseCountdown();
+                            this.showNotification('倒计时结束！', 'success');
+                        }
+                    }, 100);
+                },
+
+                pauseCountdown() {
+                    this.isRunning = false;
+                    if (this.countdownInterval) {
+                        clearInterval(this.countdownInterval);
+                        this.countdownInterval = null;
+                    }
+                },
+
+                resetCountdown() {
                     this.pauseCountdown();
-                    this.showNotification('倒计时结束！', 'success');
-                }
-            }, 100);
-        },
-        
-        pauseCountdown() {
-            this.isRunning = false;
-            if (this.countdownInterval) {
-                clearInterval(this.countdownInterval);
-                this.countdownInterval = null;
-            }
-        },
-        
-        resetCountdown() {
-            this.pauseCountdown();
-            const totalMs = (this.countdownHours * 3600 + this.countdownMinutes * 60 + this.countdownSeconds) * 1000;
-            this.countdownTime = totalMs;
-            this.initialCountdownTime = totalMs;
-        },
-        
-        // Stopwatch methods
-        startStopwatch() {
-            if (this.isStopwatchRunning) return;
-            
-            this.isStopwatchRunning = true;
-            this.stopwatchInterval = setInterval(() => {
-                this.stopwatchTime += 10;
-            }, 10);
-        },
-        
-        pauseStopwatch() {
-            this.isStopwatchRunning = false;
-            if (this.stopwatchInterval) {
-                clearInterval(this.stopwatchInterval);
-                this.stopwatchInterval = null;
-            }
-        },
-        
-        lapStopwatch() {
-            if (!this.isStopwatchRunning) return;
-            this.laps.push(this.stopwatchTime);
-        },
-        
-        resetStopwatch() {
-            this.pauseStopwatch();
-            this.stopwatchTime = 0;
-            this.laps = [];
-        },
-        
-        showNotification(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type} toast-center toast-middle z-50`;
-            toast.innerHTML = `
+                    const totalMs = (this.countdownHours * 3600 + this.countdownMinutes * 60 + this.countdownSeconds) * 1000;
+                    this.countdownTime = totalMs;
+                    this.initialCountdownTime = totalMs;
+                },
+
+                // Stopwatch methods
+                startStopwatch() {
+                    if (this.isStopwatchRunning) return;
+
+                    this.isStopwatchRunning = true;
+                    this.stopwatchInterval = setInterval(() => {
+                        this.stopwatchTime += 10;
+                    }, 10);
+                },
+
+                pauseStopwatch() {
+                    this.isStopwatchRunning = false;
+                    if (this.stopwatchInterval) {
+                        clearInterval(this.stopwatchInterval);
+                        this.stopwatchInterval = null;
+                    }
+                },
+
+                lapStopwatch() {
+                    if (!this.isStopwatchRunning) return;
+                    this.laps.push(this.stopwatchTime);
+                },
+
+                resetStopwatch() {
+                    this.pauseStopwatch();
+                    this.stopwatchTime = 0;
+                    this.laps = [];
+                },
+
+                showNotification(message, type = 'success') {
+                    const toast = document.createElement('div');
+                    toast.className = `toast toast-${type} toast-center toast-middle z-50`;
+                    toast.innerHTML = `
                 <div class="alert alert-${type}">
                     <span>${message}</span>
                 </div>
             `;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
+                    document.body.appendChild(toast);
+
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 3000);
+                }
+            };
         }
-    };
-}
-</script>
+    </script>
 {% endblock %}

@@ -2,17 +2,20 @@
 <div class="card bg-base-100 shadow-lg mt-6">
     <div class="card-body p-4 sm:p-6">
         <h3 class="card-title text-lg mb-4 flex items-center gap-2">
-            <img src="{% static 'toolbox/icons/check-circle.svg' %}" alt="success icon" class="h-6 w-6">
+            <img src="{% static 'toolbox/icons/check-circle.svg' %}"
+                 alt="success icon"
+                 class="h-6 w-6">
             <span>{% trans "合并完成" %}</span>
         </h3>
-        
         <div class="alert alert-success mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="h-6 w-6 shrink-0 stroke-current"
+                 fill="none"
+                 viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>{% trans "Excel文件已成功合并" %}</span>
         </div>
-        
         <div class="stats stats-vertical sm:stats-horizontal shadow mb-4">
             <div class="stat place-items-center">
                 <div class="stat-title">{% trans "文件数量" %}</div>
@@ -37,12 +40,13 @@
                 <div class="stat-value text-2xl">{{ column_count }}</div>
             </div>
         </div>
-        
         <div class="flex gap-2">
-            <button 
-                class="btn btn-success flex-1 gap-2"
-                onclick="downloadExcel()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button class="btn btn-success flex-1 gap-2" onclick="downloadExcel()">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="h-5 w-5"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
                 <span>{% trans "下载合并后的Excel文件" %}</span>
@@ -50,41 +54,42 @@
         </div>
     </div>
 </div>
-
 <script>
-const excelData = "{{ excel_data|escapejs }}";
+    const excelData = "{{ excel_data|escapejs }}";
 
-function downloadExcel() {
-    const binaryString = atob(excelData);
-    const bytes = new Uint8Array(binaryString.length);
-    for (let i = 0; i < binaryString.length; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
+    function downloadExcel() {
+        const binaryString = atob(excelData);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+
+        const blob = new Blob([bytes], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'merged_excel.xlsx');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast('{% trans "文件下载已开始" %}', 'success');
     }
-    
-    const blob = new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'merged_excel.xlsx');
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    showToast('{% trans "文件下载已开始" %}', 'success');
-}
 
-function showToast(message, type = 'success') {
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type} toast-center toast-middle z-50`;
-    toast.innerHTML = `
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type} toast-center toast-middle z-50`;
+        toast.innerHTML = `
         <div class="alert alert-${type}">
             <span>${message}</span>
         </div>
     `;
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-}
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
 </script>

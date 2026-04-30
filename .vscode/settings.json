@@ -10,4 +10,8 @@
     "python.analysis.supportAllPythonDocuments": true,
     "python.terminal.shellIntegration.enabled": true,
     "ruff.configuration": "pyproject.toml",
+    "[django-html]": {
+        "editor.defaultFormatter": "monosans.djlint",
+        "editor.formatOnSave": true
+    }
 }

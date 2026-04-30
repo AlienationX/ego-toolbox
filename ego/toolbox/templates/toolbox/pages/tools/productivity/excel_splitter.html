@@ -1,157 +1,159 @@
 {% extends 'toolbox/layouts/tool.html' %}
 {% load i18n static %}
-
 {% block extra_css %}
-<style>
-/* 默认状态：显示正常文本，隐藏加载状态 */
-.btn-text-normal {
-  display: inline;
-}
-.btn-text-loading {
-  display: none;
-}
+    <style>
+        /* 默认状态：显示正常文本，隐藏加载状态 */
+        .btn-text-normal {
+            display: inline;
+        }
 
-/* HTMX 请求状态：隐藏正常文本，显示加载状态 */
-.htmx-request .btn-text-normal {
-  display: none;
-}
-.htmx-request .btn-text-loading {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-</style>
+        .btn-text-loading {
+            display: none;
+        }
+
+        /* HTMX 请求状态：隐藏正常文本，显示加载状态 */
+        .htmx-request .btn-text-normal {
+            display: none;
+        }
+
+        .htmx-request .btn-text-loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
 {% endblock %}
-
 {% block tool_content %}
-<div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-5xl">
-    <!-- Header -->
-    <!-- <div class="text-center mb-6">
+    <div class="container mx-auto px-0 sm:px-2 py-0 sm:py-2 max-w-5xl">
+        <!-- Header -->
+        <!-- <div class="text-center mb-6">
         <h1 class="text-2xl sm:text-3xl font-bold mb-2 text-base-content/80">
             {% trans "Excel拆分工具" %}
         </h1>
         <p class="text-base-content/60">
             {% trans "按指定字段拆分Excel文件，支持拆分为多个文件或多个sheet页" %}
         </p>
-    </div> -->
-
-    <!-- Main Form -->
-    <div class="card bg-base-100 shadow-xl mb-8">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <!-- File Upload Form -->
-            <div id="upload-form">
-                <!-- File Upload Section -->
-                <div class="form-control">
-                    <label class="label mb-3">
-                        <span class="label-text font-semibold text-lg">{% trans "上传Excel文件" %}</span>
-                    </label>
-
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                        <input 
-                            type="file" 
-                            id="file" 
-                            name="file" 
-                            accept=".xlsx,.xls"
-                            class="file-input file-input-bordered w-full sm:w-auto sm:min-w-md"
-                            hx-encoding="multipart/form-data" 
-                            hx-trigger="change"
-                            hx-post="{% url 'toolbox:excel_splitter' %}" 
-                            hx-target="#excel-splitter-preview"
-                            hx-swap="outerHTML" 
-                            hx-vals='{"action": "preview"}'
-                            hx-indicator="#upload-loading"
-                            hx-on::before-request="document.getElementById('upload-loading').style.display = 'flex'; document.getElementById('upload-complete').style.display = 'none'"
-                            hx-on::after-request="document.getElementById('upload-loading').style.display = 'none'; document.getElementById('upload-complete').style.display = 'flex'"
-                            required />
-                    </div>
-
-                    <!-- Upload Progress -->
-                    <div id="upload-loading" class="mt-3 flex items-center text-info" style="display: none;">
-                        <span class="loading loading-spinner loading-sm"></span>
-                        <span class="text-sm ml-2">{% trans "正在解析文件..." %}</span>
-                        <span class="text-sm ml-4" id="parse-timer">00:00:00</span>
-                    </div>
-                    
-                    <!-- Upload Complete -->
-                    <div id="upload-complete" class="mt-3 flex items-center text-success" style="display: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span class="text-sm">{% trans "解析完成" %}</span>
-                        <span class="text-sm ml-4" id="parse-time"></span>
+</div> -->
+        <!-- Main Form -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <!-- File Upload Form -->
+                <div id="upload-form">
+                    <!-- File Upload Section -->
+                    <div class="form-control">
+                        <label class="label mb-3">
+                            <span class="label-text font-semibold text-lg">{% trans "上传Excel文件" %}</span>
+                        </label>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                            <input type="file"
+                                   id="file"
+                                   name="file"
+                                   accept=".xlsx,.xls"
+                                   class="file-input file-input-bordered w-full sm:w-auto sm:min-w-md"
+                                   hx-encoding="multipart/form-data"
+                                   hx-trigger="change"
+                                   hx-post="{% url 'toolbox:excel_splitter' %}"
+                                   hx-target="#excel-splitter-preview"
+                                   hx-swap="outerHTML"
+                                   hx-vals='{"action": "preview"}'
+                                   hx-indicator="#upload-loading"
+                                   hx-on::before-request="document.getElementById('upload-loading').style.display = 'flex'; document.getElementById('upload-complete').style.display = 'none'"
+                                   hx-on::after-request="document.getElementById('upload-loading').style.display = 'none'; document.getElementById('upload-complete').style.display = 'flex'"
+                                   required />
+                        </div>
+                        <!-- Upload Progress -->
+                        <div id="upload-loading"
+                             class="mt-3 flex items-center text-info"
+                             style="display: none">
+                            <span class="loading loading-spinner loading-sm"></span>
+                            <span class="text-sm ml-2">{% trans "正在解析文件..." %}</span>
+                            <span class="text-sm ml-4" id="parse-timer">00:00:00</span>
+                        </div>
+                        <!-- Upload Complete -->
+                        <div id="upload-complete"
+                             class="mt-3 flex items-center text-success"
+                             style="display: none">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5 mr-2"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-sm">{% trans "解析完成" %}</span>
+                            <span class="text-sm ml-4" id="parse-time"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            {% include 'toolbox/partials/excel/splitter_preview.html' %}
-        </div>
-    </div>
-
-    <!-- Instructions -->
-    <div class="card bg-base-100 shadow-lg">
-        <div class="card-body p-4 sm:p-6 md:p-8">
-            <h3 class="card-title text-lg mb-2">
-                <img src="{% static 'toolbox/icons/info.svg' %}" alt="info icon" class="h-6 w-6">
-                <span>{% trans "使用说明" %}</span>
-            </h3>
-            <div class="space-y-3 text-sm text-base-content/70">
-                <p>1. {% trans "上传需要拆分的Excel文件（支持.xlsx和.xls格式，默认读取第一个sheet页）" %}</p>
-                <p>2. {% trans "选择要作为拆分依据的字段（如：部门、地区、类别等）" %}</p>
-                <p>3. {% trans "选择拆分方式：" %}</p>
-                <ul class="list-disc list-inside ml-4 space-y-1">
-                    <li>{% trans "拆分为多个Excel文件：每个唯一值生成一个独立的Excel文件" %}</li>
-                    <li>{% trans "拆分为多个Sheet页：所有数据在一个Excel文件中，按字段值分Sheet" %}</li>
-                </ul>
-                <p>4. {% trans "点击开始拆分并下载，系统将生成压缩包供您下载" %}</p>
-                <p class="text-warning mt-4">⚠️ {% trans "注意：大文件处理可能需要一些时间，请耐心等待" %}</p>
+                {% include 'toolbox/partials/excel/splitter_preview.html' %}
             </div>
         </div>
+        <!-- Instructions -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body p-4 sm:p-6 md:p-8">
+                <h3 class="card-title text-lg mb-2">
+                    <img src="{% static 'toolbox/icons/info.svg' %}"
+                         alt="info icon"
+                         class="h-6 w-6">
+                    <span>{% trans "使用说明" %}</span>
+                </h3>
+                <div class="space-y-3 text-sm text-base-content/70">
+                    <p>1. {% trans "上传需要拆分的Excel文件（支持.xlsx和.xls格式，默认读取第一个sheet页）" %}</p>
+                    <p>2. {% trans "选择要作为拆分依据的字段（如：部门、地区、类别等）" %}</p>
+                    <p>3. {% trans "选择拆分方式：" %}</p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>{% trans "拆分为多个Excel文件：每个唯一值生成一个独立的Excel文件" %}</li>
+                        <li>{% trans "拆分为多个Sheet页：所有数据在一个Excel文件中，按字段值分Sheet" %}</li>
+                    </ul>
+                    <p>4. {% trans "点击开始拆分并下载，系统将生成压缩包供您下载" %}</p>
+                    <p class="text-warning mt-4">⚠️ {% trans "注意：大文件处理可能需要一些时间，请耐心等待" %}</p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    <script>
+        let parseStartTime = 0;
+        let parseTimerInterval = null;
 
-<script>
-let parseStartTime = 0;
-let parseTimerInterval = null;
+        // 格式化时间为 HH:MM:SS
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+            return `${hours}:${minutes}:${secs}`;
+        }
 
-// 格式化时间为 HH:MM:SS
-function formatTime(seconds) {
-    const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
-    const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-    const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
-    return `${hours}:${minutes}:${secs}`;
-}
+        // 启动计时器
+        function startParseTimer() {
+            parseStartTime = Date.now();
+            parseTimerInterval = setInterval(() => {
+                const elapsedSeconds = (Date.now() - parseStartTime) / 1000;
+                document.getElementById('parse-timer').textContent = formatTime(elapsedSeconds);
+            }, 1000);
+        }
 
-// 启动计时器
-function startParseTimer() {
-    parseStartTime = Date.now();
-    parseTimerInterval = setInterval(() => {
-        const elapsedSeconds = (Date.now() - parseStartTime) / 1000;
-        document.getElementById('parse-timer').textContent = formatTime(elapsedSeconds);
-    }, 1000);
-}
+        // 停止计时器并显示总耗时
+        function stopParseTimer() {
+            if (parseTimerInterval) {
+                clearInterval(parseTimerInterval);
+                parseTimerInterval = null;
+            }
+            const elapsedSeconds = (Date.now() - parseStartTime) / 1000;
+            document.getElementById('parse-time').textContent = `耗时 ${formatTime(elapsedSeconds)}`;
+        }
 
-// 停止计时器并显示总耗时
-function stopParseTimer() {
-    if (parseTimerInterval) {
-        clearInterval(parseTimerInterval);
-        parseTimerInterval = null;
-    }
-    const elapsedSeconds = (Date.now() - parseStartTime) / 1000;
-    document.getElementById('parse-time').textContent = `耗时 ${formatTime(elapsedSeconds)}`;
-}
+        // 监听HTMX请求开始事件
+        document.body.addEventListener('htmx:beforeRequest', function(evt) {
+            if (evt.detail.target && evt.detail.target.id === 'excel-splitter-preview') {
+                startParseTimer();
+            }
+        });
 
-// 监听HTMX请求开始事件
-document.body.addEventListener('htmx:beforeRequest', function(evt) {
-    if (evt.detail.target && evt.detail.target.id === 'excel-splitter-preview') {
-        startParseTimer();
-    }
-});
-
-// 监听HTMX请求完成事件
-document.body.addEventListener('htmx:afterRequest', function(evt) {
-    if (evt.detail.target && evt.detail.target.id === 'excel-splitter-preview') {
-        stopParseTimer();
-    }
-});
-</script>
+        // 监听HTMX请求完成事件
+        document.body.addEventListener('htmx:afterRequest', function(evt) {
+            if (evt.detail.target && evt.detail.target.id === 'excel-splitter-preview') {
+                stopParseTimer();
+            }
+        });
+    </script>
 {% endblock %}
