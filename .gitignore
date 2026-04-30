@@ -23,3 +23,7 @@ db.sqlite3
 # */toolbox/static/toolbox/icons
 # static/
 media/
+
+# ui
+ui/
+stitch_design/
