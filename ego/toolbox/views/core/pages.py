@@ -14,9 +14,9 @@ def privacy_view(request):
 def terms_view(request):
     return render(request, "toolbox/pages/site/terms.html", build_base_context())
 
-def blog_list_view(request):
-    context = build_base_context()
-    context["posts"] = [
+def get_blog_posts():
+    """获取所有博客文章列表"""
+    posts = [
         {
             "id": "improve-efficiency",
             "title": _("如何利用在线工具提升开发与工作效率"),
@@ -109,7 +109,12 @@ def blog_list_view(request):
         }
     ]
     # 按日期倒序排列
-    context["posts"] = sorted(context["posts"], key=lambda x: x["date"], reverse=True)
+    return sorted(posts, key=lambda x: x["date"], reverse=True)
+
+
+def blog_list_view(request):
+    context = build_base_context()
+    context["posts"] = get_blog_posts()
     return render(request, "toolbox/pages/site/blog_list.html", context)
 
 def blog_detail_view(request, post_id):

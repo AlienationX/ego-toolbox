@@ -19,9 +19,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.sitemaps.views import sitemap
+from toolbox.sitemaps import StaticViewSitemap, ToolSitemap, BlogSitemap
 
 from .error_views import bad_request, not_found, server_error
 from .views import login_view, logout_view, register_view
+
+sitemaps = {
+    'static': StaticViewSitemap,
+    'tools': ToolSitemap,
+    'blog': BlogSitemap,
+}
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -29,6 +37,8 @@ urlpatterns = [
     path("login/", login_view, name="my_login"),
     path("register/", register_view, name="register"),
     path("logout/", logout_view, name="logout"),
+    # sitemap
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     # 单应用配置，将 toolbox 应用路由到 / url下
     path("", include("toolbox.urls", namespace="toolbox")),
     # 多应用配置，将 toolbox 应用路由到 /toolbox/ url下
