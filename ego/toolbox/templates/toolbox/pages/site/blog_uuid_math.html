@@ -1,0 +1,100 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "UUID 全解析：从数学原理到 v7 版本的演进 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "深入探讨通用唯一识别码的碰撞概率、各版本差异以及为什么 v7 是数据库主键的未来。了解 UUID 如何保证在分布式系统中的绝对唯一性。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-accent selection:text-accent-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-accent transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-accent badge-outline">{% trans "分布式系统与数学" %}</span>
+                <span>•</span>
+                <time datetime="2024-06-10">2024-06-10</time>
+                <span>•</span>
+                <span>20 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "UUID：如何生成一个全世界永远不重复的 ID？" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "在海量的分布式节点中，不需要中央协调器就能生成唯一的身份。揭开 128 位随机数背后的概率论美学。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}在构建现代分布式系统时，我们经常面临一个挑战：如何给每一个新产生的对象分配一个唯一的 ID，且不需要去询问一个中央数据库（以避免性能瓶颈和单点故障）？答案通常是 UUID (Universally Unique Identifier)。这个由 32 个十六进制数字组成的字符串，承诺了在全宇宙范围内的唯一性。但你真的了解它的安全性吗？为什么我们现在越来越推崇 v7 而不是传统的 v4？{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">1</span>
+                    {% trans "UUID 的数学魔法：它真的会碰撞吗？" %}
+                </h2>
+                <p>{% blocktrans %}UUID 是一个 128 位的数字。为了直观理解这个数字有多大：如果每秒钟生成 10 亿个 UUID，持续 100 年，发生碰撞（即生成两个相同的 ID）的概率依然小于 50%。这比被陨石击中还要难。这种“概率上的绝对安全”让我们可以放心地在世界各地的服务器上并行生成 ID，而不用担心它们在合并到同一张数据库表时发生冲突。{% endblocktrans %}</p>
+                <div class="alert alert-info rounded-2xl bg-info/10 border-info/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>{% trans "知识点：UUID 总共有 2^128 个可能的值，约等于 3.4 x 10^38。" %}</span>
+                </div>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">2</span>
+                    {% trans "版本之争：v1 到 v4 的权衡" %}
+                </h2>
+                <p>{% blocktrans %}并非所有的 UUID 都是一样的。UUID v1 结合了时间戳和计算机的 MAC 地址。虽然保证了唯一性，但暴露了硬件隐私且容易被推测。UUID v4 则是目前的绝对主流：它几乎全是随机生成的。v4 虽然简单，但在用作数据库主键时有一个致命缺陷：它是完全乱序的。这意味着在向 B+ 树索引插入数据时，会引起严重的页分裂（Page Split），拖累写入性能。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">3</span>
+                    {% trans "UUID v7：新一代的行业标准" %}
+                </h2>
+                <div class="card bg-accent/5 p-8 rounded-3xl border border-accent/10">
+                    <h4 class="font-bold text-accent mb-4">{% trans "为什么 v7 更好？" %}</h4>
+                    <p>{% blocktrans %}UUID v7 结合了 v1 的时间有序性和 v4 的安全性。它的前 48 位是毫秒级的时间戳，后面紧跟随机数。这意味着 UUID v7 在宏观上是随时间单调递增的。当它作为 MySQL 或 PostgreSQL 的主键时，新数据总是被追加到索引树的末尾，极大地优化了磁盘 I/O 效率。{% endblocktrans %}</p>
+                </div>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">4</span>
+                    {% trans "工具的力量：生成与验证" %}
+                </h2>
+                <p>{% blocktrans %}无论你在进行数据库建模，还是在前端 Mock 接口数据，一个随手可得的 ID 生成器都是不可或缺的。在 Ego Toolbox 的『UUID 生成器』中，我们提供了多种格式选项，并确保所有的随机性都来自高强度的加密级伪随机数生成器 (CSPRNG)。理解 ID 背后的数学原理，能让你在架构设计时更加从容，选择最适合业务场景的唯一标识方案。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:index' %}" class="btn btn-accent rounded-2xl px-8 shadow-lg shadow-accent/20">
+                {% trans "体验 UUID 生成工具" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

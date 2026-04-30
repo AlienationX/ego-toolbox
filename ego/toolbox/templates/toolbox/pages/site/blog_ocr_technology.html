@@ -1,0 +1,95 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "从像素到文本：浏览器端 OCR 技术的现状与挑战 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "解析 Tesseract.js 及其背后的卷积神经网络模型如何实现无需服务器的文本识别。探讨 OCR 技术在数字工作流中的应用及其局限性。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-success selection:text-success-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-success transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-success badge-outline">{% trans "计算机视觉与人工智能" %}</span>
+                <span>•</span>
+                <time datetime="2024-06-22">2024-06-22</time>
+                <span>•</span>
+                <span>16 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "OCR：让图片“开口说话”的魔法" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "从扫描文档到识别证件，OCR 正在消除物理介质与数字比特之间的最后一层隔阂。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}你是否曾经收到过一张包含重要数据的截图，却因为无法直接复制其中的文字而感到沮丧？OCR (Optical Character Recognition，光学字符识别) 就是为了解决这个问题而生的。在过去，这需要昂贵的扫描仪和厚重的软件；而今天，借助现代 AI 技术，我们可以在浏览器中瞬间完成这一切。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-success/10 text-success flex items-center justify-center text-sm">1</span>
+                    {% trans "OCR 的心脏：神经网络" %}
+                </h2>
+                <p>{% blocktrans %}现代 OCR 已经告别了原始的模板匹配。像 Tesseract 这样顶级的引擎，现在使用的是 LSTM (长短期记忆网络) 或 CNN (卷积神经网络) 来理解字符的笔画、上下文和语义。这意味着它不仅能认出一个个字符，还能根据上下文纠正识别错误，比如分清数字 '0' 和字母 'O'。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-success/10 text-success flex items-center justify-center text-sm">2</span>
+                    {% trans "浏览器端 OCR 的优势" %}
+                </h2>
+                <div class="card bg-success/5 p-6 rounded-2xl border border-success/10">
+                    <p>{% blocktrans %}使用 Ego Toolbox 的『在线 OCR 工具』，您的图片不会被上传到后端。所有的识别工作都是通过加载到浏览器中的识别库直接完成的。这种“零上传”的特性，让处理带有私人电话或身份证号的图片变得前所未有的安全。{% endblocktrans %}</p>
+                </div>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-success/10 text-success flex items-center justify-center text-sm">3</span>
+                    {% trans "挑战与局限性" %}
+                </h2>
+                <p>{% blocktrans %}虽然 OCR 已经非常强大，但在面对极差的光照条件、艺术化的变形字体或者复杂的手写体时，识别准确率依然会受到挑战。未来的发展方向是结合更大型的多模态模型，不仅识别文字，还能理解文档的排版结构（如表格布局）。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-success/10 text-success flex items-center justify-center text-sm">4</span>
+                    {% trans "结语" %}
+                </h2>
+                <p>{% blocktrans %}OCR 技术极大地释放了被“封印”在图片中的信息。Ego Toolbox 将继续优化我们的本地识别引擎，致力于为您提供最快、最准、最私密的文字提取服务。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:ocr_tool' %}" class="btn btn-success rounded-2xl px-8 shadow-lg shadow-success/20">
+                {% trans "体验 OCR 文字识别" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

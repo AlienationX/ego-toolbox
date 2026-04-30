@@ -1,0 +1,85 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Excel 进阶：如何高效合并与拆分超大型工作簿 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "分享处理数万行数据时的合并逻辑与拆分技巧。学习如何利用在线工具自动化处理繁琐的表格任务，避免手动操作引发的数据错误。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-info selection:text-info-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-info transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-info badge-outline">{% trans "数据处理与办公效率" %}</span>
+                <span>•</span>
+                <time datetime="2024-06-28">2024-06-28</time>
+                <span>•</span>
+                <span>13 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "别再手动复制粘贴了：Excel 表格处理的自动化思维" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "当你面对 50 个分散的 Excel 文件需要汇总，或者需要将一个 10 万行的总表按部门拆分时，工具就是你的救命稻草。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}Excel 是办公室里最强大的工具，但也是最消耗时间的“黑洞”。许多数据分析师和运营同学每天花费数小时在简单的“打开文件 -> 复制 -> 粘贴 -> 关闭文件”循环中。这种重复劳动不仅低效，而且极易出错。今天，我们来聊聊如何用更聪明的逻辑来处理这些任务。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-info/10 text-info flex items-center justify-center text-sm">1</span>
+                    {% trans "合并：多表汇总的痛点" %}
+                </h2>
+                <p>{% blocktrans %}合并多个 Excel 文件时，最大的挑战在于表头是否对齐。一个好的合并逻辑应该能自动识别公共表头，并允许用户过滤掉不必要的 Sheet。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-info/10 text-info flex items-center justify-center text-sm">2</span>
+                    {% trans "拆分：精细化管理的利器" %}
+                </h2>
+                <p>{% blocktrans %}拆分任务通常发生在需要将数据分发给不同部门时。手动拆分不仅慢，还可能导致数据泄露（比如误把 A 部门的薪资表发给了 B 部门）。自动化拆分工具可以根据选定的字段（如“城市”或“部门”）一键生成数十个独立的压缩包。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-info/10 text-info flex items-center justify-center text-sm">3</span>
+                    {% trans "结语" %}
+                </h2>
+                <p>{% blocktrans %}在 Ego Toolbox，我们的『Excel 合并与拆分』工具采用了高性能的数据流解析技术。无论您的文件有多大，都能在短时间内完成处理。记住：工具是为了让人从琐事中解放出来的，把重复的工作交给机器，把思考的时间留给自己。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:index' %}" class="btn btn-info rounded-2xl px-8 shadow-lg shadow-info/20">
+                {% trans "立即处理 Excel 任务" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

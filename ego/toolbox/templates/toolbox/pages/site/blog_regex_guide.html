@@ -1,0 +1,111 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "正则表达式高手之路：规避灾难性回溯 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "解析正则引擎的运行机制，学习如何编写高性能、安全的正则模式。了解 ReDoS 攻击原理并掌握生产环境下的正则优化技巧。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-secondary selection:text-secondary-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-secondary transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-secondary badge-outline">{% trans "安全开发与算法" %}</span>
+                <span>•</span>
+                <time datetime="2024-06-15">2024-06-15</time>
+                <span>•</span>
+                <span>17 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "正则表达式：从“救星”到“性能杀手”的距离" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "有些开发者在面对一个问题时会想：'我知道，我会用正则表达式。' 现在，他们有了两个问题。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}正则表达式 (Regular Expression) 几乎是每个程序员工具箱里最锋利的瑞士军刀。它能用寥寥数行字符完成复杂的文本检索、校验与清洗工作。然而，这把利刃也是一把双刃剑。如果使用不当，一个糟糕的正则表达式可能会让 CPU 占用率瞬间飙升到 100%，导致系统彻底瘫痪。这种被称为“灾难性回溯”的现象，正是许多线上故障的幕后黑手。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center text-sm">1</span>
+                    {% trans "解密正则引擎：NFA 与回溯机制" %}
+                </h2>
+                <p>{% blocktrans %}大多数编程语言（如 Python、Java、JavaScript）使用的都是基于 NFA (Non-deterministic Finite Automaton) 的正则引擎。NFA 引擎非常灵活，支持回溯（Backtracking）。这意味着当正则模式尝试匹配字符串失败时，它会记住之前所有可能的路径，并逐一退回重新尝试。{% endblocktrans %}</p>
+                <div class="card bg-base-200 p-6 rounded-2xl border border-base-300">
+                    <p class="text-sm font-bold">{% trans "灾难示例：" %} <code>(a+)+b</code></p>
+                    <p class="text-sm mt-2">{% blocktrans %}当这个正则匹配一段很长的字符 'aaaaaaaaa' 但最后没有 'b' 时，引擎会尝试指数级别的组合路径，最终耗尽计算资源。这就是所谓的 ReDoS (Regular Expression Denial of Service) 攻击。{% endblocktrans %}</p>
+                </div>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center text-sm">2</span>
+                    {% trans "生产环境中的三大优化准则" %}
+                </h2>
+                <ul class="space-y-4">
+                    <li class="flex gap-4">
+                        <div class="shrink-0 w-6 h-6 rounded-full bg-secondary text-secondary-content flex items-center justify-center text-xs">1</div>
+                        <div>
+                            <p class="font-bold">{% trans "避免嵌套量词" %}</p>
+                            <p class="text-sm opacity-70">{% trans "永远不要在循环内再嵌套循环。类似于 (a*)* 这样的模式是导致灾难性回溯的万恶之源。" %}</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="shrink-0 w-6 h-6 rounded-full bg-secondary text-secondary-content flex items-center justify-center text-xs">2</div>
+                        <div>
+                            <p class="font-bold">{% trans "尽早排除" %}</p>
+                            <p class="text-sm opacity-70">{% trans "在正则的最开始使用锚点（如 ^ 和 $）或者前导固定字符，让引擎能快速失败，减少无效尝试。" %}</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="shrink-0 w-6 h-6 rounded-full bg-secondary text-secondary-content flex items-center justify-center text-xs">3</div>
+                        <div>
+                            <p class="font-bold">{% trans "利用非贪婪匹配" %}</p>
+                            <p class="text-sm opacity-70">{% trans "在合适的地方使用 '?' 来限制匹配范围，避免引擎贪婪地吞噬整个字符串后再缓慢回退。" %}</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center text-sm">3</span>
+                    {% trans "结语：工具辅助与安全思维" %}
+                </h2>
+                <p>{% blocktrans %}编写正则表达式不应该是一场赌博。在将复杂的正则推向生产环境前，使用专业的调试工具进行压力测试是必不可少的。Ego Toolbox 的『正则表达式测试器』不仅提供实时的匹配预览，还能帮助你拆解复杂的匹配路径。记住，最优雅的代码往往是那些最简单、最易于预测的代码。正则虽美，但请克制使用。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:index' %}" class="btn btn-secondary rounded-2xl px-8 shadow-lg shadow-secondary/20">
+                {% trans "尝试正则测试工具" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

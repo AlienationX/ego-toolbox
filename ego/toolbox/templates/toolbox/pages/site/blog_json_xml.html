@@ -1,0 +1,112 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "从 XML 到 JSON：数据交换格式的演进与现代选择 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "回顾数据序列化的历史，深度对比 JSON 与 XML 的性能差异及其在现代 Web 开发中的地位。探讨为何 JSON 最终统治了 Web API 世界。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-primary selection:text-primary-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-primary transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-primary badge-outline">{% trans "后端开发与数据架构" %}</span>
+                <span>•</span>
+                <time datetime="2024-06-05">2024-06-05</time>
+                <span>•</span>
+                <span>18 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "数据序列化的权杖交接：XML 与 JSON 的史诗级对话" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "从 90 年代的标签狂热到如今的括号统治，数据交换格式的演变史就是 Web 性能不断挑战极限的缩影。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}如果你回到 2000 年初，你会发现整个互联网都被 XML (eXtensible Markup Language) 统治着。无论是 SOAP 协议、配置管理还是数据持久化，那一对对带有尖括号的标签被视为企业级开发的金科玉律。然而，随着 AJAX 技术的兴起和 Web 2.0 时代的到来，一个更轻量、更符合 JavaScript 开发直觉的挑战者出现了——它就是 JSON (JavaScript Object Notation)。今天，我们将深度解剖这两者的技术差异，以及为什么这场变革对每一个现代开发者都至关重要。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">1</span>
+                    {% trans "XML：曾经的全能统治者" %}
+                </h2>
+                <p>{% blocktrans %}XML 继承自 SGML，它的设计目标是“自我描述”。它非常严谨，拥有极其强大的 DTD/XSD 校验机制和命名空间支持。对于复杂的、层级极深且需要强类型验证的文档，XML 依然有着不可替代的优势。{% endblocktrans %}</p>
+                <div class="card bg-base-200 p-6 rounded-2xl border border-base-300">
+                    <p class="text-sm italic">{% trans "示例：XML 的冗余性" %}</p>
+                    <pre class="bg-base-300 p-4 rounded-xl mt-2 overflow-x-auto"><code>&lt;user&gt;
+  &lt;id&gt;123&lt;/id&gt;
+  &lt;name&gt;Alice&lt;/name&gt;
+&lt;/user&gt;</code></pre>
+                </div>
+                <p>{% blocktrans %}XML 的缺点也同样明显：它太“重”了。在网络带宽依然金贵的年代，每一个结束标签都在浪费宝贵的字节。更糟糕的是，浏览器和后端程序解析 XML 需要通过庞大的 DOM 或 SAX 解析器，这种计算开销在处理高并发 API 请求时变得难以忍受。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">2</span>
+                    {% trans "JSON 的逆袭：简约而不简单" %}
+                </h2>
+                <p>{% blocktrans %}2001 年，Douglas Crockford 发现了 JavaScript 对象字面量本身就是一种天然的数据交换格式。JSON 抛弃了繁琐的闭合标签，转而使用 `[]` 和 `{}`。这种设计不仅减少了传输体积，更重要的是：它与现代编程语言的数据结构（字典、列表）达成了完美的语义映射。{% endblocktrans %}</p>
+                <p>{% blocktrans %}当你在 JavaScript 中收到一段 JSON 字符串，只需要一行 `JSON.parse()`，它就瞬间变成了你可以直接操作的对象。这种“零解析阻抗”极大地提升了全栈开发的开发效率。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">3</span>
+                    {% trans "性能对比：为什么 JSON 赢了？" %}
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card bg-primary/5 p-6 rounded-2xl border border-primary/10">
+                        <h4 class="font-bold text-primary mb-3">{% trans "传输效率" %}</h4>
+                        <p class="text-sm">{% trans "在同等信息量下，JSON 的体积通常比 XML 小 20% 到 40%。这意味着更快的加载速度和更低的数据流量成本。" %}</p>
+                    </div>
+                    <div class="card bg-secondary/5 p-6 rounded-2xl border border-secondary/10">
+                        <h4 class="font-bold text-secondary mb-3">{% trans "解析性能" %}</h4>
+                        <p class="text-sm">{% trans "V8 等现代引擎对 JSON 解析有硬件级别的优化。相比于 XML 的节点遍历，JSON 的反序列化速度快了数倍。" %}</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">4</span>
+                    {% trans "现代开发中的角色分配" %}
+                </h2>
+                <p>{% blocktrans %}今天，JSON 是 RESTful API、配置文件和 NoSQL 数据库的默认选择。而 XML 则退守到了电子发票、Office 文档标准（.docx）和大型企业集成（EAI）等对文档完整性要求极高的特定领域。{% endblocktrans %}</p>
+                <p>{% blocktrans %}在 Ego Toolbox 中，我们的『JSON 格式化与验证』工具每天处理数百万条请求。我们不仅提供格式美化，更致力于帮助开发者在海量的数据中快速定位语法错误。无论你是从 legacy 系统迁移 XML 数据，还是构建现代微服务，理解这两者的权衡都是工程师成长的必经之路。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:json_formatter' %}" class="btn btn-primary rounded-2xl px-8 shadow-lg shadow-primary/20">
+                {% trans "立即使用 JSON 格式化工具" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

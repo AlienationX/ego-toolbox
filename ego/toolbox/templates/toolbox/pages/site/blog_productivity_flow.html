@@ -1,0 +1,85 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "心流捍卫者：如何利用轻量化工具构建第二大脑 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "探讨效率工具如何通过降低认知负荷，帮助知识工作者在碎片化的任务中保持深度专注。了解构建高效数字工作流的实践方法。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-accent selection:text-accent-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-accent transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-accent badge-outline">{% trans "生产力与方法论" %}</span>
+                <span>•</span>
+                <time datetime="2024-07-10">2024-07-10</time>
+                <span>•</span>
+                <span>12 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "在碎片化的时代，守护你的深度专注" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "真正的效率不在于你做了多少事，而在于你减少了多少不必要的挣扎。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}现代知识工作者的工作日通常是由无数个微小任务拼凑而成的：处理一个 JSON、生成一个测试 ID、或者只是想把一段文字转成二维码。如果每一个微任务都需要你打开沉重的 IDE 或者搜索满是广告的网站，你的“心流”就会被不断切断。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">1</span>
+                    {% trans "认知负荷与“轻”工具" %}
+                </h2>
+                <p>{% blocktrans %}认知负荷理论告诉我们，人脑处理信息的能力是有限的。当工具过于复杂或充满噪音时，我们会感到疲劳。这就是为什么 Ego Toolbox 坚持极致的简捷设计。我们希望它像你的呼吸一样自然，随手打开，用完即走，不留下任何认知干扰。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">2</span>
+                    {% trans "构建你的数字工作流" %}
+                </h2>
+                <p>{% blocktrans %}一个高效的工作流应该是“无摩擦”的。将常用的工具集收藏在浏览器的侧边栏，利用本地处理的优势确保即时反馈。这不仅仅是为了节省几秒钟，更是为了保住那昂贵的创造力状态。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-sm">3</span>
+                    {% trans "结语" %}
+                </h2>
+                <p>{% blocktrans %}Ego Toolbox 存在的意义，就是成为您数字世界里的“第二大脑”——一个安静、高效、可靠的得力助手。让我们一起，把时间还给真正的创造。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:index' %}" class="btn btn-accent rounded-2xl px-8 shadow-lg shadow-accent/20">
+                {% trans "立即开启高效一天" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

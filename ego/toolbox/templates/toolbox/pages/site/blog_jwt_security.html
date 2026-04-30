@@ -1,0 +1,93 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "现代认证基石：深入理解 JWT 与 Base64URL 编码 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "解析 JSON Web Token 的结构，探讨 Base64URL 在令牌传输中的必要性与安全风险。了解如何利用 Base64 工具辅助 JWT 调试与安全性验证。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-primary selection:text-primary-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-primary transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-primary badge-outline">{% trans "Web 安全与身份验证" %}</span>
+                <span>•</span>
+                <time datetime="2024-07-02">2024-07-02</time>
+                <span>•</span>
+                <span>15 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "解码 JWT：令牌背后的编码逻辑" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "JWT 不是加密，而是编码。理解这一点，是你掌握现代 Web 安全的第一步。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}如果你是一个 Web 开发者，你肯定见过那一长串由两个点分隔开的乱码字符串——JWT (JSON Web Token)。它就像是用户的电子通行证。但你是否好奇过，为什么它长成那个样子？为什么它可以在 URL 中安全地传输？这就要提到 Base64 的一个特殊变体：Base64URL。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">1</span>
+                    {% trans "三段式结构：Header, Payload, Signature" %}
+                </h2>
+                <p>{% blocktrans %}JWT 的本质是将三个 JSON 对象进行编码并拼接。第一段告诉服务器加密算法，第二段存储用户信息，第三段则是防伪签名。前两段仅仅是编码而已，这意味着任何人只要拿到了你的 Token，都可以通过解码看到里面的内容。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">2</span>
+                    {% trans "Base64 vs Base64URL" %}
+                </h2>
+                <p>{% blocktrans %}标准的 Base64 包含 `+` 和 `/` 字符，这些字符在 URL 中有特殊含义（比如空格或路径分隔符）。为了让 Token 能在链接里安全传递，JWT 采用了 Base64URL 编码：它去掉了末尾的 `=` 填充符，并将 `+` 替换为 `-`，将 `/` 替换为 `_`。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">3</span>
+                    {% trans "安全警示" %}
+                </h2>
+                <p>{% blocktrans %}因为 Header 和 Payload 是透明的，所以**绝对不能**在 JWT 中存储密码、密钥等敏感信息。JWT 的核心价值不在于秘密，而在于通过 Signature 保证了内容没有被中途篡改。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">4</span>
+                    {% trans "结语" %}
+                </h2>
+                <p>{% blocktrans %}理解了编码原理，你就能更从容地调试身份认证问题。使用 Ego Toolbox 的『Base64 编解码工具』，你可以轻松拆解任何 JWT 令牌，实时验证其中的声明信息。记住，安全从来不是一种状态，而是一系列正确决策的累加。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:base64_converter' %}" class="btn btn-primary rounded-2xl px-8 shadow-lg shadow-primary/20">
+                {% trans "立即使用编解码工具" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

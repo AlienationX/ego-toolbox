@@ -1,0 +1,85 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "为什么“本地优先”是工具类产品的终极安全屏障 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "探讨 Privacy by Design 哲学，解释为什么在客户端处理敏感数据是构建用户信任的关键。了解 Ego Toolbox 如何实践本地优先的数据处理准则。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-primary selection:text-primary-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-primary transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-primary badge-outline">{% trans "隐私安全与技术哲学" %}</span>
+                <span>•</span>
+                <time datetime="2024-06-25">2024-06-25</time>
+                <span>•</span>
+                <span>14 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "数据主权归还用户：本地优先的复兴" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "在云端统治一切的时代，我们选择退后一步，让计算发生在它最该发生的地方：您的设备。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}当你在搜索引擎里随便找一个“JSON 格式化”工具并粘贴你的业务数据时，你是否考虑过：这段数据去了哪里？谁能看到它？它会被保存多久？在“本地优先 (Local-First)”的哲学中，这些担忧是不存在的。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">1</span>
+                    {% trans "传统在线工具的陷阱" %}
+                </h2>
+                <p>{% blocktrans %}许多所谓的在线工具其实只是一个简单的网页表单，当你点击“处理”时，它们会将数据发送到远程服务器。这不仅带来了显著的网络延迟，更严重的是，你的商业机密或个人隐私完全暴露在了站长的面前。即便他们承诺不保存数据，你也无法验证这一点。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">2</span>
+                    {% trans "本地优先：信任的物理基础" %}
+                </h2>
+                <p>{% blocktrans %}在 Ego Toolbox，我们拥抱“本地优先”的架构。对于 90% 以上的工具，我们的计算逻辑完全运行在您浏览器的 JavaScript 虚拟机中。数据流转的路径是：您的粘贴板 -> 浏览器内存 -> 浏览器处理 -> 您的屏幕。全过程没有一比特的数据流向互联网。这是基于物理层面的隐私保证。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">3</span>
+                    {% trans "结语" %}
+                </h2>
+                <p>{% blocktrans %}隐私不是奢侈品，而是每一款工具产品的基石。Ego Toolbox 致力于构建一个绝对透明、绝对安全的生产力工作台，让您可以毫无顾虑地处理每一条关键数据。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:about' %}" class="btn btn-primary rounded-2xl px-8 shadow-lg shadow-primary/20">
+                {% trans "了解我们的隐私承诺" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

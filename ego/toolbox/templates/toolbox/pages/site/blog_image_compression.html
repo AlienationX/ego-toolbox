@@ -1,0 +1,85 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "数字图像压缩术：WebP、AVIF 与传统格式的博弈 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "对比不同图像格式的压缩算法，探讨如何在不损失感官质量的前提下将 Web 资源体积减半。了解现代图像编码技术如何提升网页加载速度。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-secondary selection:text-secondary-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-secondary transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-secondary badge-outline">{% trans "前端性能与图像科学" %}</span>
+                <span>•</span>
+                <time datetime="2024-07-05">2024-07-05</time>
+                <span>•</span>
+                <span>16 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "不仅仅是变小：现代图像压缩的黑科技" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "在高清屏幕普及的今天，如何在不牺牲清晰度的前提下，消灭那拖慢页面的最后 1MB 数据？" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}一张图片占据了 Web 页面 60% 以上的带宽。如果我们能将图片体积缩小一半，页面的响应速度就会发生质的飞跃。从古老的 JPEG 到现在统治 Web 的 WebP，再到未来的霸主 AVIF，图像压缩技术正经历着一场静默而深刻的革命。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center text-sm">1</span>
+                    {% trans "WebP：谷歌送给 Web 的礼物" %}
+                </h2>
+                <p>{% blocktrans %}WebP 结合了预测编码（来自视频编码技术 VP8）和高级哈夫曼编码。在相同质量下，它的体积比 JPEG 小 30%，比 PNG 小 26%。更重要的是，它同时支持透明度和动画，是目前 Web 优化的首选格式。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center text-sm">2</span>
+                    {% trans "AVIF：极致压缩的新高度" %}
+                </h2>
+                <p>{% blocktrans %}AVIF 是基于 AV1 视频编码器的图像格式。它采用了更先进的块划分模型和帧内预测技术。虽然目前编码速度较慢，但其极致的压缩比让它成为了流量大户（如 Netflix）的宠儿。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center text-sm">3</span>
+                    {% trans "结语" %}
+                </h2>
+                <p>{% blocktrans %}图像优化不仅是技术的堆砌，更是对用户体验的尊重。在 Ego Toolbox 的『背景移除』和『图像转换』工具中，我们致力于应用最新的压缩算法，确保您在获得精美处理结果的同时，也能拥有最极致的加载性能。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:removebg' %}" class="btn btn-secondary rounded-2xl px-8 shadow-lg shadow-secondary/20">
+                {% trans "立即使用图片工具" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}

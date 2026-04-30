@@ -1,0 +1,95 @@
+{% extends 'toolbox/layouts/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "WebAssembly 如何改变浏览器端工具的性能极限 - Ego Toolbox博客" %}{% endblock %}
+{% block description %}{% trans "探讨 Wasm 技术如何让复杂的图像处理与数据清洗工具在浏览器中达到接近原生的运行速度。了解 Ego Toolbox 如何利用 WebAssembly 提供强大的本地计算能力。" %}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 min-h-screen text-base-content selection:bg-info selection:text-info-content">
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-base-300">
+        <div id="scroll-progress" class="h-full bg-info transition-all duration-150" style="width: 0%"></div>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-4 py-16 md:py-24">
+        <header class="text-center mb-16 space-y-6">
+            <div class="flex items-center justify-center gap-3 text-sm font-medium opacity-60">
+                <span class="badge badge-info badge-outline">{% trans "WebAssembly 与 浏览器技术" %}</span>
+                <span>•</span>
+                <time datetime="2024-06-18">2024-06-18</time>
+                <span>•</span>
+                <span>15 min read</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+                {% trans "浏览器里的“原生速度”：WebAssembly 的革命" %}
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-70 leading-relaxed italic">
+                {% trans "曾经需要服务器耗费数秒处理的任务，现在可以在毫秒级内直接在你的浏览器中瞬间完成。" %}
+            </p>
+
+            <div class="divider max-w-xs mx-auto opacity-20"></div>
+        </header>
+
+        <div class="space-y-12 text-lg leading-relaxed text-base-content/90">
+            <section class="bg-base-200/50 p-8 rounded-3xl border border-base-300/30">
+                <p>{% blocktrans %}长期以来，JavaScript 一直是 Web 开发中唯一的“一等公民”。虽然它已经变得非常快，但在处理重型任务（如视频转码、复杂图像滤镜、大规模科学计算）时，依然略显吃力。WebAssembly (Wasm) 的出现彻底打破了这个天花板。它允许我们使用 C++、Rust 等系统级语言编写代码，并以接近原生的速度在浏览器中运行。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-info/10 text-info flex items-center justify-center text-sm">1</span>
+                    {% trans "Wasm 是什么？为什么它这么快？" %}
+                </h2>
+                <p>{% blocktrans %}WebAssembly 并不是一种编程语言，而是一种二进制指令格式。它不是为了取代 JavaScript，而是与之协作。JavaScript 是动态类型的，引擎需要在运行时进行大量的推断和优化；而 Wasm 是静态类型的二进制格式，浏览器可以像运行原生软件一样直接执行它，几乎没有任何解释开销。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-info/10 text-info flex items-center justify-center text-sm">2</span>
+                    {% trans "Ego Toolbox 中的 Wasm 实践" %}
+                </h2>
+                <div class="card bg-info/5 p-6 rounded-2xl border border-info/10">
+                    <p>{% blocktrans %}在我们的『图像处理』和『文档转换』模块中，Wasm 扮演了核心角色。例如，当你在浏览器中进行大规模数据的 CSV 清洗时，底层的处理引擎是由 Rust 编写并编译为 Wasm 的。这使得即便是处理数百万行的数据，网页也不会出现卡死现象，处理速度比纯 JS 方案快了 10 倍以上。{% endblocktrans %}</p>
+                </div>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-info/10 text-info flex items-center justify-center text-sm">3</span>
+                    {% trans "对用户意味着什么？" %}
+                </h2>
+                <p>{% blocktrans %}除了速度，Wasm 带来的最大好处是“隐私”。因为计算能力足够强大，我们不再需要将您的文件上传到远程服务器进行处理。所有的图像识别、PDF 解析都在您的本地内存中完成。这种“端侧计算”不仅消灭了网络传输的时间，更从物理上杜绝了数据泄露的风险。{% endblocktrans %}</p>
+            </section>
+
+            <section class="space-y-6">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-info/10 text-info flex items-center justify-center text-sm">4</span>
+                    {% trans "结语" %}
+                </h2>
+                <p>{% blocktrans %}WebAssembly 正在将 Web 变成一个真正强大的应用平台。Ego Toolbox 将继续探索 Wasm 的可能性，将更多原本属于桌面软件的重型工具搬进浏览器，为您提供极致流畅的生产力体验。{% endblocktrans %}</p>
+            </section>
+        </div>
+
+        <footer class="mt-20 pt-10 border-t border-base-300 flex flex-col md:flex-row gap-6 justify-between items-center">
+            <a href="{% url 'toolbox:blog_list' %}" class="btn btn-ghost rounded-2xl group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                {% trans "返回文章列表" %}
+            </a>
+            <a href="{% url 'toolbox:index' %}" class="btn btn-info rounded-2xl px-8 shadow-lg shadow-info/20">
+                {% trans "探索更多高效工具" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </a>
+        </footer>
+    </article>
+</div>
+
+<script>
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+    });
+</script>
+{% endblock %}
